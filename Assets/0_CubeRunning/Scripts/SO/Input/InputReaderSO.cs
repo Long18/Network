@@ -1,0 +1,107 @@
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
+
+[CreateAssetMenu(fileName = "Input Reader", menuName = "Data/Input System/Input Reader")]
+public class InputReaderSO : ScriptableObject, GameInput.IGameplayActions
+{
+    public event UnityAction jumpEvent;
+    public event UnityAction jumpCanceledEvent;
+
+    public event UnityAction attackEvent;
+    public event UnityAction interactEvent; // Used to talk, pickup objects, interact with tools
+    public event UnityAction extraActionEvent; // Used to bring up the inventory
+    public event UnityAction pauseEvent;
+
+    public event UnityAction<Vector2> moveEvent;
+    public event UnityAction<Vector2, bool> cameraMoveEvent;
+
+    public event UnityAction enableMouseControlCameraEvent;
+    public event UnityAction disableMouseControlCameraEvent;
+
+    [SerializeField] private GameInput gameInput;
+
+    private void OnEnable()
+    {
+        if (gameInput != null) return;
+
+        gameInput = new GameInput();
+        gameInput.Gameplay.SetCallbacks(this);
+
+        EnableGameplayInput();
+    }
+
+    private void OnDisable()
+    {
+        DisableAllInput();
+    }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (attackEvent == null && context.phase != InputActionPhase.Performed) return;
+        attackEvent?.Invoke();
+    }
+
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        if (moveEvent == null) return;
+        moveEvent?.Invoke(context.ReadValue<Vector2>());
+    }
+
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (jumpEvent == null && context.phase != InputActionPhase.Performed) return;
+        jumpEvent?.Invoke();
+
+        if (jumpCanceledEvent == null && context.phase != InputActionPhase.Canceled) return;
+        jumpCanceledEvent?.Invoke();
+    }
+
+    public void OnMouseControlCamera(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+            enableMouseControlCameraEvent?.Invoke();
+
+        if (context.phase == InputActionPhase.Canceled)
+            disableMouseControlCameraEvent?.Invoke();
+    }
+
+    public void OnRotateCamera(InputAction.CallbackContext context)
+    {
+        if (cameraMoveEvent == null) return;
+        cameraMoveEvent.Invoke(context.ReadValue<Vector2>(), IsDeviceMouse(context));
+    }
+
+    private bool IsDeviceMouse(InputAction.CallbackContext context) => context.control.device.name == "Mouse";
+
+    public void OnExtraAction(InputAction.CallbackContext context)
+    {
+        if (extraActionEvent == null && context.phase != InputActionPhase.Performed) return;
+        extraActionEvent?.Invoke();
+    }
+
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if (interactEvent == null && context.phase != InputActionPhase.Performed) return;
+        interactEvent?.Invoke();
+    }
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        if (pauseEvent == null && context.phase != InputActionPhase.Performed) return;
+        pauseEvent?.Invoke();
+    }
+
+
+    private void EnableGameplayInput()
+    {
+        gameInput.Gameplay.Enable();
+    }
+
+    private void DisableAllInput()
+    {
+        gameInput.Gameplay.Disable();
+    }
+}
