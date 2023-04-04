@@ -6,7 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/0_CubeRunning/Scenes/main.unity
+    path: Assets/0_CubeRunning/Scenes/Loading Scene.unity
+    guid: 6f3b075db8d09fc4dac261a2c7a0b51c
+  - enabled: 1
+    path: Assets/0_CubeRunning/Scenes/Lobby.unity
+    guid: 9ff3f13e5f85f5a46ae33cf76603e23a
+  - enabled: 1
+    path: Assets/0_CubeRunning/Scenes/Main.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: ed1fd63fa77f3924994bcf9213ffb4fa, type: 2}

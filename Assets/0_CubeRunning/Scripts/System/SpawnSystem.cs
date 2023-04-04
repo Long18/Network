@@ -1,9 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
+using Photon.Pun;
 using UnityEngine;
-using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class SpawnSystem : MonoBehaviour
 {
@@ -52,8 +51,16 @@ public class SpawnSystem : MonoBehaviour
     private void Spawn(int spawnIndex)
     {
         Transform spawnLocation = GetSpawnLocation(spawnIndex, spawnLocations);
-        Protagonist playerInstance = InstantiatePlayer(playerPrefab, spawnLocation, cameraManager);
-        SetupCameras(playerInstance);
+
+        // for each player, i want random spawn location around 10m radius
+        var randNum = Random.Range(0, 10);
+        spawnLocation.position = new Vector3(spawnLocation.position.x + randNum, spawnLocation.position.y, spawnLocation.position.z + randNum);
+
+        // Protagonist playerInstance = InstantiatePlayer(playerPrefab, spawnLocation, cameraManager);
+        // SetupCameras(playerInstance);
+
+        var photonPlayer = PhotonNetwork.Instantiate(playerPrefab.name, spawnLocation.position, spawnLocation.rotation);
+        SetupCameras(photonPlayer.GetComponent<Protagonist>());
     }
 
     private Transform GetSpawnLocation(int index, Transform[] spawnLocations)

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -10,11 +11,13 @@ public class Protagonist : MonoBehaviour
 
     private Vector2 previousMovementInput;
 
-    public bool jumpInput;
-    public bool extraActionInput;
-    public Vector3 movementInput;
-    public Vector3 movementVector;
-    public ControllerColliderHit lastHit;
+    [HideInInspector] public bool jumpInput;
+    [HideInInspector] public bool extraActionInput;
+    [HideInInspector] public Vector3 movementInput;
+    [HideInInspector] public Vector3 movementVector;
+    [HideInInspector] public ControllerColliderHit lastHit;
+
+    [SerializeField] private PhotonView view;
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
@@ -39,7 +42,10 @@ public class Protagonist : MonoBehaviour
 
     private void Update()
     {
-        RecalculateMovement();
+        if (view.IsMine)
+        {
+            RecalculateMovement();
+        }
     }
 
     private void RecalculateMovement()
