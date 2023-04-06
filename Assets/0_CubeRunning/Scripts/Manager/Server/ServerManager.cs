@@ -8,7 +8,6 @@ public class ServerManager : MonoBehaviourPunCallbacks
 {
     public void Start()
     {
-        Debug.Log($"[Photon]Connecting to master");
         PhotonNetwork.ConnectUsingSettings();
     }
 

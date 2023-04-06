@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
@@ -7,15 +8,28 @@ using UnityEngine;
 public class Protagonist : MonoBehaviour
 {
     [SerializeField] private InputReaderSO inputReader = default;
-    public Transform gameplayCamera;
 
-    private Vector2 previousMovementInput;
+    [SerializeField] private TransformAnchor gameplayCameraTransform = default;
+    // public Transform gameplayCamera;
 
-    [HideInInspector] public bool jumpInput;
-    [HideInInspector] public bool extraActionInput;
-    [HideInInspector] public Vector3 movementInput;
-    [HideInInspector] public Vector3 movementVector;
-    [HideInInspector] public ControllerColliderHit lastHit;
+    private Vector2 inputVector;
+    private float previousSpeed;
+
+    [NonSerialized] public bool jumpInput;
+    [NonSerialized] public bool climbInput;
+    [NonSerialized] public bool extraActionInput;
+    [NonSerialized] public bool attackInput;
+    [NonSerialized] public bool isRunning;
+    [NonSerialized] public Vector3 movementInput;
+    [NonSerialized] public Vector3 movementVector;
+    [NonSerialized] public ControllerColliderHit lastHit;
+
+    public const float GRAVITY_MULTIPLIER = 5f;
+    public const float MAX_FALL_SPEED = -50f;
+    public const float MAX_RISE_SPEED = 100f;
+    public const float GRAVITY_COMEBACK_MULTIPLIER = .03f;
+    public const float GRAVITY_DIVIDER = .6f;
+    public const float AIR_RESISTANCE = 5f;
 
     [SerializeField] private PhotonView view;
 
@@ -26,17 +40,19 @@ public class Protagonist : MonoBehaviour
 
     private void OnEnable()
     {
-        inputReader.jumpEvent += OnJumpInitiated;
-        inputReader.jumpCanceledEvent += OnJumpCanceled;
-        inputReader.moveEvent += OnMove;
+        inputReader.JumpEvent += OnJumpInitiated;
+        inputReader.JumpCanceledEvent += OnJumpCanceled;
+        inputReader.MoveEvent += OnMove;
+        inputReader.ClimbEvent += OnClimbingInitiated;
         inputReader.extraActionEvent += OnExtraAction;
     }
 
     private void OnDisable()
     {
-        inputReader.jumpEvent -= OnJumpInitiated;
-        inputReader.jumpCanceledEvent -= OnJumpCanceled;
-        inputReader.moveEvent -= OnMove;
+        inputReader.JumpEvent -= OnJumpInitiated;
+        inputReader.JumpCanceledEvent -= OnJumpCanceled;
+        inputReader.MoveEvent -= OnMove;
+        inputReader.ClimbEvent -= OnClimbingInitiated;
         inputReader.extraActionEvent -= OnExtraAction;
     }
 
@@ -50,35 +66,64 @@ public class Protagonist : MonoBehaviour
 
     private void RecalculateMovement()
     {
-        Vector3 cameraForward = gameplayCamera.forward;
-        cameraForward.y = 0f;
-        Vector3 cameraRight = gameplayCamera.right;
-        cameraRight.y = 0f;
+        float targetSpeed;
+        Vector3 adjustedMovement;
 
-        Vector3 adjustedMovement = cameraRight.normalized * previousMovementInput.x +
-                                   cameraForward.normalized * previousMovementInput.y;
+        if (gameplayCameraTransform.isSet)
+        {
+            //Get the two axes from the camera and flatten them on the XZ plane
+            Vector3 cameraForward = gameplayCameraTransform.Value.forward;
+            cameraForward.y = 0f;
+            Vector3 cameraRight = gameplayCameraTransform.Value.right;
+            cameraRight.y = 0f;
 
-        movementInput = Vector3.ClampMagnitude(adjustedMovement, 1f);
+            //Use the two axes, modulated by the corresponding inputs, and construct the final vector
+            adjustedMovement = cameraRight.normalized * inputVector.x +
+                               cameraForward.normalized * inputVector.y;
+        }
+        else
+        {
+            //No CameraManager exists in the scene, so the input is just used absolute in world-space
+            Debug.LogWarning("No gameplay camera in the scene. Movement orientation will not be correct.");
+            adjustedMovement = new Vector3(inputVector.x, 0f, inputVector.y);
+        }
+
+        //Fix to avoid getting a Vector3.zero vector, which would result in the player turning to x:0, z:0
+        if (inputVector.sqrMagnitude == 0f)
+            adjustedMovement = transform.forward * (adjustedMovement.magnitude + .01f);
+
+        //Accelerate/decelerate
+        targetSpeed = Mathf.Clamp01(inputVector.magnitude);
+        if (targetSpeed > 0f)
+        {
+            // This is used to set the speed to the maximum if holding the Shift key,
+            // to allow keyboard players to "run"
+            if (isRunning)
+                targetSpeed = 1f;
+
+            if (attackInput)
+                targetSpeed = .05f;
+        }
+
+        targetSpeed = Mathf.Lerp(previousSpeed, targetSpeed, Time.deltaTime * 4f);
+
+        movementInput = adjustedMovement.normalized * targetSpeed;
+
+        previousSpeed = targetSpeed;
     }
 
-
-    private void OnJumpInitiated()
-    {
-        jumpInput = true;
-    }
-
-    private void OnJumpCanceled()
-    {
-        jumpInput = false;
-    }
 
     private void OnMove(Vector2 movement)
     {
-        previousMovementInput = movement;
+        inputVector = movement;
     }
+    private void OnJumpInitiated() => jumpInput = true;
 
-    private void OnExtraAction()
-    {
-        extraActionInput = true;
-    }
+    private void OnJumpCanceled() => jumpInput = false;
+
+    private void OnClimbingInitiated() => climbInput = true;
+
+    private void OnClimbingCanceled() => climbInput = false;
+
+    private void OnExtraAction() => extraActionInput = true;
 }

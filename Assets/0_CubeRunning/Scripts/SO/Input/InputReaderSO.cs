@@ -3,23 +3,32 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 [CreateAssetMenu(fileName = "Input Reader", menuName = "Data/Input System/Input Reader")]
-public class InputReaderSO : ScriptableObject, GameInput.IGameplayActions
+public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions
 {
-    public event UnityAction jumpEvent;
-    public event UnityAction jumpCanceledEvent;
+    [Space] [SerializeField] private GameStateSO gameStateManager;
 
-    public event UnityAction attackEvent;
-    public event UnityAction interactEvent; // Used to talk, pickup objects, interact with tools
-    public event UnityAction extraActionEvent; // Used to bring up the inventory
-    public event UnityAction pauseEvent;
+    // Assign delegate{} to events to initialise them with an empty delegate
+    // so we can skip the null check when we use them
+    //Gameplay
+    public event UnityAction JumpEvent = delegate { };
+    public event UnityAction JumpCanceledEvent = delegate { };
+    public event UnityAction ClimbEvent = delegate { };
+    public event UnityAction ClimbCanceledEvent = delegate { };
+    public event UnityAction AttackEvent = delegate { };
+    public event UnityAction AttackCanceledEvent = delegate { };
+    public event UnityAction<Vector2> MoveEvent = delegate { };
+    public event UnityAction<Vector2, bool> CameraMoveEvent = delegate { };
+    public event UnityAction EnableMouseControlCameraEvent = delegate { };
+    public event UnityAction DisableMouseControlCameraEvent = delegate { };
+    public event UnityAction StartedRunning = delegate { };
+    public event UnityAction StoppedRunning = delegate { };
 
-    public event UnityAction<Vector2> moveEvent;
-    public event UnityAction<Vector2, bool> cameraMoveEvent;
+    //UI
+    public event UnityAction interactEvent = delegate { }; // Used to talk, pickup objects, interact with tools
+    public event UnityAction extraActionEvent = delegate { }; // Used to bring up the inventory
+    public event UnityAction pauseEvent = delegate { };
 
-    public event UnityAction enableMouseControlCameraEvent;
-    public event UnityAction disableMouseControlCameraEvent;
-
-    [SerializeField] private GameInput gameInput;
+    private GameInput gameInput;
 
     private void OnEnable()
     {
@@ -27,8 +36,7 @@ public class InputReaderSO : ScriptableObject, GameInput.IGameplayActions
 
         gameInput = new GameInput();
         gameInput.Gameplay.SetCallbacks(this);
-
-        EnableGameplayInput();
+        // UI
     }
 
     private void OnDisable()
@@ -38,40 +46,74 @@ public class InputReaderSO : ScriptableObject, GameInput.IGameplayActions
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (attackEvent == null && context.phase != InputActionPhase.Performed) return;
-        attackEvent?.Invoke();
+        switch (context.phase)
+        {
+            case InputActionPhase.Performed:
+                AttackEvent?.Invoke();
+                break;
+            case InputActionPhase.Canceled:
+                AttackCanceledEvent?.Invoke();
+                break;
+        }
     }
 
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (moveEvent == null) return;
-        moveEvent?.Invoke(context.ReadValue<Vector2>());
+        if (MoveEvent == null) return;
+        MoveEvent?.Invoke(context.ReadValue<Vector2>());
     }
 
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (jumpEvent == null && context.phase != InputActionPhase.Performed) return;
-        jumpEvent?.Invoke();
+        if (JumpEvent == null && context.phase != InputActionPhase.Performed) return;
+        JumpEvent?.Invoke();
 
-        if (jumpCanceledEvent == null && context.phase != InputActionPhase.Canceled) return;
-        jumpCanceledEvent?.Invoke();
+        if (JumpCanceledEvent == null && context.phase != InputActionPhase.Canceled) return;
+        JumpCanceledEvent?.Invoke();
+    }
+
+    public void OnClimb(InputAction.CallbackContext context)
+    {
+        if (ClimbEvent == null && context.phase != InputActionPhase.Performed) return;
+        ClimbEvent?.Invoke();
+
+        if (ClimbCanceledEvent == null && context.phase != InputActionPhase.Canceled) return;
+        ClimbCanceledEvent?.Invoke();
     }
 
     public void OnMouseControlCamera(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
-            enableMouseControlCameraEvent?.Invoke();
+            EnableMouseControlCameraEvent?.Invoke();
 
         if (context.phase == InputActionPhase.Canceled)
-            disableMouseControlCameraEvent?.Invoke();
+            DisableMouseControlCameraEvent?.Invoke();
+    }
+
+    public void OnRun(InputAction.CallbackContext context)
+    {
+        switch (context.phase)
+        {
+            case InputActionPhase.Performed:
+                StartedRunning?.Invoke();
+                break;
+            case InputActionPhase.Canceled:
+                StoppedRunning?.Invoke();
+                break;
+        }
+    }
+
+    public void OnOpenInventory(InputAction.CallbackContext context)
+    {
+        Debug.Log("Open Inventory");
     }
 
     public void OnRotateCamera(InputAction.CallbackContext context)
     {
-        if (cameraMoveEvent == null) return;
-        cameraMoveEvent.Invoke(context.ReadValue<Vector2>(), IsDeviceMouse(context));
+        if (CameraMoveEvent == null) return;
+        CameraMoveEvent.Invoke(context.ReadValue<Vector2>(), IsDeviceMouse(context));
     }
 
     private bool IsDeviceMouse(InputAction.CallbackContext context) => context.control.device.name == "Mouse";
@@ -95,12 +137,12 @@ public class InputReaderSO : ScriptableObject, GameInput.IGameplayActions
     }
 
 
-    private void EnableGameplayInput()
+    public void EnableGameplayInput()
     {
         gameInput.Gameplay.Enable();
     }
 
-    private void DisableAllInput()
+    public void DisableAllInput()
     {
         gameInput.Gameplay.Disable();
     }

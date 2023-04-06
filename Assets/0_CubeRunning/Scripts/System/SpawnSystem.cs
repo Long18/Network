@@ -1,91 +1,88 @@
 using System;
-using System.Linq;
 using Photon.Pun;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class SpawnSystem : MonoBehaviour
+public class SpawnSystem : MonoBehaviourPunCallbacks
 {
-    [Header("Settings")] [SerializeField] private int defaultSpawnIndex = 0;
+    [Header("Asset References")] [SerializeField]
+    private InputReaderSO InputReaderSO = default;
 
-    [Header("Project References")] [SerializeField]
-    private Protagonist playerPrefab = null;
+    [SerializeField] private TransformAnchor playerTransformAnchor = default;
+    [SerializeField] private TransformEventChannelSO playerInstantiatedChannel = default;
+    [SerializeField] private PathStorageSO pathTaken = default;
 
-    [Header("Scene References")] [SerializeField]
-    private CameraManager cameraManager;
+    [Header("Listen Events")] [SerializeField]
+    private VoidEventChannelSO onSceneReady = default; //Raised by SceneLoader when the scene is set to active
 
-    [SerializeField] private Transform[] spawnLocations;
+    private LocationEntrance[] spawnLocations;
+    private Transform defaultSpawnPoint;
 
-    void Start()
+
+    public void Awake()
     {
-        try
-        {
-            Spawn(defaultSpawnIndex);
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"[SpawnSystem] Failed to spawn player. {e.Message}");
-        }
+        spawnLocations = GameObject.FindObjectsOfType<LocationEntrance>();
+        defaultSpawnPoint = transform.GetChild(0);
     }
 
-    void Reset()
+    public override void OnEnable()
     {
-        AutoFill();
+        onSceneReady.OnEventRaised += SpawnPlayer;
+#if UNITY_EDITOR
+        onSceneReady.RaiseEvent();
+#endif
     }
 
-    /// <summary>
-    /// This function tries to autofill some of the parameters of the component, so it's easy to drop in a new scene
-    /// </summary>
-    [ContextMenu("Attempt Auto Fill")]
-    private void AutoFill()
+    public void OnDisable()
     {
-        if (cameraManager == null)
-            cameraManager = FindObjectOfType<CameraManager>();
-
-        if (spawnLocations == null || spawnLocations.Length == 0)
-            spawnLocations = transform.GetComponentsInChildren<Transform>(true)
-                .Where(t => t != this.transform)
-                .ToArray();
+        onSceneReady.OnEventRaised -= SpawnPlayer;
+        playerTransformAnchor.Unset();
     }
 
-    private void Spawn(int spawnIndex)
+
+    private void SpawnPlayer()
     {
-        Transform spawnLocation = GetSpawnLocation(spawnIndex, spawnLocations);
+        Debug.Log($"[Photon] Spawn player");
+        Transform spawnLocation = GetSpawnLocation();
 
         // for each player, i want random spawn location around 10m radius
         var randNum = Random.Range(0, 10);
-        spawnLocation.position = new Vector3(spawnLocation.position.x + randNum, spawnLocation.position.y, spawnLocation.position.z + randNum);
+        spawnLocation.position += new Vector3(spawnLocation.position.x + randNum, spawnLocation.position.y,
+            spawnLocation.position.z + randNum);
 
-        // Protagonist playerInstance = InstantiatePlayer(playerPrefab, spawnLocation, cameraManager);
-        // SetupCameras(playerInstance);
+        GameObject player = null;
 
-        var photonPlayer = PhotonNetwork.Instantiate(playerPrefab.name, spawnLocation.position, spawnLocation.rotation);
-        SetupCameras(photonPlayer.GetComponent<Protagonist>());
+#if UNITY_EDITOR
+        // Singleplayer
+        player =
+            Instantiate(Resources.Load("Player/Player"), spawnLocation.position, spawnLocation.rotation) as GameObject;
+#else
+        // Multiplayer
+        player = PhotonNetwork.Instantiate("Player/Player", spawnLocation.position, spawnLocation.rotation);
+#endif
+
+
+        playerInstantiatedChannel.RaiseEvent(player.transform);
+        playerTransformAnchor.Provide(player.transform);
+
+        InputReaderSO.EnableGameplayInput();
     }
 
-    private Transform GetSpawnLocation(int index, Transform[] spawnLocations)
+    private Transform GetSpawnLocation()
     {
-        if (spawnLocations == null || spawnLocations.Length == 0)
-            throw new Exception("No spawn locations set.");
+        if (pathTaken == null) return defaultSpawnPoint;
 
-        index = Mathf.Clamp(index, 0, spawnLocations.Length - 1);
-        return spawnLocations[index];
-    }
+        int entranceIndex = Array.FindIndex(spawnLocations, element =>
+            element.EntrancePath == pathTaken.lastPathTaken);
 
-    private Protagonist InstantiatePlayer(Protagonist playerPrefab, Transform spawnLocation,
-        CameraManager _cameraManager)
-    {
-        if (playerPrefab == null)
-            throw new Exception("Player Prefab can't be null.");
-
-        Protagonist playerInstance = Instantiate(playerPrefab, spawnLocation.position, spawnLocation.rotation);
-
-        return playerInstance;
-    }
-
-    private void SetupCameras(Protagonist player)
-    {
-        player.gameplayCamera = cameraManager.mainCamera.transform;
-        cameraManager.SetupProtagonistVirtualCamera(player.transform);
+        if (entranceIndex == -1)
+        {
+            Debug.LogWarning("No entrance found for the path taken. Using default spawn location.");
+            return defaultSpawnPoint;
+        }
+        else
+        {
+            return spawnLocations[entranceIndex].transform;
+        }
     }
 }

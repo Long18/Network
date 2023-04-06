@@ -12,3 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b7a1dbe61fa5fc4f9e881886d2c798f, type: 3}
   m_Name: Input Reader
   m_EditorClassIdentifier: 
+  guid: 3e5c093a20096c7479b821fc43c36906
+  Description: Centralised location where all input is read. Any object in need of
+    reading input can reference this SO and just hook into its event delegates.
+  gameStateManager: {fileID: 11400000, guid: 8c7562c1dc1629547b83b87a777172b3, type: 2}
