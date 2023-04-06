@@ -11,24 +11,24 @@ public class CritterFaceProtagonistSO : StateActionSO
 
 public class CritterFaceProtagonist : StateAction
 {
-    TransformAnchor _protagonist;
-    Transform _actor;
+    TransformAnchor protagonist;
+    Transform actor;
 
     public override void Awake(StateMachine.StateMachine stateMachine)
     {
-        _actor = stateMachine.transform;
-        _protagonist = ((CritterFaceProtagonistSO)OriginSO).playerAnchor;
+        actor = stateMachine.transform;
+        protagonist = ((CritterFaceProtagonistSO)OriginSO).playerAnchor;
     }
 
     public override void OnUpdate()
     {
-        if (_protagonist.isSet)
+        if (protagonist.isSet)
         {
-            Vector3 relativePos = _protagonist.Value.position - _actor.position;
+            Vector3 relativePos = protagonist.Value.position - actor.position;
             relativePos.y = 0f; // Force rotation to be only on Y axis.
 
             Quaternion rotation = Quaternion.LookRotation(relativePos);
-            _actor.rotation = rotation;
+            actor.rotation = rotation;
         }
     }
 

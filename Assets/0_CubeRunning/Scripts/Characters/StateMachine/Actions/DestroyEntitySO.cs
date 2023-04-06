@@ -10,11 +10,11 @@ public class DestroyEntitySO : StateActionSO
 
 public class DestroyEntity : StateAction
 {
-    private GameObject _gameObject;
+    private GameObject gameObject;
 
     public override void Awake(StateMachine.StateMachine stateMachine)
     {
-        _gameObject = stateMachine.gameObject;
+        gameObject = stateMachine.gameObject;
     }
 
     public override void OnUpdate()
@@ -23,6 +23,6 @@ public class DestroyEntity : StateAction
 
     public override void OnStateEnter()
     {
-        GameObject.Destroy(_gameObject);
+        GameObject.Destroy(gameObject);
     }
 }

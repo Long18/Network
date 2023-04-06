@@ -10,30 +10,30 @@ public class HasHitHeadConditionSO : StateConditionSO<HasHitHeadCondition>
 public class HasHitHeadCondition : Condition
 {
     //Component references
-    private Protagonist _protagonistScript;
-    private CharacterController _characterController;
-    private Transform _transform;
+    private Protagonist protagonistScript;
+    private CharacterController characterController;
+    private Transform transform;
 
     public override void Awake(StateMachine.StateMachine stateMachine)
     {
-        _transform = stateMachine.GetComponent<Transform>();
-        _protagonistScript = stateMachine.GetComponent<Protagonist>();
-        _characterController = stateMachine.GetComponent<CharacterController>();
+        transform = stateMachine.GetComponent<Transform>();
+        protagonistScript = stateMachine.GetComponent<Protagonist>();
+        characterController = stateMachine.GetComponent<CharacterController>();
     }
 
     protected override bool Statement()
     {
-        bool isMovingUpwards = _protagonistScript.movementVector.y > 0f;
+        bool isMovingUpwards = protagonistScript.movementVector.y > 0f;
         if (isMovingUpwards)
         {
             // Making sure the collision is near the top of the head
-            float permittedDistance = _characterController.radius / 2f;
-            float topPositionY = _transform.position.y + _characterController.height;
-            float distance = Mathf.Abs(_protagonistScript.lastHit.point.y - topPositionY);
+            float permittedDistance = characterController.radius / 2f;
+            float topPositionY = transform.position.y + characterController.height;
+            float distance = Mathf.Abs(protagonistScript.lastHit.point.y - topPositionY);
             if (distance <= permittedDistance)
             {
-                _protagonistScript.jumpInput = false;
-                _protagonistScript.movementVector.y = 0f;
+                protagonistScript.jumpInput = false;
+                protagonistScript.movementVector.y = 0f;
 
                 return true;
             }

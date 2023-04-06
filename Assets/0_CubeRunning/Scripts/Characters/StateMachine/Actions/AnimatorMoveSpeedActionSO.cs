@@ -18,10 +18,10 @@ public class AnimatorMoveSpeedActionSO : StateActionSO
 public class AnimatorMoveSpeedAction : StateAction
 {
     //Component references
-    private Animator _animator;
-    private Protagonist _protagonist;
+    private Animator animator;
+    private Protagonist protagonist;
 
-    private AnimatorParameterActionSO _originSO =>
+    private AnimatorParameterActionSO originSO =>
         (AnimatorParameterActionSO)base.OriginSO; // The SO this StateAction spawned from
 
     private int _parameterHash;
@@ -33,14 +33,14 @@ public class AnimatorMoveSpeedAction : StateAction
 
     public override void Awake(StateMachine.StateMachine stateMachine)
     {
-        _animator = stateMachine.GetComponent<Animator>();
-        _protagonist = stateMachine.GetComponent<Protagonist>();
+        animator = stateMachine.GetComponent<Animator>();
+        protagonist = stateMachine.GetComponent<Protagonist>();
     }
 
     public override void OnUpdate()
     {
         //TODO: do we like that we're using the magnitude here, per frame? Can this be done in a smarter way?
-        float normalisedSpeed = _protagonist.movementInput.magnitude;
-        _animator.SetFloat(_parameterHash, normalisedSpeed);
+        float normalisedSpeed = protagonist.movementInput.magnitude;
+        animator.SetFloat(_parameterHash, normalisedSpeed);
     }
 }

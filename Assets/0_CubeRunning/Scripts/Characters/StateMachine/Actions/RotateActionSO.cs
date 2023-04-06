@@ -12,35 +12,35 @@ public class RotateActionSO : StateActionSO<RotateAction>
 public class RotateAction : StateAction
 {
     //Component references
-    private Protagonist _protagonistScript;
-    private Transform _transform;
+    private Protagonist protagonistScript;
+    private Transform transform;
 
     private float
-        _turnSmoothSpeed; //Used by Mathf.SmoothDampAngle to smoothly rotate the character to their movement direction
+        turnSmoothSpeed; //Used by Mathf.SmoothDampAngle to smoothly rotate the character to their movement direction
 
     private const float ROTATION_TRESHOLD = .02f; // Used to prevent NaN result causing rotation in a non direction
-    private RotateActionSO _originSO => (RotateActionSO)base.OriginSO; // The SO this StateAction spawned from
+    private RotateActionSO originSO => (RotateActionSO)base.OriginSO; // The SO this StateAction spawned from
 
     public override void Awake(StateMachine.StateMachine stateMachine)
     {
-        _protagonistScript = stateMachine.GetComponent<Protagonist>();
-        _transform = stateMachine.GetComponent<Transform>();
+        protagonistScript = stateMachine.GetComponent<Protagonist>();
+        transform = stateMachine.GetComponent<Transform>();
     }
 
     public override void OnUpdate()
     {
-        Vector3 horizontalMovement = _protagonistScript.movementVector;
+        Vector3 horizontalMovement = protagonistScript.movementVector;
         horizontalMovement.y = 0f;
 
         if (horizontalMovement.sqrMagnitude >= ROTATION_TRESHOLD)
         {
             float targetRotation =
-                Mathf.Atan2(_protagonistScript.movementVector.x, _protagonistScript.movementVector.z) * Mathf.Rad2Deg;
-            _transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(
-                _transform.eulerAngles.y,
+                Mathf.Atan2(protagonistScript.movementVector.x, protagonistScript.movementVector.z) * Mathf.Rad2Deg;
+            transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(
+                transform.eulerAngles.y,
                 targetRotation,
-                ref _turnSmoothSpeed,
-                _originSO.turnSmoothTime);
+                ref turnSmoothSpeed,
+                originSO.turnSmoothTime);
         }
     }
 }

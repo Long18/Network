@@ -2,51 +2,52 @@
 using UnityEngine.AI;
 using StateMachine;
 using StateMachine.ScriptableObjects;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "ChasingTargetAction", menuName = "State Machines/Actions/Chasing Target Action")]
 public class ChasingTargetActionSO : StateActionSO
 {
-    [Tooltip("Target transform anchor.")] [SerializeField]
-    private TransformAnchor _targetTransform = default;
+    [FormerlySerializedAs("_targetTransform")] [Tooltip("Target transform anchor.")] [SerializeField]
+    private TransformAnchor targetTransform = default;
 
-    [Tooltip("NPC chasing speed")] [SerializeField]
-    private float _chasingSpeed = default;
+    [FormerlySerializedAs("_chasingSpeed")] [Tooltip("NPC chasing speed")] [SerializeField]
+    private float chasingSpeed = default;
 
-    public Vector3 TargetPosition => _targetTransform.Value.position;
-    public float ChasingSpeed => _chasingSpeed;
+    public Vector3 TargetPosition => targetTransform.Value.position;
+    public float ChasingSpeed => chasingSpeed;
 
     protected override StateAction CreateAction() => new ChasingTargetAction();
 }
 
 public class ChasingTargetAction : StateAction
 {
-    private Critter _critter;
-    private ChasingTargetActionSO _config;
-    private NavMeshAgent _agent;
-    private bool _isActiveAgent;
+    private Critter critter;
+    private ChasingTargetActionSO config;
+    private NavMeshAgent agent;
+    private bool isActiveAgent;
 
 
     public override void Awake(StateMachine.StateMachine stateMachine)
     {
-        _config = (ChasingTargetActionSO)OriginSO;
-        _agent = stateMachine.gameObject.GetComponent<NavMeshAgent>();
-        _isActiveAgent = _agent != null && _agent.isActiveAndEnabled && _agent.isOnNavMesh;
+        config = (ChasingTargetActionSO)OriginSO;
+        agent = stateMachine.gameObject.GetComponent<NavMeshAgent>();
+        isActiveAgent = agent != null && agent.isActiveAndEnabled && agent.isOnNavMesh;
     }
 
     public override void OnUpdate()
     {
-        if (_isActiveAgent)
+        if (isActiveAgent)
         {
-            _agent.isStopped = false;
-            _agent.SetDestination(_config.TargetPosition);
+            agent.isStopped = false;
+            agent.SetDestination(config.TargetPosition);
         }
     }
 
     public override void OnStateEnter()
     {
-        if (_isActiveAgent)
+        if (isActiveAgent)
         {
-            _agent.speed = _config.ChasingSpeed;
+            agent.speed = config.ChasingSpeed;
         }
     }
 }

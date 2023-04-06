@@ -10,13 +10,13 @@ public class GetHitFlashingEffectActionSO : StateActionSO
 
 public class GetHitFlashingEffectAction : StateAction
 {
-    private float _getHitFlashingDuration;
-    private float _getHitFlashingSpeed;
-    private Color _flashingColor;
+    private float getHitFlashingDuration;
+    private float getHitFlashingSpeed;
+    private Color flashingColor;
 
-    private Material _material;
-    private Color _baseTintColor;
-    private float _innerFlashingTime;
+    private Material material;
+    private Color baseTintColor;
+    private float innerFlashingTime;
 
     public override void Awake(StateMachine.StateMachine stateMachine)
     {
@@ -24,12 +24,12 @@ public class GetHitFlashingEffectAction : StateAction
         GetHitEffectConfigSO getHitEffectConfig = attackableEntity.GetHitEffectConfig;
 
         // Take the last one if many.
-        _material = attackableEntity.MainMeshRenderer.materials[attackableEntity.MainMeshRenderer.materials.Length - 1];
-        _getHitFlashingDuration = getHitEffectConfig.GetHitFlashingDuration;
-        _getHitFlashingSpeed = getHitEffectConfig.GetHitFlashingSpeed;
-        _baseTintColor = _material.GetColor("_MainColor");
-        _innerFlashingTime = getHitEffectConfig.GetHitFlashingDuration;
-        _flashingColor = getHitEffectConfig.GetHitFlashingColor;
+        material = attackableEntity.MainMeshRenderer.materials[attackableEntity.MainMeshRenderer.materials.Length - 1];
+        getHitFlashingDuration = getHitEffectConfig.GetHitFlashingDuration;
+        getHitFlashingSpeed = getHitEffectConfig.GetHitFlashingSpeed;
+        baseTintColor = material.GetColor("_MainColor");
+        innerFlashingTime = getHitEffectConfig.GetHitFlashingDuration;
+        flashingColor = getHitEffectConfig.GetHitFlashingColor;
     }
 
     public override void OnUpdate()
@@ -39,29 +39,29 @@ public class GetHitFlashingEffectAction : StateAction
 
     public override void OnStateEnter()
     {
-        _innerFlashingTime = _getHitFlashingDuration;
+        innerFlashingTime = getHitFlashingDuration;
     }
 
     public override void OnStateExit()
     {
-        _material.SetColor("_MainColor", _baseTintColor);
+        material.SetColor("_MainColor", baseTintColor);
     }
 
     public void ApplyHitEffect()
     {
-        if (_innerFlashingTime > 0)
+        if (innerFlashingTime > 0)
         {
             Color tintingColor = computeGetHitTintingColor();
-            _material.SetColor("_MainColor", tintingColor);
-            _innerFlashingTime -= Time.deltaTime;
+            material.SetColor("_MainColor", tintingColor);
+            innerFlashingTime -= Time.deltaTime;
         }
     }
 
     private Color computeGetHitTintingColor()
     {
-        Color finalTintingColor = Color.Lerp(_baseTintColor, _flashingColor, _flashingColor.a);
-        float tintingTiming = (_getHitFlashingDuration - _innerFlashingTime) * _getHitFlashingSpeed /
-                              _getHitFlashingDuration;
-        return Color.Lerp(_baseTintColor, finalTintingColor, (-Mathf.Cos(Mathf.PI * 2 * tintingTiming) + 1) / 2);
+        Color finalTintingColor = Color.Lerp(baseTintColor, flashingColor, flashingColor.a);
+        float tintingTiming = (getHitFlashingDuration - innerFlashingTime) * getHitFlashingSpeed /
+                              getHitFlashingDuration;
+        return Color.Lerp(baseTintColor, finalTintingColor, (-Mathf.Cos(Mathf.PI * 2 * tintingTiming) + 1) / 2);
     }
 }

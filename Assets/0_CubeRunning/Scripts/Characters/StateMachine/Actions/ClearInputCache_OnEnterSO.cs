@@ -10,13 +10,13 @@ public class ClearInputCache_OnEnterSO : StateActionSO
 
 public class ClearInputCache_OnEnter : StateAction
 {
-    private Protagonist _protagonist;
-    private InteractionManager _interactionManager;
+    private Protagonist protagonist;
+    private InteractionManager interactionManager;
 
     public override void Awake(StateMachine.StateMachine stateMachine)
     {
-        _protagonist = stateMachine.GetComponent<Protagonist>();
-        _interactionManager = stateMachine.GetComponentInChildren<InteractionManager>();
+        protagonist = stateMachine.GetComponent<Protagonist>();
+        interactionManager = stateMachine.GetComponentInChildren<InteractionManager>();
     }
 
     public override void OnUpdate()
@@ -25,7 +25,7 @@ public class ClearInputCache_OnEnter : StateAction
 
     public override void OnStateEnter()
     {
-        _protagonist.jumpInput = false;
-        _interactionManager.currentInteractionType = InteractionType.None;
+        protagonist.jumpInput = false;
+        interactionManager.currentInteractionType = InteractionType.None;
     }
 }

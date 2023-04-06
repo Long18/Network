@@ -10,11 +10,11 @@ public class ResetHealthSO : StateActionSO
 
 public class ResetHealth : StateAction
 {
-    private Damageable _damageableEntity;
+    private Damageable damageableEntity;
 
     public override void Awake(StateMachine.StateMachine stateMachine)
     {
-        _damageableEntity = stateMachine.GetComponent<Damageable>();
+        damageableEntity = stateMachine.GetComponent<Damageable>();
     }
 
     public override void OnUpdate()
@@ -23,6 +23,6 @@ public class ResetHealth : StateAction
 
     public override void OnStateExit()
     {
-        _damageableEntity.Revive();
+        damageableEntity.Revive();
     }
 }

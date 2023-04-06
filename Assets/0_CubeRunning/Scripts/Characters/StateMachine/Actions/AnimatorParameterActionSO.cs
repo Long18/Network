@@ -32,9 +32,9 @@ public class AnimatorParameterActionSO : StateActionSO
 public class AnimatorParameterAction : StateAction
 {
     //Component references
-    private Animator _animator;
+    private Animator animator;
 
-    private AnimatorParameterActionSO _originSO =>
+    private AnimatorParameterActionSO originSO =>
         (AnimatorParameterActionSO)base.OriginSO; // The SO this StateAction spawned from
 
     private int _parameterHash;
@@ -46,36 +46,36 @@ public class AnimatorParameterAction : StateAction
 
     public override void Awake(StateMachine.StateMachine stateMachine)
     {
-        _animator = stateMachine.GetComponent<Animator>();
+        animator = stateMachine.GetComponent<Animator>();
     }
 
     public override void OnStateEnter()
     {
-        if (_originSO.whenToRun == SpecificMoment.OnStateEnter)
+        if (originSO.whenToRun == SpecificMoment.OnStateEnter)
             SetParameter();
     }
 
     public override void OnStateExit()
     {
-        if (_originSO.whenToRun == SpecificMoment.OnStateExit)
+        if (originSO.whenToRun == SpecificMoment.OnStateExit)
             SetParameter();
     }
 
     private void SetParameter()
     {
-        switch (_originSO.parameterType)
+        switch (originSO.parameterType)
         {
             case AnimatorParameterActionSO.ParameterType.Bool:
-                _animator.SetBool(_parameterHash, _originSO.boolValue);
+                animator.SetBool(_parameterHash, originSO.boolValue);
                 break;
             case AnimatorParameterActionSO.ParameterType.Int:
-                _animator.SetInteger(_parameterHash, _originSO.intValue);
+                animator.SetInteger(_parameterHash, originSO.intValue);
                 break;
             case AnimatorParameterActionSO.ParameterType.Float:
-                _animator.SetFloat(_parameterHash, _originSO.floatValue);
+                animator.SetFloat(_parameterHash, originSO.floatValue);
                 break;
             case AnimatorParameterActionSO.ParameterType.Trigger:
-                _animator.SetTrigger(_parameterHash);
+                animator.SetTrigger(_parameterHash);
                 break;
         }
     }

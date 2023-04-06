@@ -9,12 +9,12 @@ public class IsCharacterControllerGroundedConditionSO : StateConditionSO<IsChara
 
 public class IsCharacterControllerGroundedCondition : Condition
 {
-    private CharacterController _characterController;
+    private CharacterController characterController;
 
     public override void Awake(StateMachine.StateMachine stateMachine)
     {
-        _characterController = stateMachine.GetComponent<CharacterController>();
+        characterController = stateMachine.GetComponent<CharacterController>();
     }
 
-    protected override bool Statement() => _characterController.isGrounded;
+    protected override bool Statement() => characterController.isGrounded;
 }

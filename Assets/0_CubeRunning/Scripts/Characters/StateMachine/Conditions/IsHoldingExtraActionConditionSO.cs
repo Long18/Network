@@ -10,19 +10,19 @@ public class IsHoldingExtraActionConditionSO : StateConditionSO<IsHoldingExtraAc
 public class IsHoldingExtraActionCondition : Condition
 {
     //Component references
-    private Protagonist _protagonistScript;
+    private Protagonist protagonistScript;
 
     public override void Awake(StateMachine.StateMachine stateMachine)
     {
-        _protagonistScript = stateMachine.GetComponent<Protagonist>();
+        protagonistScript = stateMachine.GetComponent<Protagonist>();
     }
 
     protected override bool Statement()
     {
-        if (_protagonistScript.extraActionInput)
+        if (protagonistScript.extraActionInput)
         {
             // Consume the input
-            _protagonistScript.extraActionInput = false;
+            protagonistScript.extraActionInput = false;
 
             return true;
         }

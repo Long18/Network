@@ -10,13 +10,13 @@ public class TimeElapsedConditionSO : StateConditionSO<TimeElapsedCondition>
 
 public class TimeElapsedCondition : Condition
 {
-	private float _startTime;
-	private TimeElapsedConditionSO _originSO => (TimeElapsedConditionSO)base.OriginSO; // The SO this Condition spawned from
+	private float startTime;
+	private TimeElapsedConditionSO originSO => (TimeElapsedConditionSO)base.OriginSO; // The SO this Condition spawned from
 
 	public override void OnStateEnter()
 	{
-		_startTime = Time.time;
+		startTime = Time.time;
 	}
 
-	protected override bool Statement() => Time.time >= _startTime + _originSO.timerLength;
+	protected override bool Statement() => Time.time >= startTime + originSO.timerLength;
 }

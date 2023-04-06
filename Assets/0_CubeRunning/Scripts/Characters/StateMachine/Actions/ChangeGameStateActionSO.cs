@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using StateMachine;
 using StateMachine.ScriptableObjects;
+using UnityEngine.Serialization;
 using Moment = StateMachine.StateAction.SpecificMoment;
 
 /// <summary>
@@ -9,53 +10,55 @@ using Moment = StateMachine.StateAction.SpecificMoment;
 [CreateAssetMenu(fileName = "ChangeGameState", menuName = "State Machines/Actions/Change GameState")]
 public class ChangeGameStateActionSO : StateActionSO
 {
-    [SerializeField] GameState _newGameState = default;
-    [SerializeField] Moment _whenToRun = default;
-    [SerializeField] private GameStateSO _gameState = default;
+    [SerializeField] GameState newGameState = default;
 
-    protected override StateAction CreateAction() => new ChangeGameStateAction(_newGameState, _gameState, _whenToRun);
+    [SerializeField] Moment whenToRun = default;
+
+    [SerializeField] private GameStateSO gameState = default;
+
+    protected override StateAction CreateAction() => new ChangeGameStateAction(newGameState, gameState, whenToRun);
 }
 
 public class ChangeGameStateAction : StateAction
 {
-    [Tooltip("GameState to change to")] private GameState _newGameState = default;
-    private GameStateSO _gameStateSO = default;
-    private Moment _whenToRun = default;
-    private Transform _transform = default;
+    [Tooltip("GameState to change to")] private GameState newGameState = default;
+    private GameStateSO gameStateSO = default;
+    private Moment whenToRun = default;
+    private Transform transform = default;
 
     public ChangeGameStateAction(GameState newGameState, GameStateSO gameStateSO, Moment whenToRun)
     {
-        _newGameState = newGameState;
-        _gameStateSO = gameStateSO;
-        _whenToRun = whenToRun;
+        this.newGameState = newGameState;
+        this.gameStateSO = gameStateSO;
+        this.whenToRun = whenToRun;
     }
 
     public override void Awake(StateMachine.StateMachine stateMachine)
     {
-        _transform = stateMachine.transform;
+        transform = stateMachine.transform;
     }
 
     void ChangeState()
     {
-        switch (_newGameState)
+        switch (newGameState)
         {
             case GameState.Combat:
-                _gameStateSO.AddAlertEnemy(_transform);
+                gameStateSO.AddAlertEnemy(transform);
                 break;
 
             case GameState.Gameplay:
-                _gameStateSO.RemoveAlertEnemy(_transform);
+                gameStateSO.RemoveAlertEnemy(transform);
                 break;
 
             default:
-                _gameStateSO.UpdateGameState(_newGameState);
+                gameStateSO.UpdateGameState(newGameState);
                 break;
         }
     }
 
     public override void OnStateEnter()
     {
-        if (_whenToRun == Moment.OnStateEnter)
+        if (whenToRun == Moment.OnStateEnter)
         {
             ChangeState();
         }
@@ -63,7 +66,7 @@ public class ChangeGameStateAction : StateAction
 
     public override void OnStateExit()
     {
-        if (_whenToRun == Moment.OnStateExit)
+        if (whenToRun == Moment.OnStateExit)
         {
             ChangeState();
         }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using StateMachine;
 using StateMachine.ScriptableObjects;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// This Action handles horizontal movement while in the air, keeping momentum, simulating air resistance, and accelerating towards the desired speed.
@@ -8,14 +9,14 @@ using StateMachine.ScriptableObjects;
 [CreateAssetMenu(fileName = "AerialMovement", menuName = "State Machines/Actions/Aerial Movement")]
 public class AerialMovementActionSO : StateActionSO
 {
-    public float Speed => _speed;
-    public float Acceleration => _acceleration;
+    public float Speed => speed;
+    public float Acceleration => acceleration;
 
     [Tooltip("Desired horizontal movement speed while in the air")] [SerializeField] [Range(0.1f, 100f)]
-    private float _speed = 10f;
+    private float speed = 10f;
 
     [Tooltip("The acceleration applied to reach the desired speed")] [SerializeField] [Range(0.1f, 100f)]
-    private float _acceleration = 20f;
+    private float acceleration = 20f;
 
     protected override StateAction CreateAction() => new AerialMovementAction();
 }

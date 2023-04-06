@@ -10,14 +10,14 @@ public class DropRewardSO : StateActionSO
 
 public class DropReward : StateAction
 {
-    private DroppableRewardConfigSO _dropRewardConfig;
-    private Transform _currentTransform;
+    private DroppableRewardConfigSO dropRewardConfig;
+    private Transform currentTransform;
 
 
     public override void Awake(StateMachine.StateMachine stateMachine)
     {
-        _dropRewardConfig = stateMachine.GetComponent<Damageable>().DroppableRewardConfig;
-        _currentTransform = stateMachine.transform;
+        dropRewardConfig = stateMachine.GetComponent<Damageable>().DroppableRewardConfig;
+        currentTransform = stateMachine.transform;
     }
 
     public override void OnUpdate()
@@ -26,16 +26,16 @@ public class DropReward : StateAction
 
     public override void OnStateEnter()
     {
-        DropAllRewards(_currentTransform.position);
+        DropAllRewards(currentTransform.position);
     }
 
     private void DropAllRewards(Vector3 position)
     {
-        DropGroup specialDropItem = _dropRewardConfig.DropSpecialItem();
+        DropGroup specialDropItem = dropRewardConfig.DropSpecialItem();
         if (specialDropItem != null) // drops a special item if any 
             DropOneReward(specialDropItem, position);
         // Drop items
-        foreach (DropGroup dropGroup in _dropRewardConfig.DropGroups)
+        foreach (DropGroup dropGroup in dropRewardConfig.DropGroups)
         {
             float randValue = Random.value;
             if (dropGroup.DropRate >= randValue)
@@ -71,7 +71,7 @@ public class DropReward : StateAction
         float randAngle = Random.value * Mathf.PI * 2;
         GameObject collectibleItem = GameObject.Instantiate(itemPrefab,
             position + itemPrefab.transform.localPosition +
-            _dropRewardConfig.ScatteringDistance *
+            dropRewardConfig.ScatteringDistance *
             (Mathf.Cos(randAngle) * Vector3.forward + Mathf.Sin(randAngle) * Vector3.right),
             Quaternion.identity);
         collectibleItem.GetComponent<CollectableItem>().AnimateItem();
