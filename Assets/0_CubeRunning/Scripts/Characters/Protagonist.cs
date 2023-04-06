@@ -43,8 +43,10 @@ public class Protagonist : MonoBehaviour
         inputReader.JumpEvent += OnJumpInitiated;
         inputReader.JumpCanceledEvent += OnJumpCanceled;
         inputReader.MoveEvent += OnMove;
+        inputReader.StartedRunning += OnStartedRunning;
+        inputReader.StoppedRunning += OnStoppedRunning;
         inputReader.ClimbEvent += OnClimbingInitiated;
-        inputReader.extraActionEvent += OnExtraAction;
+        inputReader.AttackEvent += OnStartedAttack;
     }
 
     private void OnDisable()
@@ -52,8 +54,10 @@ public class Protagonist : MonoBehaviour
         inputReader.JumpEvent -= OnJumpInitiated;
         inputReader.JumpCanceledEvent -= OnJumpCanceled;
         inputReader.MoveEvent -= OnMove;
+        inputReader.StoppedRunning -= OnStoppedRunning;
+        inputReader.StartedRunning -= OnStartedRunning;
         inputReader.ClimbEvent -= OnClimbingInitiated;
-        inputReader.extraActionEvent -= OnExtraAction;
+        inputReader.AttackEvent -= OnStartedAttack;
     }
 
     private void Update()
@@ -117,13 +121,18 @@ public class Protagonist : MonoBehaviour
     {
         inputVector = movement;
     }
+
     private void OnJumpInitiated() => jumpInput = true;
 
     private void OnJumpCanceled() => jumpInput = false;
+    private void OnStoppedRunning() => isRunning = false;
+
+    private void OnStartedRunning() => isRunning = true;
+
+
+    private void OnStartedAttack() => attackInput = true;
 
     private void OnClimbingInitiated() => climbInput = true;
 
     private void OnClimbingCanceled() => climbInput = false;
-
-    private void OnExtraAction() => extraActionInput = true;
 }

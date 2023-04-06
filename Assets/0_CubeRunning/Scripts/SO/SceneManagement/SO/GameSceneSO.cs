@@ -1,9 +1,28 @@
 ﻿using UnityEngine;
+using UnityEngine.AddressableAssets;
 
-public class GameSceneSO : ScriptableObject
+public class GameSceneSO : DescriptionBaseSO
 {
-    [Header("Information")] public string sceneName;
-    public string shortDescription;
+    public GameSceneType sceneType;
 
-    [Header("Sounds")] public AudioClip music;
+    public AssetReference sceneReference; //Used at runtime to load the scene from the right AssetBundle
+    // public AudioCueSO musicTrack;
+
+    /// <summary>
+    /// Used by the SceneSelector tool to discern what type of scene it needs to load
+    /// </summary>
+    public enum GameSceneType
+    {
+        //Playable scenes
+        Location, //SceneSelector tool will also load PersistentManagers and Gameplay
+        Menu, //SceneSelector tool will also load Gameplay
+
+        //Special scenes
+        Initialisation,
+        PersistentManagers,
+        Gameplay,
+
+        //Work in progress scenes that don't need to be played
+        Art,
+    }
 }
