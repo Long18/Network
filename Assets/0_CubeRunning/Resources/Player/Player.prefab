@@ -662,8 +662,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6809447944464471259}
+  - component: {fileID: 5594536281861930350}
   - component: {fileID: 6182268556711939680}
   - component: {fileID: 6182268556711939682}
+  - component: {fileID: 4325078152821789685}
   - component: {fileID: 6182268556711939683}
   - component: {fileID: 6182268556711939685}
   - component: {fileID: 2320925800223746899}
@@ -693,6 +695,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5594536281861930350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6182268556711939681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 775d733716d34f3bb7e9d2a608648401, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healthConfigSO: {fileID: 11400000, guid: bb9eb369578ab0d45bf1152c0cba789e, type: 2}
+  _currentHealthSO: {fileID: 11400000, guid: 8d19c3b08f8f6794fb16ba50892e985a, type: 2}
+  _mainMeshRenderer: {fileID: 7555629042841316718}
+  _droppableRewardSO: {fileID: 11400000, guid: d1da7cc3cbd56094f8fa44fcefe4a1ad, type: 2}
+  _updateHealthUI: {fileID: 11400000, guid: c989a5efeabd4e740af9b36c4ff3be8c, type: 2}
+  _deathEvent: {fileID: 11400000, guid: 8e0145ea743795345849a206cd3fb2b1, type: 2}
+  _restoreHealth: {fileID: 11400000, guid: 913a99f6f62d6664dbc64bd740669def, type: 2}
 --- !u!114 &6182268556711939680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -726,6 +747,23 @@ MonoBehaviour:
   inputReader: {fileID: 11400000, guid: 3e5c093a20096c7479b821fc43c36906, type: 2}
   gameplayCameraTransform: {fileID: 11400000, guid: ef8fc9719e261454dae7f15197414911, type: 2}
   view: {fileID: 2320925800223746899}
+--- !u!114 &4325078152821789685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6182268556711939681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac6d1fb96bad4a7c860317aebf0b1154, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputReader: {fileID: 11400000, guid: 3e5c093a20096c7479b821fc43c36906, type: 2}
+  _onObjectPickUp: {fileID: 11400000, guid: 86a86d8306997cb48ba187b66a771052, type: 2}
+  _onCookingStart: {fileID: 0}
+  _onInteractionEnded: {fileID: 11400000, guid: c6f879d2649eebe4a9aee036d860ed12, type: 2}
+  currentInteractionType: 0
 --- !u!143 &6182268556711939683
 CharacterController:
   m_ObjectHideFlags: 0
@@ -825,6 +863,9 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 1
     Name: IsJumping
+  - Type: 3
+    SynchronizeType: 1
+    Name: RandomIdle
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0

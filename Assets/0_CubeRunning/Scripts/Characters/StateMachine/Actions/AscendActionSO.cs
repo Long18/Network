@@ -12,32 +12,33 @@ public class AscendActionSO : StateActionSO<AscendAction>
 
 public class AscendAction : StateAction
 {
-    private Protagonist protagonist;
+    //Component references
+    private Protagonist _protagonistScript;
 
-    private float verticalMovement;
-    private float gravityContributionMultiplier;
-    private const float GRAVITY_COMEBACK_MULTIPLIER = .03f;
-    private const float GRAVITY_DIVIDER = .6f;
-    private const float GRAVITY_MULTIPLIER = 5f;
-    private AscendActionSO originSO => (AscendActionSO)base.OriginSO; // The SO this StateAction spawned from
+    private float _verticalMovement;
+    private float _gravityContributionMultiplier;
+    private AscendActionSO _originSO => (AscendActionSO)base.OriginSO; // The SO this StateAction spawned from
 
     public override void Awake(StateMachine.StateMachine stateMachine)
     {
-        protagonist = stateMachine.GetComponent<Protagonist>();
+        _protagonistScript = stateMachine.GetComponent<Protagonist>();
     }
 
     public override void OnStateEnter()
     {
-        verticalMovement = originSO.initialJumpForce;
+        _verticalMovement = _originSO.initialJumpForce;
     }
 
     public override void OnUpdate()
     {
-        gravityContributionMultiplier += GRAVITY_COMEBACK_MULTIPLIER;
-        gravityContributionMultiplier *= GRAVITY_DIVIDER; //Reduce the gravity effect
-        verticalMovement += Physics.gravity.y * GRAVITY_MULTIPLIER * Time.deltaTime * gravityContributionMultiplier;
+        _gravityContributionMultiplier += Protagonist.GRAVITY_COMEBACK_MULTIPLIER;
+        _gravityContributionMultiplier *= Protagonist.GRAVITY_DIVIDER; //Reduce the gravity effect
+
+        //Note that deltaTime is used even though it's going to be used in ApplyMovementVectorAction, this is because it represents an acceleration, not a speed
+        _verticalMovement += Physics.gravity.y * Protagonist.GRAVITY_MULTIPLIER * _gravityContributionMultiplier *
+                             Time.deltaTime;
         //Note that even if it's added, the above value is negative due to Physics.gravity.y
 
-        protagonist.movementVector.y = verticalMovement;
+        _protagonistScript.movementVector.y = _verticalMovement;
     }
 }

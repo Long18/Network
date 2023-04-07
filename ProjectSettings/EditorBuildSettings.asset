@@ -15,4 +15,6 @@ EditorBuildSettings:
     path: Assets/0_CubeRunning/Scenes/Main.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:
-    com.unity.input.settings: {fileID: 11400000, guid: ed1fd63fa77f3924994bcf9213ffb4fa, type: 2}
+    com.unity.addressableassets: {fileID: 11400000, guid: 9b1a7b4e352ce334cb2966e2241e1d6c, type: 2}
+    com.unity.input.settings: {fileID: 11400000, guid: c5665fd2f81b24a49b6f7447746e47c0, type: 2}
+    com.unity.localization.settings: {fileID: 11400000, guid: 56b1c58ec65bd4151b3054a32d1f7b69, type: 2}

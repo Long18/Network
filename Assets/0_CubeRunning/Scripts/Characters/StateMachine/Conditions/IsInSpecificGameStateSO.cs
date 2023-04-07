@@ -5,10 +5,7 @@ using StateMachine.ScriptableObjects;
 [CreateAssetMenu(menuName = "State Machines/Conditions/Is In Particular GameState")]
 public class IsInSpecificGameStateSO : StateConditionSO<IsInSpecificGameStateCondition>
 {
-    [UnityEngine.Serialization.FormerlySerializedAs("_currentGameState")]
     public GameState gameStateToCheck;
-
-    [UnityEngine.Serialization.FormerlySerializedAs("gameStateManager")]
     public GameStateSO gameStateSO;
 
     protected override Condition CreateCondition() => new IsInSpecificGameStateCondition();

@@ -25,24 +25,24 @@ public class AerialMovementAction : StateAction
 {
     private new AerialMovementActionSO OriginSO => (AerialMovementActionSO)base.OriginSO;
 
-    private Protagonist _protagonist;
+    private Protagonist protagonist;
 
     public override void Awake(StateMachine.StateMachine stateMachine)
     {
-        _protagonist = stateMachine.GetComponent<Protagonist>();
+        protagonist = stateMachine.GetComponent<Protagonist>();
     }
 
     public override void OnUpdate()
     {
-        Vector3 velocity = _protagonist.movementVector;
-        Vector3 input = _protagonist.movementInput;
+        Vector3 velocity = protagonist.movementVector;
+        Vector3 input = protagonist.movementInput;
         float speed = OriginSO.Speed;
         float acceleration = OriginSO.Acceleration;
 
         SetVelocityPerAxis(ref velocity.x, input.x, acceleration, speed);
         SetVelocityPerAxis(ref velocity.z, input.z, acceleration, speed);
 
-        _protagonist.movementVector = velocity;
+        protagonist.movementVector = velocity;
     }
 
     private void SetVelocityPerAxis(ref float currentAxisSpeed, float axisInput, float acceleration, float targetSpeed)

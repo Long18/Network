@@ -25,8 +25,4 @@ public class IsMovingCondition : Condition
         return movementVector.sqrMagnitude > originSO.value;
     }
 
-    public override void OnStateExit()
-    {
-        protagonist.movementVector = Vector3.zero;
-    }
 }

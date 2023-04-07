@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Sliding
   m_EditorClassIdentifier: 
   _actions:
-  - {fileID: 11400000, guid: 78d3c5c0f70898d45b670d8a05707409, type: 2}
-  - {fileID: 11400000, guid: 42096ebd9535c1f4689dc49fb19fb5ef, type: 2}
-  - {fileID: 11400000, guid: 258076926dd72cf46a1289a3f7d38945, type: 2}
+  - {fileID: 11400000, guid: cd3343c10d38e574aa74939d6c09ae41, type: 2}
+  - {fileID: 11400000, guid: e40558ca7d865a74ab2306a940f7d750, type: 2}
   - {fileID: 11400000, guid: 3e374196910a6264da933ae04593dd51, type: 2}
+  - {fileID: 11400000, guid: fd4f927ab083cea42bd5eeb49fd2293e, type: 2}
+  - {fileID: 11400000, guid: d2b2bf16a48bb2f4abf34f179b2e56ed, type: 2}
+  - {fileID: 11400000, guid: 6ac3496465bc4c04894e5db6a28c5131, type: 2}
   - {fileID: 11400000, guid: fd4f927ab083cea42bd5eeb49fd2293e, type: 2}
   - {fileID: 11400000, guid: 719c25271cbb95f4aaf219c771f318f7, type: 2}

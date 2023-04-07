@@ -38,13 +38,13 @@
         public void OnStateEnter()
         {
             for (int i = 0; i < _conditions.Length; i++)
-                _conditions[i]._condition.OnStateEnter();
+                _conditions[i].condition.OnStateEnter();
         }
 
         public void OnStateExit()
         {
             for (int i = 0; i < _conditions.Length; i++)
-                _conditions[i]._condition.OnStateExit();
+                _conditions[i].condition.OnStateExit();
         }
 
         private bool ShouldTransition()
@@ -72,7 +72,7 @@
         internal void ClearConditionsCache()
         {
             for (int i = 0; i < _conditions.Length; i++)
-                _conditions[i]._condition.ClearStatementCache();
+                _conditions[i].condition.ClearStatementCache();
         }
     }
 }

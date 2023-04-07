@@ -21,15 +21,15 @@ public class GetHitFlashingEffectAction : StateAction
     public override void Awake(StateMachine.StateMachine stateMachine)
     {
         Damageable attackableEntity = stateMachine.GetComponent<Damageable>();
-        GetHitEffectConfigSO getHitEffectConfig = attackableEntity.GetHitEffectConfig;
+        // GetHitEffectConfigSO getHitEffectConfig = attackableEntity.GetHitEffectConfig;
 
         // Take the last one if many.
         material = attackableEntity.MainMeshRenderer.materials[attackableEntity.MainMeshRenderer.materials.Length - 1];
-        getHitFlashingDuration = getHitEffectConfig.GetHitFlashingDuration;
-        getHitFlashingSpeed = getHitEffectConfig.GetHitFlashingSpeed;
+        // getHitFlashingDuration = getHitEffectConfig.GetHitFlashingDuration;
+        // getHitFlashingSpeed = getHitEffectConfig.GetHitFlashingSpeed;
         baseTintColor = material.GetColor("_MainColor");
-        innerFlashingTime = getHitEffectConfig.GetHitFlashingDuration;
-        flashingColor = getHitEffectConfig.GetHitFlashingColor;
+        // innerFlashingTime = getHitEffectConfig.GetHitFlashingDuration;
+        // flashingColor = getHitEffectConfig.GetHitFlashingColor;
     }
 
     public override void OnUpdate()

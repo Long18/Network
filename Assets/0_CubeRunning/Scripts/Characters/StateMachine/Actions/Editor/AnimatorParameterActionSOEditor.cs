@@ -2,37 +2,44 @@
 using UnityEngine;
 
 [CustomEditor(typeof(AnimatorParameterActionSO)), CanEditMultipleObjects]
-public class AnimatorParameterActionSOEditor : UnityEditor.Editor
+public class AnimatorParameterActionSOEditor : CustomBaseEditor
 {
-	public override void OnInspectorGUI()
-	{
-		serializedObject.Update();
+    public override void OnInspectorGUI()
+    {
+        base.DrawNonEditableScriptReference<AnimatorParameterActionSO>();
 
-		EditorGUILayout.PropertyField(serializedObject.FindProperty("whenToRun"));
-		EditorGUILayout.Space();
+        serializedObject.Update();
 
-		EditorGUILayout.LabelField("Animator Parameter", EditorStyles.boldLabel);
-		EditorGUILayout.PropertyField(serializedObject.FindProperty("parameterName"), new GUIContent("Name"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("description"));
+        EditorGUILayout.Space();
 
-		// Draws the appropriate value depending on the type of parameter this SO is going to change on the Animator
-		SerializedProperty animParamValue = serializedObject.FindProperty("parameterType");
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("whenToRun"));
+        EditorGUILayout.Space();
 
-		EditorGUILayout.PropertyField(animParamValue, new GUIContent("Type"));
+        EditorGUILayout.LabelField("Animator Parameter", EditorStyles.boldLabel);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("parameterName"), new GUIContent("Name"));
 
-		switch (animParamValue.intValue)
-		{
-			case (int)AnimatorParameterActionSO.ParameterType.Bool:
-				EditorGUILayout.PropertyField(serializedObject.FindProperty("boolValue"), new GUIContent("Desired value"));
-				break;
-			case (int)AnimatorParameterActionSO.ParameterType.Int:
-				EditorGUILayout.PropertyField(serializedObject.FindProperty("intValue"), new GUIContent("Desired value"));
-				break;
-			case (int)AnimatorParameterActionSO.ParameterType.Float:
-				EditorGUILayout.PropertyField(serializedObject.FindProperty("floatValue"), new GUIContent("Desired value"));
-				break;
+        // Draws the appropriate value depending on the type of parameter this SO is going to change on the Animator
+        SerializedProperty animParamValue = serializedObject.FindProperty("parameterType");
 
-		}
+        EditorGUILayout.PropertyField(animParamValue, new GUIContent("Type"));
 
-		serializedObject.ApplyModifiedProperties();
-	}
+        switch (animParamValue.intValue)
+        {
+            case (int)AnimatorParameterActionSO.ParameterType.Bool:
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("boolValue"),
+                    new GUIContent("Desired value"));
+                break;
+            case (int)AnimatorParameterActionSO.ParameterType.Int:
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("intValue"),
+                    new GUIContent("Desired value"));
+                break;
+            case (int)AnimatorParameterActionSO.ParameterType.Float:
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("floatValue"),
+                    new GUIContent("Desired value"));
+                break;
+        }
+
+        serializedObject.ApplyModifiedProperties();
+    }
 }

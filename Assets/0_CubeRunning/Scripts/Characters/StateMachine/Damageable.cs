@@ -6,7 +6,8 @@ public class Damageable : MonoBehaviour
     [Header("Health")] [SerializeField] private HealthConfigSO _healthConfigSO;
     [SerializeField] private HealthSO _currentHealthSO;
 
-    [Header("Combat")] [SerializeField] private GetHitEffectConfigSO _getHitEffectSO;
+    [Header("Combat")]
+    // [SerializeField] private GetHitEffectConfigSO _getHitEffectSO;
     [SerializeField] private Renderer _mainMeshRenderer;
     [SerializeField] private DroppableRewardConfigSO _droppableRewardSO;
 
@@ -24,7 +25,7 @@ public class Damageable : MonoBehaviour
     public bool GetHit { get; set; }
     public bool IsDead { get; set; }
 
-    public GetHitEffectConfigSO GetHitEffectConfig => _getHitEffectSO;
+    // public GetHitEffectConfigSO GetHitEffectConfig => _getHitEffectSO;
     public Renderer MainMeshRenderer => _mainMeshRenderer; //used to apply the hit flash effect
 
     public event UnityAction OnDie;

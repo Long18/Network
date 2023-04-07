@@ -28,12 +28,10 @@ public class SpawnSystem : MonoBehaviourPunCallbacks
     public override void OnEnable()
     {
         onSceneReady.OnEventRaised += SpawnPlayer;
-#if UNITY_EDITOR
         onSceneReady.RaiseEvent();
-#endif
     }
 
-    public void OnDisable()
+    public override void OnDisable()
     {
         onSceneReady.OnEventRaised -= SpawnPlayer;
         playerTransformAnchor.Unset();

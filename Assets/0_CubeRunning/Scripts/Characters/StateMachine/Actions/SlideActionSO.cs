@@ -5,14 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SlideAction", menuName = "State Machines/Actions/Slide")]
 public class SlideActionSO : StateActionSO<SlideAction>
 {
-    [Tooltip("Sliding speed on the XZ plane.")]
-    public float slideSpeed = 10f;
 }
 
 public class SlideAction : StateAction
 {
     private Protagonist protagonist;
-    private SlideActionSO originSO => (SlideActionSO)base.OriginSO; // The SO this StateAction spawned from
 
     public override void Awake(StateMachine.StateMachine stateMachine)
     {
@@ -21,13 +18,11 @@ public class SlideAction : StateAction
 
     public override void OnUpdate()
     {
+        float speed = -Physics.gravity.y * Protagonist.GRAVITY_MULTIPLIER * .4f;
         Vector3 hitNormal = protagonist.lastHit.normal;
-        protagonist.movementVector.x = (1f - hitNormal.y) * hitNormal.x * originSO.slideSpeed;
-        protagonist.movementVector.z = (1f - hitNormal.y) * hitNormal.z * originSO.slideSpeed;
-    }
+        Vector3 slideDirection = new Vector3(hitNormal.x, -hitNormal.y, hitNormal.z);
+        Vector3.OrthoNormalize(ref hitNormal, ref slideDirection);
 
-    public override void OnStateExit()
-    {
-        protagonist.movementVector = Vector3.zero;
+        protagonist.movementVector = slideDirection * speed;
     }
 }

@@ -7,8 +7,8 @@ namespace StateMachine
     /// </summary>
     public abstract class Condition : IStateComponent
     {
-        private bool _isCached = false;
-        private bool _cachedStatement = default;
+        private bool isCached = false;
+        private bool cachedStatement = default;
         internal StateConditionSO _originSO;
         protected StateConditionSO OriginSO => _originSO;
 
@@ -23,21 +23,18 @@ namespace StateMachine
         /// </summary>
         internal bool GetStatement()
         {
-            if (!_originSO.cacheResult)
-                return Statement();
-
-            if (!_isCached)
+            if (!isCached)
             {
-                _isCached = true;
-                _cachedStatement = Statement();
+                isCached = true;
+                cachedStatement = Statement();
             }
 
-            return _cachedStatement;
+            return cachedStatement;
         }
 
         internal void ClearStatementCache()
         {
-            _isCached = false;
+            isCached = false;
         }
 
         /// <summary>
@@ -62,24 +59,24 @@ namespace StateMachine
     /// </summary>
     public readonly struct StateCondition
     {
-        internal readonly StateMachine _stateMachine;
-        internal readonly Condition _condition;
-        internal readonly bool _expectedResult;
+        internal readonly StateMachine stateMachine;
+        internal readonly Condition condition;
+        internal readonly bool expectedResult;
 
         public StateCondition(StateMachine stateMachine, Condition condition, bool expectedResult)
         {
-            _stateMachine = stateMachine;
-            _condition = condition;
-            _expectedResult = expectedResult;
+            this.stateMachine = stateMachine;
+            this.condition = condition;
+            this.expectedResult = expectedResult;
         }
 
         public bool IsMet()
         {
-            bool statement = _condition.GetStatement();
-            bool isMet = statement == _expectedResult;
+            bool statement = condition.GetStatement();
+            bool isMet = statement == expectedResult;
 
 #if UNITY_EDITOR
-            _stateMachine._debugger.TransitionConditionResult(_condition._originSO.name, statement, isMet);
+            stateMachine._debugger.TransitionConditionResult(condition._originSO.name, statement, isMet);
 #endif
             return isMet;
         }

@@ -61,10 +61,10 @@ public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, Game
         switch (context.phase)
         {
             case InputActionPhase.Performed:
-                AttackEvent?.Invoke();
+                AttackEvent.Invoke();
                 break;
             case InputActionPhase.Canceled:
-                AttackCanceledEvent?.Invoke();
+                AttackCanceledEvent.Invoke();
                 break;
         }
     }
@@ -73,35 +73,35 @@ public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, Game
     public void OnMove(InputAction.CallbackContext context)
     {
         if (MoveEvent == null) return;
-        MoveEvent?.Invoke(context.ReadValue<Vector2>());
+        MoveEvent.Invoke(context.ReadValue<Vector2>());
     }
 
 
     public void OnJump(InputAction.CallbackContext context)
     {
         if (JumpEvent == null && context.phase != InputActionPhase.Performed) return;
-        JumpEvent?.Invoke();
+        JumpEvent.Invoke();
 
         if (JumpCanceledEvent == null && context.phase != InputActionPhase.Canceled) return;
-        JumpCanceledEvent?.Invoke();
+        JumpCanceledEvent.Invoke();
     }
 
     public void OnClimb(InputAction.CallbackContext context)
     {
         if (ClimbEvent == null && context.phase != InputActionPhase.Performed) return;
-        ClimbEvent?.Invoke();
+        ClimbEvent.Invoke();
 
         if (ClimbCanceledEvent == null && context.phase != InputActionPhase.Canceled) return;
-        ClimbCanceledEvent?.Invoke();
+        ClimbCanceledEvent.Invoke();
     }
 
     public void OnMouseControlCamera(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
-            EnableMouseControlCameraEvent?.Invoke();
+            EnableMouseControlCameraEvent.Invoke();
 
         if (context.phase == InputActionPhase.Canceled)
-            DisableMouseControlCameraEvent?.Invoke();
+            DisableMouseControlCameraEvent.Invoke();
     }
 
     public void OnRun(InputAction.CallbackContext context)
@@ -109,10 +109,10 @@ public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, Game
         switch (context.phase)
         {
             case InputActionPhase.Performed:
-                StartedRunning?.Invoke();
+                StartedRunning.Invoke();
                 break;
             case InputActionPhase.Canceled:
-                StoppedRunning?.Invoke();
+                StoppedRunning.Invoke();
                 break;
         }
     }
@@ -125,7 +125,7 @@ public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, Game
     public void OnRotateCamera(InputAction.CallbackContext context)
     {
         if (CameraMoveEvent == null) return;
-        CameraMoveEvent?.Invoke(context.ReadValue<Vector2>(), IsDeviceMouse(context));
+        CameraMoveEvent.Invoke(context.ReadValue<Vector2>(), IsDeviceMouse(context));
     }
 
     private bool IsDeviceMouse(InputAction.CallbackContext context) => context.control.device.name == "Mouse";
@@ -135,13 +135,13 @@ public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, Game
     {
         if (gameStateManager.CurrentGameState == GameState.Gameplay &&
             context.phase != InputActionPhase.Performed) return;
-        InteractEvent?.Invoke();
+        InteractEvent.Invoke();
     }
 
     public void OnPause(InputAction.CallbackContext context)
     {
         if (context.phase != InputActionPhase.Performed) return;
-        MenuPauseEvent?.Invoke();
+        MenuPauseEvent.Invoke();
     }
 
 
@@ -161,43 +161,43 @@ public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, Game
     public void OnCancel(InputAction.CallbackContext context)
     {
         if (context.phase != InputActionPhase.Performed) return;
-        MenuCloseEvent?.Invoke();
+        MenuCloseEvent.Invoke();
     }
 
     public void OnMouseMove(InputAction.CallbackContext context)
     {
         if (context.phase != InputActionPhase.Performed) return;
-        MenuMouseMoveEvent?.Invoke();
+        MenuMouseMoveEvent.Invoke();
     }
 
     public void OnUnpause(InputAction.CallbackContext context)
     {
         if (context.phase != InputActionPhase.Performed) return;
-        MenuUnpauseEvent?.Invoke();
+        MenuUnpauseEvent.Invoke();
     }
 
     public void OnChangeTab(InputAction.CallbackContext context)
     {
         if (context.phase != InputActionPhase.Performed) return;
-        TabSwitched?.Invoke(context.ReadValue<float>());
+        TabSwitched.Invoke(context.ReadValue<float>());
     }
 
     public void OnInventoryActionButton(InputAction.CallbackContext context)
     {
         if (context.phase != InputActionPhase.Performed) return;
-        InventoryActionButtonEvent?.Invoke();
+        InventoryActionButtonEvent.Invoke();
     }
 
     public void OnSaveActionButton(InputAction.CallbackContext context)
     {
         if (context.phase != InputActionPhase.Performed) return;
-        SaveActionButtonEvent?.Invoke();
+        SaveActionButtonEvent.Invoke();
     }
 
     public void OnResetActionButton(InputAction.CallbackContext context)
     {
         if (context.phase != InputActionPhase.Performed) return;
-        ResetActionButtonEvent?.Invoke();
+        ResetActionButtonEvent.Invoke();
     }
 
     public void OnClick(InputAction.CallbackContext context)
@@ -225,7 +225,7 @@ public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, Game
         if (context.phase != InputActionPhase.Performed) return;
     }
 
-    public void OnCloseInventory(InputAction.CallbackContext context) => CloseInventoryEvent?.Invoke();
+    public void OnCloseInventory(InputAction.CallbackContext context) => CloseInventoryEvent.Invoke();
 
 
     public void EnableGameplayInput()

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fb6083fefe84e3281a48cd8f4cc8ebe, type: 3}
+  m_Name: Cure
+  m_EditorClassIdentifier: 
+  guid: 913a99f6f62d6664dbc64bd740669def
+  Description: Damageable listens to this to restore the health of the player when
+    eating food
+  lastValue: 0

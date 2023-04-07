@@ -24,11 +24,11 @@ public class AnimatorMoveSpeedAction : StateAction
     private AnimatorParameterActionSO originSO =>
         (AnimatorParameterActionSO)base.OriginSO; // The SO this StateAction spawned from
 
-    private int _parameterHash;
+    private int parameterHash;
 
     public AnimatorMoveSpeedAction(int parameterHash)
     {
-        _parameterHash = parameterHash;
+        this.parameterHash = parameterHash;
     }
 
     public override void Awake(StateMachine.StateMachine stateMachine)
@@ -41,6 +41,6 @@ public class AnimatorMoveSpeedAction : StateAction
     {
         //TODO: do we like that we're using the magnitude here, per frame? Can this be done in a smarter way?
         float normalisedSpeed = protagonist.movementInput.magnitude;
-        animator.SetFloat(_parameterHash, normalisedSpeed);
+        animator.SetFloat(parameterHash, normalisedSpeed);
     }
 }

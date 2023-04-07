@@ -13,9 +13,6 @@ public class DescendAction : StateAction
     private Protagonist protagonistScript;
 
     private float verticalMovement;
-    private const float GRAVITY_MULTIPLIER = 5f;
-    private const float MAX_FALL_SPEED = -50f;
-    private const float MAX_RISE_SPEED = 100f;
 
     public override void Awake(StateMachine.StateMachine stateMachine)
     {
@@ -33,11 +30,12 @@ public class DescendAction : StateAction
 
     public override void OnUpdate()
     {
-        verticalMovement += Physics.gravity.y * GRAVITY_MULTIPLIER * Time.deltaTime;
+        //Note that deltaTime is used even though it's going to be used in ApplyMovementVectorAction, this is because it represents an acceleration, not a speed
+        verticalMovement += Physics.gravity.y * Protagonist.GRAVITY_MULTIPLIER * Time.deltaTime;
         //Note that even if it's added, the above value is negative due to Physics.gravity.y
 
         //Cap the maximum so the player doesn't reach incredible speeds when freefalling from high positions
-        verticalMovement = Mathf.Clamp(verticalMovement, MAX_FALL_SPEED, MAX_RISE_SPEED);
+        verticalMovement = Mathf.Clamp(verticalMovement, Protagonist.MAX_FALL_SPEED, Protagonist.MAX_RISE_SPEED);
 
         protagonistScript.movementVector.y = verticalMovement;
     }

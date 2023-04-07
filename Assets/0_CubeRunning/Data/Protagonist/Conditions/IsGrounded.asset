@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e3d3a2cbed948a1a23e8c01141d3225, type: 3}
   m_Name: IsGrounded
   m_EditorClassIdentifier: 
-  cacheResult: 1
+  cacheResult: 0

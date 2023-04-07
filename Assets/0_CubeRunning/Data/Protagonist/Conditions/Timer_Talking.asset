@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7150ab3052f6427b89721fc900f337ed, type: 3}
   m_Name: Timer_Talking
   m_EditorClassIdentifier: 
-  cacheResult: 1
+  cacheResult: 0
   timerLength: 3

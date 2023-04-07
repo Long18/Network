@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Photon.Pun;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Protagonist : MonoBehaviour
@@ -10,7 +7,8 @@ public class Protagonist : MonoBehaviour
     [SerializeField] private InputReaderSO inputReader = default;
 
     [SerializeField] private TransformAnchor gameplayCameraTransform = default;
-    // public Transform gameplayCamera;
+
+    [SerializeField] private PhotonView view = default;
 
     private Vector2 inputVector;
     private float previousSpeed;
@@ -31,7 +29,6 @@ public class Protagonist : MonoBehaviour
     public const float GRAVITY_DIVIDER = .6f;
     public const float AIR_RESISTANCE = 5f;
 
-    [SerializeField] private PhotonView view;
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
@@ -40,9 +37,9 @@ public class Protagonist : MonoBehaviour
 
     private void OnEnable()
     {
+        inputReader.MoveEvent += OnMove;
         inputReader.JumpEvent += OnJumpInitiated;
         inputReader.JumpCanceledEvent += OnJumpCanceled;
-        inputReader.MoveEvent += OnMove;
         inputReader.StartedRunning += OnStartedRunning;
         inputReader.StoppedRunning += OnStoppedRunning;
         inputReader.ClimbEvent += OnClimbingInitiated;
@@ -51,9 +48,9 @@ public class Protagonist : MonoBehaviour
 
     private void OnDisable()
     {
+        inputReader.MoveEvent -= OnMove;
         inputReader.JumpEvent -= OnJumpInitiated;
         inputReader.JumpCanceledEvent -= OnJumpCanceled;
-        inputReader.MoveEvent -= OnMove;
         inputReader.StoppedRunning -= OnStoppedRunning;
         inputReader.StartedRunning -= OnStartedRunning;
         inputReader.ClimbEvent -= OnClimbingInitiated;
@@ -62,10 +59,14 @@ public class Protagonist : MonoBehaviour
 
     private void Update()
     {
+#if UNITY_EDITOR
+        RecalculateMovement();
+#else
         if (view.IsMine)
         {
             RecalculateMovement();
         }
+#endif
     }
 
     private void RecalculateMovement()
@@ -117,10 +118,7 @@ public class Protagonist : MonoBehaviour
     }
 
 
-    private void OnMove(Vector2 movement)
-    {
-        inputVector = movement;
-    }
+    private void OnMove(Vector2 movement) => inputVector = movement;
 
     private void OnJumpInitiated() => jumpInput = true;
 

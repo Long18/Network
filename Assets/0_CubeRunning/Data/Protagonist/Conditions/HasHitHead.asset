@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bba4a216a21c487884c73dc199090c2f, type: 3}
   m_Name: HasHitHead
   m_EditorClassIdentifier: 
-  cacheResult: 1
+  cacheResult: 0

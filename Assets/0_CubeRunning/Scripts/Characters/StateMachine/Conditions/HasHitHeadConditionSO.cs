@@ -26,11 +26,7 @@ public class HasHitHeadCondition : Condition
         bool isMovingUpwards = protagonistScript.movementVector.y > 0f;
         if (isMovingUpwards)
         {
-            // Making sure the collision is near the top of the head
-            float permittedDistance = characterController.radius / 2f;
-            float topPositionY = transform.position.y + characterController.height;
-            float distance = Mathf.Abs(protagonistScript.lastHit.point.y - topPositionY);
-            if (distance <= permittedDistance)
+            if (characterController.collisionFlags == CollisionFlags.Above)
             {
                 protagonistScript.jumpInput = false;
                 protagonistScript.movementVector.y = 0f;

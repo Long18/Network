@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb1415676198405884dab8ffdb863462, type: 3}
+  m_Script: {fileID: 11500000, guid: eea2fd0bf362470299dc7f55f9984b70, type: 3}
   m_Name: IsHoldingJump
   m_EditorClassIdentifier: 
-  cacheResult: 1
+  cacheResult: 0

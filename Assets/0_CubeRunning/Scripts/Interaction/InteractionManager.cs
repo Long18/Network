@@ -20,7 +20,7 @@ public class InteractionManager : MonoBehaviour
     [Header("Broadcasting on")] [SerializeField]
     private ItemEventChannelSO _onObjectPickUp = default;
 
-    [SerializeField] private VoidEventChannelSO _onCookingStart = default;
+    // [SerializeField] private VoidEventChannelSO _onCookingStart = default;
     // [SerializeField] private DialogueActorChannelSO _startTalking = default;
     // [SerializeField] private InteractionUIEventChannelSO _toggleInteractionUI = default;
 
@@ -75,14 +75,14 @@ public class InteractionManager : MonoBehaviour
 
         switch (_potentialInteractions.First.Value.type)
         {
-            case InteractionType.Cook:
-                if (_onCookingStart != null)
-                {
-                    _onCookingStart.RaiseEvent();
-                    inputReader.EnableMenuInput();
-                }
-
-                break;
+            // case InteractionType.Cook:
+            //     if (_onCookingStart != null)
+            //     {
+            //         _onCookingStart.RaiseEvent();
+            //         inputReader.EnableMenuInput();
+            //     }
+            //
+            //     break;
 
             // case InteractionType.Talk:
             // 	if (_startTalking != null)
