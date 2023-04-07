@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0ac96002b175d34e9a544aeff72ced7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InputReaderSO: {fileID: 11400000, guid: 3e5c093a20096c7479b821fc43c36906, type: 2}
+  inputReaderSO: {fileID: 11400000, guid: 3e5c093a20096c7479b821fc43c36906, type: 2}
   playerTransformAnchor: {fileID: 11400000, guid: e45457649c1266d42be18a6dc1e9ef9d, type: 2}
   playerInstantiatedChannel: {fileID: 11400000, guid: db9d61c885e68e74682e0a9b1d8f0ebd, type: 2}
   pathTaken: {fileID: 11400000, guid: 00d426f8d06c4394597f3b4e319a958b, type: 2}

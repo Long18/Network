@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 public class SpawnSystem : MonoBehaviourPunCallbacks
 {
     [Header("Asset References")] [SerializeField]
-    private InputReaderSO InputReaderSO = default;
+    private InputReaderSO inputReaderSO = default;
 
     [SerializeField] private TransformAnchor playerTransformAnchor = default;
     [SerializeField] private TransformEventChannelSO playerInstantiatedChannel = default;
@@ -28,7 +28,6 @@ public class SpawnSystem : MonoBehaviourPunCallbacks
     public override void OnEnable()
     {
         onSceneReady.OnEventRaised += SpawnPlayer;
-        onSceneReady.RaiseEvent();
     }
 
     public override void OnDisable()
@@ -63,7 +62,7 @@ public class SpawnSystem : MonoBehaviourPunCallbacks
         playerInstantiatedChannel.RaiseEvent(player.transform);
         playerTransformAnchor.Provide(player.transform);
 
-        InputReaderSO.EnableGameplayInput();
+        inputReaderSO.EnableGameplayInput();
     }
 
     private Transform GetSpawnLocation()

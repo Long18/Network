@@ -24,8 +24,6 @@ public class EditorColdStartup : MonoBehaviour
 
     private void Awake()
     {
-        if (mainManagersSO == null) return;
-
         if (!SceneManager.GetSceneByName(mainManagersSO.scene.editorAsset.name).isLoaded)
         {
             isColdStart = true;

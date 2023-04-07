@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 6118f560e72ab79439f25da41e16f606
   m_SerializeEntries:
   - m_GUID: b9fe04ba28b3dbb4cad59827dd500802
-    m_Address: Scene_vi
+    m_Address: Scene names_vi
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-vi

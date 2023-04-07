@@ -761,7 +761,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputReader: {fileID: 11400000, guid: 3e5c093a20096c7479b821fc43c36906, type: 2}
   _onObjectPickUp: {fileID: 11400000, guid: 86a86d8306997cb48ba187b66a771052, type: 2}
-  _onCookingStart: {fileID: 0}
   _onInteractionEnded: {fileID: 11400000, guid: c6f879d2649eebe4a9aee036d860ed12, type: 2}
   currentInteractionType: 0
 --- !u!143 &6182268556711939683
@@ -866,6 +865,9 @@ MonoBehaviour:
   - Type: 3
     SynchronizeType: 1
     Name: RandomIdle
+  - Type: 1
+    SynchronizeType: 0
+    Name: MovingSpeed
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0

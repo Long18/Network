@@ -70,6 +70,9 @@ public class SceneLoader : MonoBehaviour
                 gameplayManagerSceneInstance = gameplayManagerLoadingOpHandle.Result;
                 StartGamePlay();
                 return;
+            default:
+                StartGamePlay();
+                return;
         }
     }
 

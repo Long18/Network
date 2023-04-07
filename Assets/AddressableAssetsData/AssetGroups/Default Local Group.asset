@@ -21,12 +21,12 @@ MonoBehaviour:
     m_Address: Data
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 063818530dcd0f74eb05d14344290e6e
-    m_Address: PersistentManagers
+  - m_GUID: b6e773cd9b19d43489fafbadd245c445
+    m_Address: Locations
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 9fc0d4010bbf28b4594072e72b8655ab
-    m_Address: Ground
+  - m_GUID: 7a50d5330cceec14d8d2316be4a45b98
+    m_Address: Managers
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

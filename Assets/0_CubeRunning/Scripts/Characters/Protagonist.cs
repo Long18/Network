@@ -118,7 +118,10 @@ public class Protagonist : MonoBehaviour
     }
 
 
-    private void OnMove(Vector2 movement) => inputVector = movement;
+    private void OnMove(Vector2 movement)
+    {
+        inputVector = movement;
+    }
 
     private void OnJumpInitiated() => jumpInput = true;
 
