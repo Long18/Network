@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -90,7 +89,7 @@ public class SaveSystem : ScriptableObject
         {
             if (FileManager.WriteToFile(saveFilename, saveData.ToJson()))
             {
-                //Debug.Log("Save successful " + saveFilename);
+                Debug.Log("Save successful " + saveFilename);
             }
         }
     }
