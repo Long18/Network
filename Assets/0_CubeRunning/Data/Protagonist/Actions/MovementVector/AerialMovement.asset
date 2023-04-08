@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: Computes the xz components of the Protagonist's movementVector in
     the air
-  speed: 2
+  speed: 4
   acceleration: 30

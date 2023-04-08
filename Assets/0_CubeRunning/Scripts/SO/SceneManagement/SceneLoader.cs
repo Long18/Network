@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -94,6 +96,7 @@ public class SceneLoader : MonoBehaviour
         if (gameplayManagerSceneInstance.Scene == null || !gameplayManagerSceneInstance.Scene.isLoaded)
             gameplayManagerLoadingOpHandle =
                 Addressables.LoadSceneAsync(locationToLoad.scene, LoadSceneMode.Additive, true);
+
         gameplayManagerLoadingOpHandle.Completed += OnGameplayManagerLoaded;
 
         StartCoroutine(UnloadPreviousScene());
@@ -103,6 +106,7 @@ public class SceneLoader : MonoBehaviour
     {
         gameplayManagerSceneInstance = gameplayManagerLoadingOpHandle.Result;
         StartCoroutine(UnloadPreviousScene());
+        StartGamePlay();
     }
 
     /// <summary>

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.AddressableAssets;
@@ -11,7 +13,7 @@ using UnityEngine.ResourceManagement.ResourceProviders;
 /// This class is responsible for starting the game by loading the persistent managers scene
 /// and raising the event to load the Main Scene
 /// </summary>
-public class InitializationLoader : MonoBehaviour
+public class InitializationLoader : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameSceneSO managersScene = default;
     [SerializeField] private GameSceneSO sceneToLoad = default;
@@ -21,7 +23,43 @@ public class InitializationLoader : MonoBehaviour
 
     private LoadEventChannelSO requestLoadSceneEventChannel;
 
-    private void Awake() => LoadManagerScene();
+    private const string ROOM_NAME = "WILLIAM";
+
+    private void Start()
+    {
+        PhotonNetwork.ConnectUsingSettings();
+        Debug.Log("Connecting to master");
+    }
+
+    public override void OnConnectedToMaster()
+    {
+        Debug.Log("Connected to master");
+        PhotonNetwork.JoinLobby();
+    }
+
+    public override void OnJoinedLobby()
+    {
+        Debug.Log("Joined lobby");
+        JoinRoom(ROOM_NAME);
+    }
+
+    public override void OnJoinedRoom()
+    {
+        Debug.Log("Joined room");
+        LoadManagerScene();
+    }
+
+
+    private void JoinRoom(string roomName)
+    {
+        var roomOptions = new RoomOptions
+        {
+            MaxPlayers = 4,
+            CleanupCacheOnLeave = true,
+            IsOpen = true,
+        };
+        PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
+    }
 
     #region Class Methods
 
@@ -30,6 +68,7 @@ public class InitializationLoader : MonoBehaviour
     /// </summary>
     private void LoadManagerScene() =>
         Addressables.LoadSceneAsync(managersScene.scene, LoadSceneMode.Additive).Completed += OnManagerSceneLoaded;
+        
 
     private void OnManagerSceneLoaded(AsyncOperationHandle<SceneInstance> obj) => StartCoroutine(DownloadScene());
 
@@ -46,7 +85,7 @@ public class InitializationLoader : MonoBehaviour
             var status = handle.GetDownloadStatus();
             float progress = status.Percent;
 #if UNITY_EDITOR
-            Debug.Log($"Download progress: {progress}");
+            Debug.Log($"[InitializationLoader] Download progress: {progress}");
 #endif
             yield return null;
         }

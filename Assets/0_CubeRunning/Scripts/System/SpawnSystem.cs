@@ -3,7 +3,7 @@ using Photon.Pun;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class SpawnSystem : MonoBehaviourPunCallbacks
+public class SpawnSystem : MonoBehaviour
 {
     [Header("Asset References")] [SerializeField]
     private InputReaderSO inputReaderSO = default;
@@ -25,12 +25,12 @@ public class SpawnSystem : MonoBehaviourPunCallbacks
         defaultSpawnPoint = transform.GetChild(0);
     }
 
-    public override void OnEnable()
+    public void OnEnable()
     {
         onSceneReady.OnEventRaised += SpawnPlayer;
     }
 
-    public override void OnDisable()
+    public void OnDisable()
     {
         onSceneReady.OnEventRaised -= SpawnPlayer;
         playerTransformAnchor.Unset();
@@ -39,7 +39,6 @@ public class SpawnSystem : MonoBehaviourPunCallbacks
 
     private void SpawnPlayer()
     {
-        Debug.Log($"[Photon] Spawn player");
         Transform spawnLocation = GetSpawnLocation();
 
         // for each player, i want random spawn location around 10m radius
@@ -55,7 +54,7 @@ public class SpawnSystem : MonoBehaviourPunCallbacks
             Instantiate(Resources.Load("Player/Player"), spawnLocation.position, spawnLocation.rotation) as GameObject;
 #else
         // Multiplayer
-        player = PhotonNetwork.Instantiate("Player/Player", spawnLocation.position, spawnLocation.rotation);
+         player = PhotonNetwork.Instantiate("Player/Player", spawnLocation.position, spawnLocation.rotation);
 #endif
 
 

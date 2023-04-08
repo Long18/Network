@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: MoveOnTheGround
   m_EditorClassIdentifier: 
   description: Sets the xz components of the Protagonist's movementVector
-  speed: 8
+  speed: 18

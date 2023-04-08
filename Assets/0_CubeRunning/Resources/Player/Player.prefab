@@ -668,9 +668,9 @@ GameObject:
   - component: {fileID: 4325078152821789685}
   - component: {fileID: 6182268556711939683}
   - component: {fileID: 6182268556711939685}
-  - component: {fileID: 2320925800223746899}
-  - component: {fileID: 5325145530387591987}
-  - component: {fileID: 5023068885620191802}
+  - component: {fileID: 2801573890315081739}
+  - component: {fileID: 2546458367321568119}
+  - component: {fileID: 426898216881264126}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -746,7 +746,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputReader: {fileID: 11400000, guid: 3e5c093a20096c7479b821fc43c36906, type: 2}
   gameplayCameraTransform: {fileID: 11400000, guid: ef8fc9719e261454dae7f15197414911, type: 2}
-  view: {fileID: 2320925800223746899}
+  view: {fileID: 2801573890315081739}
 --- !u!114 &4325078152821789685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -801,7 +801,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
---- !u!114 &2320925800223746899
+--- !u!114 &2801573890315081739
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -820,12 +820,12 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 5325145530387591987}
-  - {fileID: 5023068885620191802}
+  - {fileID: 2546458367321568119}
+  - {fileID: 426898216881264126}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &5325145530387591987
+--- !u!114 &2546458367321568119
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -841,7 +841,7 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &5023068885620191802
+--- !u!114 &426898216881264126
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -854,7 +854,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowLayerWeightsInspector: 1
-  ShowParameterInspector: 1
+  ShowParameterInspector: 0
   m_SynchronizeParameters:
   - Type: 4
     SynchronizeType: 1
@@ -862,12 +862,21 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 1
     Name: IsJumping
+  - Type: 4
+    SynchronizeType: 1
+    Name: HasFainted
+  - Type: 4
+    SynchronizeType: 1
+    Name: IsAttacking
   - Type: 3
     SynchronizeType: 1
     Name: RandomIdle
   - Type: 1
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: MovingSpeed
+  - Type: 9
+    SynchronizeType: 1
+    Name: ReceiveHit
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
