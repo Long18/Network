@@ -1,5 +1,5 @@
 {
-    "m_SGVersion": 2,
+    "m_SGVersion": 3,
     "m_Type": "UnityEditor.ShaderGraph.GraphData",
     "m_ObjectId": "ff59228f5ea84f38b4e1068ce61177b9",
     "m_Properties": [
@@ -20,6 +20,12 @@
         }
     ],
     "m_Keywords": [],
+    "m_Dropdowns": [],
+    "m_CategoryData": [
+        {
+            "m_Id": "60cf313e4e4f48478d4ba949c58586d7"
+        }
+    ],
     "m_Nodes": [
         {
             "m_Id": "1d6ad99f65dc0a8abd979904a3ce0b97"
@@ -486,10 +492,11 @@
         "serializedMesh": {
             "m_SerializedMesh": "{\"mesh\":{\"instanceID\":0}}",
             "m_Guid": ""
-        }
+        },
+        "preventRotation": false
     },
-    "m_Path": "UOP1",
-    "m_ConcretePrecision": 0,
+    "m_Path": "William",
+    "m_GraphPrecision": 0,
     "m_PreviewMode": 2,
     "m_OutputNode": {
         "m_Id": ""
@@ -545,7 +552,9 @@
     "m_PropertyIds": [
         -278684623,
         -1979614210
-    ]
+    ],
+    "m_Dropdowns": [],
+    "m_DropdownSelectedEntries": []
 }
 
 {
@@ -1167,9 +1176,13 @@
         "m_GuidSerialized": "124550dc-d814-4065-9fdb-f3776d4409b8"
     },
     "m_Name": "Fresnel Opacity",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector1_D343CE33",
     "m_OverrideReferenceName": "_FresnelOpacity",
     "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
@@ -1395,9 +1408,13 @@
         "m_GuidSerialized": "0a794557-a382-46bf-be39-bc0e3f31bb72"
     },
     "m_Name": "Shadow Intensity",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector1_398E6F7F",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
@@ -1743,6 +1760,30 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.CategoryData",
+    "m_ObjectId": "60cf313e4e4f48478d4ba949c58586d7",
+    "m_Name": "",
+    "m_ChildObjectList": [
+        {
+            "m_Id": "78216ea6b0ab3f8cbb741a1eb7b6632a"
+        },
+        {
+            "m_Id": "47831c6426ef5483bdbbed156239a245"
+        },
+        {
+            "m_Id": "b4eef89a37ee2b85924b00c19e6c8fd2"
+        },
+        {
+            "m_Id": "361c683cd50bff85a242af2b3a09afd1"
+        },
+        {
+            "m_Id": "c8534a7359384f88acfd0c5a12e538a9"
+        }
+    ]
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "6472441ddab9778b97f3a52c09bcadc1",
     "m_Id": 2,
@@ -1892,9 +1933,13 @@
         "m_GuidSerialized": "2beb14d2-ca26-4a8b-a15f-3fa298d40c55"
     },
     "m_Name": "Glass Color",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Color_9BF846A1",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
@@ -1905,6 +1950,7 @@
         "b": 0.7961738705635071,
         "a": 0.2705882489681244
     },
+    "isMainColor": false,
     "m_ColorMode": 0
 }
 
@@ -2196,17 +2242,23 @@
 }
 
 {
-    "m_SGVersion": 0,
+    "m_SGVersion": 1,
     "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalTarget",
     "m_ObjectId": "991f442dae8a47fea7f2adb82f58b13f",
     "m_ActiveSubTarget": {
         "m_Id": "649b4035c28f461597689f13dd136e67"
     },
+    "m_AllowMaterialOverride": false,
     "m_SurfaceType": 1,
+    "m_ZTestMode": 4,
+    "m_ZWriteControl": 0,
     "m_AlphaMode": 0,
-    "m_TwoSided": false,
+    "m_RenderFace": 2,
     "m_AlphaClip": false,
-    "m_CustomEditorGUI": ""
+    "m_CastShadows": true,
+    "m_ReceiveShadows": true,
+    "m_CustomEditorGUI": "",
+    "m_SupportVFX": false
 }
 
 {
@@ -2500,9 +2552,13 @@
         "m_GuidSerialized": "39d95b1c-3757-434c-ae08-64f95e34f02e"
     },
     "m_Name": "Fresnel Power",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector1_CDB04883",
     "m_OverrideReferenceName": "_Fresnel_Power",
     "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
@@ -2638,9 +2694,13 @@
         "m_GuidSerialized": "e103d030-5a20-4d10-b0a6-e884f1cfb9fb"
     },
     "m_Name": "Smoothness",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector1_22C592E3",
     "m_OverrideReferenceName": "_Smoothness",
     "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,

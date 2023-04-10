@@ -18,10 +18,16 @@ MonoBehaviour:
   m_GUID: 6118f560e72ab79439f25da41e16f606
   m_SerializeEntries:
   - m_GUID: b9fe04ba28b3dbb4cad59827dd500802
-    m_Address: Scene names_vi
+    m_Address: UI_vi
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-vi
+  - m_GUID: 21bbb98dc5251eb428cff7401d65b963
+    m_Address: UI Misc_vi
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-vi
+    - Preload
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 1a6cd8cbff797c5479af27ca030bdf9b, type: 2}
   m_SchemaSet:

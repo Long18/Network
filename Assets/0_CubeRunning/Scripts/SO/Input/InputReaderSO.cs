@@ -238,6 +238,7 @@ public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, Game
 
     public void OnCloseInventory(InputAction.CallbackContext context) => CloseInventoryEvent.Invoke();
 
+    public bool LeftMouseDown() => Mouse.current.leftButton.isPressed;
 
     public void EnableGameplayInput()
     {

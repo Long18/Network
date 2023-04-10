@@ -2,6 +2,8 @@ using System;
 using Photon.Pun;
 using UnityEngine;
 
+// ReSharper disable All
+
 public class Protagonist : MonoBehaviour
 {
     [SerializeField] private InputReaderSO inputReader = default;
@@ -30,10 +32,7 @@ public class Protagonist : MonoBehaviour
     public const float AIR_RESISTANCE = 5f;
 
 
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        lastHit = hit;
-    }
+    private void OnControllerColliderHit(ControllerColliderHit hit) => lastHit = hit;
 
     private void OnEnable()
     {
@@ -63,7 +62,9 @@ public class Protagonist : MonoBehaviour
 
     private void RecalculateMovement()
     {
+#if !UNITY_EDITOR
         if (!view.IsMine) return;
+#endif
 
         float targetSpeed;
         Vector3 adjustedMovement;

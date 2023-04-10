@@ -27,7 +27,11 @@ public class InitializationLoader : MonoBehaviourPunCallbacks
 
     private void Start()
     {
+#if UNITY_EDITOR
+        LoadManagerScene();
+#else
         PhotonNetwork.ConnectUsingSettings();
+#endif
         Debug.Log("Connecting to master");
     }
 
@@ -68,7 +72,7 @@ public class InitializationLoader : MonoBehaviourPunCallbacks
     /// </summary>
     private void LoadManagerScene() =>
         Addressables.LoadSceneAsync(managersScene.scene, LoadSceneMode.Additive).Completed += OnManagerSceneLoaded;
-        
+
 
     private void OnManagerSceneLoaded(AsyncOperationHandle<SceneInstance> obj) => StartCoroutine(DownloadScene());
 

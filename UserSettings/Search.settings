@@ -9,7 +9,7 @@ showStatusBar = false
 scopes = {
 	"last_search.B655092D" = "st:"
 	"OpenInspectorPreview.B655092D" = "0"
-	"currentGroup.B655092D" = "st"
+	"currentGroup.B655092D" = "all"
 }
 providers = {
 	at = {
