@@ -22,7 +22,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: SwirlBush
   m_Shader: {fileID: -6465566751694194690, guid: 7fdaae2b9572343449616bd7b38bce5a, type: 3}
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - HAS_WIND_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -83,7 +84,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - HAS_WIND: 0
+    - HAS_WIND: 1
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -101,6 +102,7 @@ Material:
     - _OutlineDepthSensitivity: 0
     - _OutlineNormalsSensitivity: 0
     - _OutlineThickness: 0
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Smoothness: 1
@@ -108,7 +110,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _Wind_Density: 0.1
+    - _Wind_Density: 2
     - _Wind_Direction: 0
     - _Wind_Speed: 3
     - _Wind_Strength: 0.3

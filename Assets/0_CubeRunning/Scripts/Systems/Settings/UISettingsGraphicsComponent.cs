@@ -314,7 +314,7 @@ public class UISettingsGraphicsComponent : MonoBehaviour
 
     private int GetCurrentAntialiasing()
     {
-        return uRPAsset.msaaSampleCount - 1;
+        return uRPAsset.msaaSampleCount;
     }
 
     private void NextAntiAliasingTier()

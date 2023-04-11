@@ -6,8 +6,9 @@ using UnityEngine;
 public class UIMenuManager : MonoBehaviour
 {
     [SerializeField] private UIConfirmation confirmationPanel = default;
-    [SerializeField] private UIMainMenu mainMenuPanel = default;
     [SerializeField] private UISettingsController settingsPanel = default;
+    [SerializeField] private UICredits creditsPanel = default;
+    [SerializeField] private UIMainMenu mainMenuPanel = default;
 
     [SerializeField] private SaveSystem saveSystem = default;
 
@@ -95,16 +96,15 @@ public class UIMenuManager : MonoBehaviour
 
     private void OpenCreditsScreen()
     {
-        // TODO: Set active credits panel
+        creditsPanel.gameObject.SetActive(true);
 
-        // TODO: Listen to close button
+        creditsPanel.OnCloseCredits += CloseCreditsScreen;
     }
 
     private void CloseCreditsScreen()
     {
-        // TODO: Unlisten to close button
-
-        // TODO: Set active false
+        creditsPanel.OnCloseCredits -= CloseCreditsScreen;
+        creditsPanel.gameObject.SetActive(false);
 
         mainMenuPanel.SetMenuScreen(hasSaveData);
     }

@@ -47,10 +47,8 @@ public class UISettingsController : MonoBehaviour
     [SerializeField, ReadOnly] private SettingsType currentSelectedTab = SettingsType.Language;
 
     [SerializeField] private UISettingsLanguageComponent languageComponent;
-
     [SerializeField] private UISettingsGraphicsComponent graphicComponent;
-
-    // [SerializeField] private UISettingsAudioComponent audioComponent;
+    [SerializeField] private UISettingsAudioComponent audioComponent;
     [SerializeField] private UISettingsTabsFiller settingTabFiller = default;
     [SerializeField] private SettingsSO currentSettings = default;
     [SerializeField] private List<SettingsType> settingTabsList = new();
@@ -62,7 +60,7 @@ public class UISettingsController : MonoBehaviour
     private void OnEnable()
     {
         languageComponent.Save += SaveLaguageSettings;
-        // audioComponent.Save += SaveAudioSettings;
+        audioComponent.Save += SaveAudioSettings;
         graphicComponent.Save += SaveGraphicsSettings;
 
         inputReader.MenuCloseEvent += CloseScreen;
@@ -80,7 +78,7 @@ public class UISettingsController : MonoBehaviour
         inputReader.TabSwitchedEvent -= TabSwitched;
 
         languageComponent.Save -= SaveLaguageSettings;
-        // audioComponent.Save -= SaveAudioSettings;
+        audioComponent.Save -= SaveAudioSettings;
         graphicComponent.Save -= SaveGraphicsSettings;
     }
 
@@ -99,15 +97,15 @@ public class UISettingsController : MonoBehaviour
                 graphicComponent.Setup();
                 break;
             case SettingsType.Audio:
-                // audioComponent.Setup(currentSettings.MusicVolume, currentSettings.SfxVolume,
-                //     currentSettings.MasterVolume);
+                audioComponent.Setup(currentSettings.MusicVolume, currentSettings.SfxVolume,
+                    currentSettings.MasterVolume);
                 break;
             default:
                 break;
         }
 
         languageComponent.gameObject.SetActive(settingsType == SettingsType.Language);
-        // audioComponent.gameObject.SetActive(settingsType == SettingsType.Audio);
+        audioComponent.gameObject.SetActive(settingsType == SettingsType.Audio);
         graphicComponent.gameObject.SetActive(settingsType == SettingsType.Graphics);
         settingTabFiller.SelectTab(settingsType);
     }
@@ -121,10 +119,8 @@ public class UISettingsController : MonoBehaviour
 
         if (index == -1) return;
 
-        if (isLeft)
-            index--;
-        else
-            index++;
+        if (isLeft) index--;
+        else index++;
 
         index = Mathf.Clamp(index, 0, settingTabsList.Count - 1);
 
