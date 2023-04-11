@@ -221,6 +221,10 @@ MonoBehaviour:
     m_Localized: Music Volume
     m_Metadata:
       m_Items: []
+  - m_Id: 326065012174848
+    m_Localized: Fullscreen
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

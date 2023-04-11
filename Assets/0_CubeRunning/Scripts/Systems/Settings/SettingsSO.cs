@@ -1,52 +1,61 @@
 using UnityEngine;
 using UnityEngine.Localization;
-[CreateAssetMenu(fileName = "Settings", menuName = "Settings/Create new settings SO")]
+using UnityEngine.Serialization;
 
+[CreateAssetMenu(fileName = "Settings", menuName = "Settings/Create new settings SO")]
 public class SettingsSO : ScriptableObject
 {
-	[SerializeField] float _masterVolume = default;
-	[SerializeField] float _musicVolume = default;
-	[SerializeField] float _sfxVolume = default;
-	[SerializeField] int _resolutionsIndex = default;
-	[SerializeField] int _antiAliasingIndex = default;
-	[SerializeField] float _shadowDistance = default;
-	[SerializeField] bool _isFullscreen = default;
-	[SerializeField] Locale _currentLocale = default;
-	public float MasterVolume => _masterVolume;
-	public float MusicVolume => _musicVolume;
-	public float SfxVolume => _sfxVolume;
-	public int ResolutionsIndex => _resolutionsIndex;
-	public int AntiAliasingIndex => _antiAliasingIndex;
-	public float ShadowDistance => _shadowDistance;
-	public bool IsFullscreen => _isFullscreen;
-	public Locale CurrentLocale => _currentLocale;
-	public void SaveAudioSettings(float newMusicVolume, float newSfxVolume, float newMasterVolume)
-	{
-		_masterVolume = newMasterVolume;
-		_musicVolume = newMusicVolume;
-		_sfxVolume = newSfxVolume;
-	}
-	public void SaveGraphicsSettings(int newResolutionsIndex, int newAntiAliasingIndex, float newShadowDistance, bool fullscreenState)
-	{
-		_resolutionsIndex = newResolutionsIndex;
-		_antiAliasingIndex = newAntiAliasingIndex;
-		_shadowDistance = newShadowDistance;
-		_isFullscreen = fullscreenState;
-	}
-	public void SaveLanguageSettings(Locale local)
-	{
-		_currentLocale = local;
-	}
-	public SettingsSO() { }
-	public void LoadSavedSettings(Save savedFile)
-	{
-		_masterVolume = savedFile._masterVolume;
-		_musicVolume = savedFile._musicVolume;
-		_sfxVolume = savedFile._sfxVolume;
-		_resolutionsIndex = savedFile._resolutionsIndex;
-		_antiAliasingIndex = savedFile._antiAliasingIndex;
-		_shadowDistance = savedFile._shadowDistance;
-		_isFullscreen = savedFile._isFullscreen;
-		_currentLocale = savedFile._currentLocale;
-	}
+    [SerializeField] float masterVolume = default;
+    [SerializeField] float musicVolume = default;
+    [SerializeField] float sfxVolume = default;
+    [SerializeField] int resolutionsIndex = default;
+    [SerializeField] int antiAliasingIndex = default;
+    [SerializeField] float shadowDistance = default;
+    [SerializeField] bool isFullscreen = default;
+    [SerializeField] Locale currentLocale = default;
+    public float MasterVolume => masterVolume;
+    public float MusicVolume => musicVolume;
+    public float SfxVolume => sfxVolume;
+    public int ResolutionsIndex => resolutionsIndex;
+    public int AntiAliasingIndex => antiAliasingIndex;
+    public float ShadowDistance => shadowDistance;
+    public bool IsFullscreen => isFullscreen;
+    public Locale CurrentLocale => currentLocale;
+
+    public void SaveAudioSettings(float newMusicVolume, float newSfxVolume, float newMasterVolume)
+    {
+        masterVolume = newMasterVolume;
+        musicVolume = newMusicVolume;
+        sfxVolume = newSfxVolume;
+    }
+
+    public void SaveGraphicsSettings(int newResolutionsIndex, int newAntiAliasingIndex, float newShadowDistance,
+        bool fullscreenState)
+    {
+        resolutionsIndex = newResolutionsIndex;
+        antiAliasingIndex = newAntiAliasingIndex;
+        shadowDistance = newShadowDistance;
+        isFullscreen = fullscreenState;
+    }
+
+    public void SaveLanguageSettings(Locale local)
+    {
+        currentLocale = local;
+    }
+
+    public SettingsSO()
+    {
+    }
+
+    public void LoadSavedSettings(Save savedFile)
+    {
+        masterVolume = savedFile._masterVolume;
+        musicVolume = savedFile._musicVolume;
+        sfxVolume = savedFile._sfxVolume;
+        resolutionsIndex = savedFile._resolutionsIndex;
+        antiAliasingIndex = savedFile._antiAliasingIndex;
+        shadowDistance = savedFile._shadowDistance;
+        isFullscreen = savedFile._isFullscreen;
+        currentLocale = savedFile._currentLocale;
+    }
 }

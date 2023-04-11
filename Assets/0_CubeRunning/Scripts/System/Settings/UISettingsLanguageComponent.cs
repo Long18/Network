@@ -68,7 +68,7 @@ public class UISettingsLanguageComponent : MonoBehaviour
             languagesList.Add(displayName);
         }
 
-        languageFillter.FillSettingsFiled(languagesList.Count, currentSelectedOption,
+        languageFillter.FillSettings(languagesList.Count, currentSelectedOption,
             languagesList[currentSelectedOption]);
         savedSelectedOption = currentSelectedOption;
         LocalizationSettings.SelectedLocaleChanged += LocalizationSettings_SelectedLocaleChanged;
@@ -103,7 +103,7 @@ public class UISettingsLanguageComponent : MonoBehaviour
     private void LocalizationSettings_SelectedLocaleChanged(Locale locale)
     {
         var selectedIndex = LocalizationSettings.AvailableLocales.Locales.IndexOf(locale);
-        languageFillter.FillSettingsFiled(languagesList.Count, selectedIndex, languagesList[selectedIndex]);
+        languageFillter.FillSettings(languagesList.Count, selectedIndex, languagesList[selectedIndex]);
     }
 
     public void SaveSettings()

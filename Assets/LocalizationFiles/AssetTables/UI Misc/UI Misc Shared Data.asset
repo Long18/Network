@@ -211,12 +211,12 @@ MonoBehaviour:
     m_Key: Shadow
     m_Metadata:
       m_Items: []
-  - m_Id: 2383727390720
-    m_Key: New Entry
-    m_Metadata:
-      m_Items: []
   - m_Id: 2390027235328
     m_Key: Music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 326065012174848
+    m_Key: FullScreen
     m_Metadata:
       m_Items: []
   m_Metadata:

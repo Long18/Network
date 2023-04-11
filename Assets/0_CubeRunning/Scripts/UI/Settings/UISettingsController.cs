@@ -48,7 +48,8 @@ public class UISettingsController : MonoBehaviour
 
     [SerializeField] private UISettingsLanguageComponent languageComponent;
 
-    // [SerializeField] private UISettingsGraphicsComponent graphicsComponent;
+    [SerializeField] private UISettingsGraphicsComponent graphicComponent;
+
     // [SerializeField] private UISettingsAudioComponent audioComponent;
     [SerializeField] private UISettingsTabsFiller settingTabFiller = default;
     [SerializeField] private SettingsSO currentSettings = default;
@@ -62,7 +63,7 @@ public class UISettingsController : MonoBehaviour
     {
         languageComponent.Save += SaveLaguageSettings;
         // audioComponent.Save += SaveAudioSettings;
-        // graphicsComponent.Save += SaveGraphicsSettings;
+        graphicComponent.Save += SaveGraphicsSettings;
 
         inputReader.MenuCloseEvent += CloseScreen;
         inputReader.TabSwitchedEvent += TabSwitched;
@@ -80,7 +81,7 @@ public class UISettingsController : MonoBehaviour
 
         languageComponent.Save -= SaveLaguageSettings;
         // audioComponent.Save -= SaveAudioSettings;
-        // graphicsComponent.Save -= SaveGraphicsSettings;
+        graphicComponent.Save -= SaveGraphicsSettings;
     }
 
     public void CloseScreen() => Closed?.Invoke();
@@ -95,7 +96,7 @@ public class UISettingsController : MonoBehaviour
                 currentSettings.SaveLanguageSettings(currentSettings.CurrentLocale);
                 break;
             case SettingsType.Graphics:
-                // graphicComponent.Setup();
+                graphicComponent.Setup();
                 break;
             case SettingsType.Audio:
                 // audioComponent.Setup(currentSettings.MusicVolume, currentSettings.SfxVolume,
@@ -107,7 +108,7 @@ public class UISettingsController : MonoBehaviour
 
         languageComponent.gameObject.SetActive(settingsType == SettingsType.Language);
         // audioComponent.gameObject.SetActive(settingsType == SettingsType.Audio);
-        // graphicComponent.gameObject.SetActive(settingsType == SettingsType.Graphics);
+        graphicComponent.gameObject.SetActive(settingsType == SettingsType.Graphics);
         settingTabFiller.SelectTab(settingsType);
     }
 

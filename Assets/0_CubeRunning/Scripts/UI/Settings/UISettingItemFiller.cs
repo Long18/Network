@@ -23,10 +23,11 @@ public class UISettingItemFiller : MonoBehaviour
     public event UnityAction OnNextOption = delegate { };
     public event UnityAction OnPreviousOption = delegate { };
 
-    public void FillSettingsFiled_Localized(int paginationCount, int selectedPaginationIndex, string selectedOption)
+    public void FillSettings_Localized(int paginationCount, int selectedPaginationIndex, string selectedOption)
     {
         pagination.SetPagination(paginationCount, selectedPaginationIndex);
         title.StringReference.TableEntryReference = fieldType.ToString();
+        currentSelectedOptionEvent.StringReference.TableEntryReference = fieldType + "_" + selectedOption;
 
         currentSelectedOptionEvent.enabled = true;
 
@@ -34,7 +35,7 @@ public class UISettingItemFiller : MonoBehaviour
         buttonPrevious.interactable = (selectedPaginationIndex > 0);
     }
 
-    public void FillSettingsFiled(int paginationCount, int selectedPaginationIndex, string selectedOption_int)
+    public void FillSettings(int paginationCount, int selectedPaginationIndex, string selectedOption_int)
     {
         pagination.SetPagination(paginationCount, selectedPaginationIndex);
         title.StringReference.TableEntryReference = fieldType.ToString();

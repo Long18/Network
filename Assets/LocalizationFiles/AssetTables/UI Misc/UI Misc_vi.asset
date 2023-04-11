@@ -186,6 +186,46 @@ MonoBehaviour:
     m_Localized: "\xC2m nh\u1EA1c"
     m_Metadata:
       m_Items: []
+  - m_Id: 1513421893632
+    m_Localized: Soft Shadows
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1553645268992
+    m_Localized: Disable Shadows
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1576445505536
+    m_Localized: 'Hard Shadows '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1651276083200
+    m_Localized: Optimal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1671962390528
+    m_Localized: Far
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1692204101632
+    m_Localized: Master Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1833891885056
+    m_Localized: Credits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2055531491328
+    m_Localized: Customization
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2341016793088
+    m_Localized: Anti Aliasing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 326065012174848
+    m_Localized: "To\xE0n m\xE0n h\xECnh"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
