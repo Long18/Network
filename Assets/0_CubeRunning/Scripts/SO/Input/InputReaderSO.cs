@@ -38,7 +38,7 @@ public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, Game
     public event UnityAction MenuCloseEvent = delegate { };
     public event UnityAction OpenInventoryEvent = delegate { }; // Used to bring up the inventory
     public event UnityAction CloseInventoryEvent = delegate { }; // Used to bring up the inventory
-    public event UnityAction<float> TabSwitched = delegate { };
+    public event UnityAction<float> TabSwitchedEvent = delegate { };
 
     private GameInput gameInput;
 
@@ -180,7 +180,7 @@ public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, Game
     public void OnChangeTab(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
-            TabSwitched.Invoke(context.ReadValue<float>());
+            TabSwitchedEvent.Invoke(context.ReadValue<float>());
     }
 
     public void OnInventoryActionButton(InputAction.CallbackContext context)

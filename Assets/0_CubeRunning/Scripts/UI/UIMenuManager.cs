@@ -7,6 +7,7 @@ public class UIMenuManager : MonoBehaviour
 {
     [SerializeField] private UIConfirmation confirmationPanel = default;
     [SerializeField] private UIMainMenu mainMenuPanel = default;
+    [SerializeField] private UISettingsController settingsPanel = default;
 
     [SerializeField] private SaveSystem saveSystem = default;
 
@@ -81,17 +82,14 @@ public class UIMenuManager : MonoBehaviour
 
     private void OpenSettingsScreen()
     {
-        // TODO: Set active setting panel 
-
-        // TODO: Listen to close button
+        settingsPanel.gameObject.SetActive(true);
+        settingsPanel.Closed += CloseSettingsScreen;
     }
 
     private void CloseSettingsScreen()
     {
-        // TODO: Unlisten to close button
-
-        // TODO: Set active false
-
+        settingsPanel.Closed -= CloseSettingsScreen;
+        settingsPanel.gameObject.SetActive(false);
         mainMenuPanel.SetMenuScreen(hasSaveData);
     }
 
