@@ -16,10 +16,9 @@ public enum ButtonType
 public enum ConfirmationType
 {
     None = 0,
-    NewSinglePlayerGame = 1,
-    NewMultiPlayerGame = 2,
-    BackToMenu = 3,
-    Quit = 4,
+    NewGame = 1,
+    BackToMenu = 2,
+    Quit = 3,
 }
 
 public class UIConfirmation : MonoBehaviour
@@ -54,8 +53,7 @@ public class UIConfirmation : MonoBehaviour
         string tableEntryReferenceCancel = ButtonType.Cancel + "_" + actualType;
         switch (actualType)
         {
-            case ConfirmationType.NewSinglePlayerGame:
-            case ConfirmationType.NewMultiPlayerGame:
+            case ConfirmationType.NewGame:
             case ConfirmationType.BackToMenu:
                 isConfirmation = true;
 
@@ -89,7 +87,7 @@ public class UIConfirmation : MonoBehaviour
             popupButton1.gameObject.SetActive(true);
             popupButton2.gameObject.SetActive(false);
 
-            popupButton1.Clicked += ConfirmButtonClicked;
+            popupButton2.Clicked += ConfirmButtonClicked;
         }
 
         buttonClose.gameObject.SetActive(hasExitButton);

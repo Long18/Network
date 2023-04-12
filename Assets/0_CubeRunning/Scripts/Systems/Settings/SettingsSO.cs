@@ -12,6 +12,7 @@ public class SettingsSO : ScriptableObject
     [SerializeField] int antiAliasingIndex = default;
     [SerializeField] float shadowDistance = default;
     [SerializeField] bool isFullscreen = default;
+    [SerializeField] bool isMultiplay = default;
     [SerializeField] Locale currentLocale = default;
     public float MasterVolume => masterVolume;
     public float MusicVolume => musicVolume;
@@ -20,6 +21,7 @@ public class SettingsSO : ScriptableObject
     public int AntiAliasingIndex => antiAliasingIndex;
     public float ShadowDistance => shadowDistance;
     public bool IsFullscreen => isFullscreen;
+    public bool IsMultiplay => isMultiplay;
     public Locale CurrentLocale => currentLocale;
 
     public void SaveAudioSettings(float newMusicVolume, float newSfxVolume, float newMasterVolume)
@@ -43,19 +45,25 @@ public class SettingsSO : ScriptableObject
         currentLocale = local;
     }
 
+    public void SaveGameMode(bool _isMultiplay)
+    {
+        isMultiplay = _isMultiplay;
+    }
+
     public SettingsSO()
     {
     }
 
     public void LoadSavedSettings(Save savedFile)
     {
-        masterVolume = savedFile._masterVolume;
-        musicVolume = savedFile._musicVolume;
-        sfxVolume = savedFile._sfxVolume;
-        resolutionsIndex = savedFile._resolutionsIndex;
-        antiAliasingIndex = savedFile._antiAliasingIndex;
-        shadowDistance = savedFile._shadowDistance;
-        isFullscreen = savedFile._isFullscreen;
-        currentLocale = savedFile._currentLocale;
+        masterVolume = savedFile.MasterVolume;
+        musicVolume = savedFile.MusicVolume;
+        sfxVolume = savedFile.SfxVolume;
+        resolutionsIndex = savedFile.ResolutionsIndex;
+        antiAliasingIndex = savedFile.AntiAliasingIndex;
+        shadowDistance = savedFile.ShadowDistance;
+        isFullscreen = savedFile.IsFullscreen;
+        isMultiplay = savedFile.IsMultiplay;
+        currentLocale = savedFile.CurrentLocale;
     }
 }

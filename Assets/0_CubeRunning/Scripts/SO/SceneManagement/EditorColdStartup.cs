@@ -40,15 +40,18 @@ public class EditorColdStartup : MonoBehaviour
         if (AddressableAssetSettingsDefaultObject.Settings.ActivePlayerDataBuilderIndex == 2) return;
 
         if (isColdStart)
+        {
             Addressables.LoadSceneAsync(mainManagersSO.scene, LoadSceneMode.Additive, true).Completed +=
                 LoadEventChannel;
+        }
+
         CreateSaveFileIfNotPresent();
     }
 
     private void CreateSaveFileIfNotPresent()
     {
-        if (saveSystem == null && saveSystem.LoadSaveDataFromDisk()) return;
-        saveSystem.SetNewGameData();
+        if (saveSystem != null && !saveSystem.LoadSaveDataFromDisk()) return;
+        // saveSystem.SetNewGameData();
     }
 
     private void LoadEventChannel(AsyncOperationHandle<SceneInstance> obj)

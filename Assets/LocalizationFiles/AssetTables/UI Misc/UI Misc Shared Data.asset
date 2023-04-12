@@ -219,6 +219,30 @@ MonoBehaviour:
     m_Key: FullScreen
     m_Metadata:
       m_Items: []
+  - m_Id: 367881933647872
+    m_Key: NewMultiPlayerGame_Popup_Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 368071633629184
+    m_Key: NewMultiPlayer_Popup_Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 368221403836416
+    m_Key: Cancel_NewMultiPlayerGame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 368377939456000
+    m_Key: Confirm_NewMultiPlayerGame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 370461267030016
+    m_Key: NewMultiPlayerGame_Popup_Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 373342556745728
+    m_Key: Confirm_NewGame
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

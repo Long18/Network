@@ -49,6 +49,7 @@ MonoBehaviour:
   playerTransformAnchor: {fileID: 11400000, guid: e45457649c1266d42be18a6dc1e9ef9d, type: 2}
   playerInstantiatedChannel: {fileID: 11400000, guid: db9d61c885e68e74682e0a9b1d8f0ebd, type: 2}
   pathTaken: {fileID: 11400000, guid: 00d426f8d06c4394597f3b4e319a958b, type: 2}
+  saveSystem: {fileID: 11400000, guid: 010ec05ebc106bc40bc6f83ecdaff109, type: 2}
   onSceneReady: {fileID: 11400000, guid: e0f0bc207d62f774eb8865efbe6df6e0, type: 2}
 --- !u!1 &2406445437428459531
 GameObject:

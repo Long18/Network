@@ -47,28 +47,28 @@ public class UIMenuManager : MonoBehaviour
         if (!hasSaveData)
             ConfirmStartNewSinglePlayerGame();
         else
-            ShowStartNewSinglePlayerGameConfirmationPopup();
+            ShowStartNewGameConfirmationPopup();
     }
 
     private void ConfirmStartNewSinglePlayerGame() => startNewSinglePlayerGameEvent.RaiseEvent();
 
     private void ButtonMultiPlayerClicked() => startNewMultiPlayerGameEvent.RaiseEvent();
 
-    private void ShowStartNewSinglePlayerGameConfirmationPopup()
+    private void ShowStartNewGameConfirmationPopup()
     {
-        confirmationPanel.ConfirmationResponseAction += StartNewSinglePlayerGameConfirmationResponse;
+        confirmationPanel.ConfirmationResponseAction += StartNewGameConfirmationResponse;
         confirmationPanel.ClosePanelAction += HideConfirmationPanel;
 
         confirmationPanel.gameObject.SetActive(true);
-        confirmationPanel.SetPanel(ConfirmationType.NewMultiPlayerGame);
+        confirmationPanel.SetPanel(ConfirmationType.NewGame);
     }
 
-    private void StartNewSinglePlayerGameConfirmationResponse(bool isNewSinglePlayerGameConfirmed)
+    private void StartNewGameConfirmationResponse(bool isNewGameConfirmed)
     {
-        confirmationPanel.ConfirmationResponseAction -= StartNewSinglePlayerGameConfirmationResponse;
+        confirmationPanel.ConfirmationResponseAction -= StartNewGameConfirmationResponse;
         confirmationPanel.ClosePanelAction -= HideConfirmationPanel;
 
-        if (isNewSinglePlayerGameConfirmed)
+        if (isNewGameConfirmed)
             ConfirmStartNewSinglePlayerGame();
         else
             continueGameEvent.RaiseEvent();
@@ -135,6 +135,6 @@ public class UIMenuManager : MonoBehaviour
     private void OnDestroy()
     {
         confirmationPanel.ConfirmationResponseAction -= CloseExitConfirmationPopup;
-        confirmationPanel.ConfirmationResponseAction -= StartNewSinglePlayerGameConfirmationResponse;
+        confirmationPanel.ConfirmationResponseAction -= StartNewGameConfirmationResponse;
     }
 }

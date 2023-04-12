@@ -2,30 +2,32 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.Serialization;
 
 public class SaveSystem : ScriptableObject
 {
-    [SerializeField] private VoidEventChannelSO _saveSettingsEvent = default;
-    [SerializeField] private LoadEventChannelSO _loadLocation = default;
-    [SerializeField] private InventorySO _playerInventory = default;
+    [SerializeField] private VoidEventChannelSO saveSettingsEvent = default;
+    [SerializeField] private LoadEventChannelSO loadLocation = default;
+    [SerializeField] private InventorySO playerInventory = default;
 
-    [SerializeField] private SettingsSO _currentSettings = default;
+    [SerializeField] private SettingsSO currentSettings = default;
     // [SerializeField] private QuestManagerSO _questManagerSO = default;
 
     public string saveFilename = "save.william";
     public string backupSaveFilename = "save.william.bak";
     public Save saveData = new Save();
 
+
     void OnEnable()
     {
-        _saveSettingsEvent.OnEventRaised += SaveSettings;
-        _loadLocation.OnLoadingRequested += CacheLoadLocations;
+        saveSettingsEvent.OnEventRaised += SaveSettings;
+        loadLocation.OnLoadingRequested += CacheLoadLocations;
     }
 
     void OnDisable()
     {
-        _saveSettingsEvent.OnEventRaised -= SaveSettings;
-        _loadLocation.OnLoadingRequested -= CacheLoadLocations;
+        saveSettingsEvent.OnEventRaised -= SaveSettings;
+        loadLocation.OnLoadingRequested -= CacheLoadLocations;
     }
 
     private void CacheLoadLocations(GameSceneSO locationToLoad, bool showLoadingScreen, bool fadeScreen)
@@ -33,7 +35,7 @@ public class SaveSystem : ScriptableObject
         LocationSO locationSO = locationToLoad as LocationSO;
         if (locationSO)
         {
-            saveData._locationId = locationSO.Guid;
+            saveData.LocationId = locationSO.Guid;
         }
 
         SaveDataToDisk();
@@ -47,20 +49,27 @@ public class SaveSystem : ScriptableObject
             return true;
         }
 
+        Debug.Log($"[SaveSystem] No save data found at {saveFilename}");
         return false;
+    }
+
+    public bool CheckMultiplayer()
+    {
+        if (saveData.IsMultiplay) return true;
+        else return false;
     }
 
     public IEnumerator LoadSavedInventory()
     {
-        _playerInventory.Items.Clear();
-        foreach (var serializedItemStack in saveData._itemStacks)
+        playerInventory.Items.Clear();
+        foreach (var serializedItemStack in saveData.ItemStacks)
         {
             var loadItemOperationHandle = Addressables.LoadAssetAsync<ItemSO>(serializedItemStack.itemGuid);
             yield return loadItemOperationHandle;
             if (loadItemOperationHandle.Status == AsyncOperationStatus.Succeeded)
             {
                 var itemSO = loadItemOperationHandle.Result;
-                _playerInventory.Add(itemSO, serializedItemStack.amount);
+                playerInventory.Add(itemSO, serializedItemStack.amount);
             }
         }
     }
@@ -72,13 +81,13 @@ public class SaveSystem : ScriptableObject
 
     public void SaveDataToDisk()
     {
-        saveData._itemStacks.Clear();
-        foreach (var itemStack in _playerInventory.Items)
+        saveData.ItemStacks.Clear();
+        foreach (var itemStack in playerInventory.Items)
         {
-            saveData._itemStacks.Add(new SerializedItemStack(itemStack.Item.Guid, itemStack.Amount));
+            saveData.ItemStacks.Add(new SerializedItemStack(itemStack.Item.Guid, itemStack.Amount));
         }
 
-        saveData._finishedQuestlineItemsGUIds.Clear();
+        saveData.FinishedQuestlineItemsGUIds.Clear();
 
         // foreach (var item in _questManagerSO.GetFinishedQuestlineItemsGUIds())
         // {
@@ -102,7 +111,7 @@ public class SaveSystem : ScriptableObject
     public void SetNewGameData()
     {
         FileManager.WriteToFile(saveFilename, "");
-        _playerInventory.Init();
+        playerInventory.Init();
         // _questManagerSO.ResetQuestlines();
 
         SaveDataToDisk();
@@ -110,6 +119,19 @@ public class SaveSystem : ScriptableObject
 
     void SaveSettings()
     {
-        saveData.SaveSettings(_currentSettings);
+        saveData.SaveSettings(currentSettings);
+    }
+
+    public void ResetSettings()
+    {
+        saveData.ResetSettings();
+        if (FileManager.DeleteFile(backupSaveFilename))
+        {
+            Debug.Log($"<color=red>[SaveSystem]</color> Backup save deleted");
+            if (FileManager.DeleteFile(saveFilename))
+            {
+                Debug.Log($"<color=red>[SaveSystem]</color> Save deleted");
+            }
+        }
     }
 }

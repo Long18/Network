@@ -11,18 +11,20 @@ public class SpawnSystem : MonoBehaviour
     [SerializeField] private TransformAnchor playerTransformAnchor = default;
     [SerializeField] private TransformEventChannelSO playerInstantiatedChannel = default;
     [SerializeField] private PathStorageSO pathTaken = default;
+    [SerializeField] private SaveSystem saveSystem = default;
 
     [Header("Listen Events")] [SerializeField]
     private VoidEventChannelSO onSceneReady = default; //Raised by SceneLoader when the scene is set to active
 
     private LocationEntrance[] spawnLocations;
     private Transform defaultSpawnPoint;
-
+    private bool isMultiplayer = false;
 
     public void Awake()
     {
         spawnLocations = GameObject.FindObjectsOfType<LocationEntrance>();
         defaultSpawnPoint = transform.GetChild(0);
+        isMultiplayer = saveSystem.CheckMultiplayer();
     }
 
     public void OnEnable()
@@ -40,23 +42,24 @@ public class SpawnSystem : MonoBehaviour
     private void SpawnPlayer()
     {
         Transform spawnLocation = GetSpawnLocation();
+        GameObject player = null;
 
         // for each player, i want random spawn location around 10m radius
         var randNum = Random.Range(0, 10);
         spawnLocation.position += new Vector3(spawnLocation.position.x + randNum, spawnLocation.position.y,
             spawnLocation.position.z + randNum);
 
-        GameObject player = null;
-
-#if UNITY_EDITOR
-        // Singleplayer
-        player =
-            Instantiate(Resources.Load("Player/Player"), spawnLocation.position, spawnLocation.rotation) as GameObject;
-#else
-        // Multiplayer
-         player = PhotonNetwork.Instantiate("Player/Player", spawnLocation.position, spawnLocation.rotation);
-#endif
-
+        if (!isMultiplayer)
+        {
+            player =
+                Instantiate(Resources.Load("Player/Player"), spawnLocation.position, spawnLocation.rotation) as
+                    GameObject;
+        }
+        else
+        {
+            // TODO: Implement multiplayer
+//          player = PhotonNetwork.Instantiate("Player/Player", spawnLocation.position, spawnLocation.rotation);
+        }
 
         playerInstantiatedChannel.RaiseEvent(player.transform);
         playerTransformAnchor.Provide(player.transform);

@@ -38,7 +38,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 494726115328
-    m_Localized: Continue
+    m_Localized: No
     m_Metadata:
       m_Items: []
   - m_Id: 538636283904
@@ -223,6 +223,33 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 326065012174848
     m_Localized: Fullscreen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 367881933647872
+    m_Localized: 'Do you want to start a new game or continue the previous one?
+
+      If
+      you start a new game all previous progress will be erased.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 368071633629184
+    m_Localized: New Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 368221403836416
+    m_Localized: No
+    m_Metadata:
+      m_Items: []
+  - m_Id: 368377939456000
+    m_Localized: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 370461267030016
+    m_Localized: Join Muiltiplayer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 373342556745728
+    m_Localized: Yes
     m_Metadata:
       m_Items: []
   references:

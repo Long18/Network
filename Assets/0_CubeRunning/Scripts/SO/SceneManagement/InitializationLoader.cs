@@ -13,7 +13,7 @@ using UnityEngine.ResourceManagement.ResourceProviders;
 /// This class is responsible for starting the game by loading the persistent managers scene
 /// and raising the event to load the Main Scene
 /// </summary>
-public class InitializationLoader : MonoBehaviourPunCallbacks
+public class InitializationLoader : MonoBehaviour
 {
     [SerializeField] private GameSceneSO managersScene = default;
     [SerializeField] private GameSceneSO sceneToLoad = default;
@@ -23,47 +23,47 @@ public class InitializationLoader : MonoBehaviourPunCallbacks
 
     private LoadEventChannelSO requestLoadSceneEventChannel;
 
-    private const string ROOM_NAME = "WILLIAM";
+    // private const string ROOM_NAME = "WILLIAM";
 
     private void Start()
     {
-#if UNITY_EDITOR
         LoadManagerScene();
-#else
-        PhotonNetwork.ConnectUsingSettings();
-#endif
-        Debug.Log("Connecting to master");
+// #if UNITY_EDITOR
+// #else
+//         PhotonNetwork.ConnectUsingSettings();
+// #endif
+//         Debug.Log("Connecting to master");
     }
-
-    public override void OnConnectedToMaster()
-    {
-        Debug.Log("Connected to master");
-        PhotonNetwork.JoinLobby();
-    }
-
-    public override void OnJoinedLobby()
-    {
-        Debug.Log("Joined lobby");
-        JoinRoom(ROOM_NAME);
-    }
-
-    public override void OnJoinedRoom()
-    {
-        Debug.Log("Joined room");
-        LoadManagerScene();
-    }
-
-
-    private void JoinRoom(string roomName)
-    {
-        var roomOptions = new RoomOptions
-        {
-            MaxPlayers = 4,
-            CleanupCacheOnLeave = true,
-            IsOpen = true,
-        };
-        PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
-    }
+    //
+    // public override void OnConnectedToMaster()
+    // {
+    //     Debug.Log("Connected to master");
+    //     PhotonNetwork.JoinLobby();
+    // }
+    //
+    // public override void OnJoinedLobby()
+    // {
+    //     Debug.Log("Joined lobby");
+    //     JoinRoom(ROOM_NAME);
+    // }
+    //
+    // public override void OnJoinedRoom()
+    // {
+    //     Debug.Log("Joined room");
+    //     LoadManagerScene();
+    // }
+    //
+    //
+    // private void JoinRoom(string roomName)
+    // {
+    //     var roomOptions = new RoomOptions
+    //     {
+    //         MaxPlayers = 4,
+    //         CleanupCacheOnLeave = true,
+    //         IsOpen = true,
+    //     };
+    //     PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
+    // }
 
     #region Class Methods
 
