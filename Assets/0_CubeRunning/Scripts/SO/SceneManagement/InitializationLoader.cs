@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using Photon.Pun;
-using Photon.Realtime;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.AddressableAssets;
@@ -23,58 +20,34 @@ public class InitializationLoader : MonoBehaviour
 
     private LoadEventChannelSO requestLoadSceneEventChannel;
 
-    // private const string ROOM_NAME = "WILLIAM";
-
     private void Start()
     {
         LoadManagerScene();
-// #if UNITY_EDITOR
-// #else
-//         PhotonNetwork.ConnectUsingSettings();
-// #endif
-//         Debug.Log("Connecting to master");
     }
-    //
-    // public override void OnConnectedToMaster()
-    // {
-    //     Debug.Log("Connected to master");
-    //     PhotonNetwork.JoinLobby();
-    // }
-    //
-    // public override void OnJoinedLobby()
-    // {
-    //     Debug.Log("Joined lobby");
-    //     JoinRoom(ROOM_NAME);
-    // }
-    //
-    // public override void OnJoinedRoom()
-    // {
-    //     Debug.Log("Joined room");
-    //     LoadManagerScene();
-    // }
-    //
-    //
-    // private void JoinRoom(string roomName)
-    // {
-    //     var roomOptions = new RoomOptions
-    //     {
-    //         MaxPlayers = 4,
-    //         CleanupCacheOnLeave = true,
-    //         IsOpen = true,
-    //     };
-    //     PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
-    // }
 
     #region Class Methods
 
     /// <summary>
     /// You mus to load this managers scene first
     /// </summary>
-    private void LoadManagerScene() =>
+    private void LoadManagerScene()
+    {
         Addressables.LoadSceneAsync(managersScene.scene, LoadSceneMode.Additive).Completed += OnManagerSceneLoaded;
+    }
 
 
-    private void OnManagerSceneLoaded(AsyncOperationHandle<SceneInstance> obj) => StartCoroutine(DownloadScene());
+    private void OnManagerSceneLoaded(AsyncOperationHandle<SceneInstance> obj)
+    {
+        requestLoadScene.LoadAssetAsync<LoadEventChannelSO>().Completed += LoadMainMenu;
+    }
+
+    private void LoadMainMenu(AsyncOperationHandle<LoadEventChannelSO> obj)
+    {
+        requestLoadSceneEventChannel = obj.Result;
+
+        requestLoadSceneEventChannel.RequestLoadScene(sceneToLoad);
+        StartCoroutine(DownloadScene());
+    }
 
     /// <summary>
     /// This function is used to load the scene from the addressable 
@@ -104,7 +77,7 @@ public class InitializationLoader : MonoBehaviour
     {
         requestLoadSceneEventChannel = obj.Result;
 
-        requestLoadSceneEventChannel.RequestLoadScene(sceneToLoad);
+        requestLoadSceneEventChannel.RequestLoadScene(sceneToLoad, false, true);
         SceneManager.UnloadSceneAsync(0);
     }
 

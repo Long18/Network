@@ -252,6 +252,22 @@ MonoBehaviour:
     m_Localized: Yes
     m_Metadata:
       m_Items: []
+  - m_Id: 695374196600832
+    m_Localized: Hold on!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 695477745577984
+    m_Localized: 'Take your time. '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 695622000275456
+    m_Localized: Resume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 695679827144704
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

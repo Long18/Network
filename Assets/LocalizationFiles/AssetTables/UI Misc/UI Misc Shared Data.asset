@@ -243,6 +243,28 @@ MonoBehaviour:
     m_Key: Confirm_NewGame
     m_Metadata:
       m_Items: []
+  - m_Id: 695374196600832
+    m_Key: 'Pause
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 695477745577984
+    m_Key: 'Pause_Description
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 695622000275456
+    m_Key: 'Unpause '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 695679827144704
+    m_Key: 'Settings_PauseMenu
+
+'
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

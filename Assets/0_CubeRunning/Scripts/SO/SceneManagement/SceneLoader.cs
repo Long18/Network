@@ -7,11 +7,12 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class SceneLoader : MonoBehaviour
 {
     [SerializeField] private SceneManagerSO sceneManager = default;
-    [SerializeField] private GameSceneSO managersScene = default;
+    [SerializeField] private GameSceneSO interactiveManager = default;
     [SerializeField] private InputReaderSO inputReader = default;
 
     [Header("Listening to")] [SerializeField]
@@ -34,6 +35,8 @@ public class SceneLoader : MonoBehaviour
     private bool showLoadingScreen;
     private SceneInstance gameplayManagerSceneInstance = new SceneInstance();
     private float fadeDuration = .5f;
+
+    [SerializeField]
     private bool isLoading = false; //To prevent a new loading request while already loading a new scene
 
     private void OnEnable()
@@ -67,7 +70,7 @@ public class SceneLoader : MonoBehaviour
         {
             case GameSceneSO.GameSceneType.Location:
                 gameplayManagerLoadingOpHandle =
-                    Addressables.LoadSceneAsync(managersScene.scene, LoadSceneMode.Additive, true);
+                    Addressables.LoadSceneAsync(interactiveManager.scene, LoadSceneMode.Additive, true);
                 gameplayManagerLoadingOpHandle.WaitForCompletion();
                 gameplayManagerSceneInstance = gameplayManagerLoadingOpHandle.Result;
                 StartGamePlay();
@@ -94,23 +97,25 @@ public class SceneLoader : MonoBehaviour
 
         // In case we are coming from the main menu, we need to load the manager scene first
         if (gameplayManagerSceneInstance.Scene == null || !gameplayManagerSceneInstance.Scene.isLoaded)
+        {
             gameplayManagerLoadingOpHandle =
-                Addressables.LoadSceneAsync(locationToLoad.scene, LoadSceneMode.Additive, true);
-
-        gameplayManagerLoadingOpHandle.Completed += OnGameplayManagerLoaded;
-
-        StartCoroutine(UnloadPreviousScene());
+                Addressables.LoadSceneAsync(interactiveManager.scene, LoadSceneMode.Additive, true);
+            gameplayManagerLoadingOpHandle.Completed += OnGameplayManagerLoaded;
+        }
+        else
+        {
+            StartCoroutine(UnloadPreviousScene());
+        }
     }
 
     private void OnGameplayManagerLoaded(AsyncOperationHandle<SceneInstance> obj)
     {
         gameplayManagerSceneInstance = gameplayManagerLoadingOpHandle.Result;
         StartCoroutine(UnloadPreviousScene());
-        StartGamePlay();
     }
 
     /// <summary>
-    /// Prepares to load the main menu scene, first unloading the current scene. 
+    /// Prepares to load the main menu scene, first removing the Interactive scene in case the game is coming back from gameplay to menus
     /// </summary>
     private void LoadMenu(GameSceneSO menuToLoad, bool showLoading, bool fadeScreen)
     {
@@ -121,11 +126,12 @@ public class SceneLoader : MonoBehaviour
         showLoadingScreen = showLoading;
         isLoading = true;
 
-        // In case we are coming from the main menu, we need to load the manager scene first
-        if (gameplayManagerSceneInstance.Scene == null || !gameplayManagerSceneInstance.Scene.isLoaded)
-            gameplayManagerLoadingOpHandle =
-                Addressables.LoadSceneAsync(menuToLoad.scene, LoadSceneMode.Additive, true);
-        gameplayManagerLoadingOpHandle.Completed += OnGameplayManagerLoaded;
+        //In case we are coming from a Location back to the main menu, we need to get rid of the persistent Gameplay manager scene
+        if (gameplayManagerSceneInstance.Scene != null && gameplayManagerSceneInstance.Scene.isLoaded)
+        {
+            var handle = Addressables.UnloadSceneAsync(gameplayManagerSceneInstance, true);
+            handle.Completed += (operationHandle => Resources.UnloadUnusedAssets());
+        }
 
         StartCoroutine(UnloadPreviousScene());
     }
@@ -137,28 +143,30 @@ public class SceneLoader : MonoBehaviour
     {
         inputReader.DisableAllInput();
         fadeRequestChannel.FadeOut(fadeDuration);
-
         yield return new WaitForSeconds(fadeDuration);
 
-        if (currentlyLoadedScene == null) yield break;
-        if (currentlyLoadedScene.handle.IsValid())
+        if (currentlyLoadedScene != null)
         {
-            // Unload the scene through Addressables, i.e. through the AssetReference system
-            // every assets usage should be through the AssetReference system
-            Debug.Log($"SceneLoader::UnloadPreviousScene: Unloading scene: {currentlyLoadedScene.scene}");
-            var handle = Addressables.UnloadSceneAsync(currentlyLoadedScene.handle, true);
-            handle.Completed += (operationHandle => Resources.UnloadUnusedAssets());
-        }
+            if (currentlyLoadedScene.handle.IsValid())
+            {
+                // Unload the scene through Addressables, i.e. through the AssetReference system
+                // every assets usage should be through the AssetReference system
+                var handle = Addressables.UnloadSceneAsync(currentlyLoadedScene.handle, true);
+                handle.Completed += (operationHandle => Resources.UnloadUnusedAssets());
+            }
 #if UNITY_EDITOR
-        else
-        {
-            // When cold start gameplay => we will need to unload main/gameplay manager scene
-            // because OperationHandle is not valid
-            Debug.Log($"SceneLoader::UnloadPreviousScene: Unloading scene: {currentlyLoadedScene.scene}");
-            SceneManager.UnloadSceneAsync(currentlyLoadedScene.scene.editorAsset.name);
-        }
+            else
+            {
+                // When cold start gameplay => we will need to unload main/gameplay manager scene
+                // because OperationHandle is not valid
+                Debug.Log($"SceneLoader::UnloadPreviousScene: Unloading scene: {currentlyLoadedScene.scene}");
+                SceneManager.UnloadSceneAsync(currentlyLoadedScene.scene.editorAsset.name);
+            }
 #endif
+        }
+
         LoadNewScene();
+        yield break;
     }
 
     /// <summary>
@@ -168,7 +176,7 @@ public class SceneLoader : MonoBehaviour
     {
         if (showLoadingScreen) toggleLoadingScreen.RaiseEvent(true);
 
-        loadingOperationHandle = Addressables.LoadSceneAsync(sceneToLoad.scene, LoadSceneMode.Additive, true);
+        loadingOperationHandle = Addressables.LoadSceneAsync(sceneToLoad.scene, LoadSceneMode.Additive, true, 0);
         loadingOperationHandle.Completed += OnNewSceneLoaded;
     }
 
@@ -184,6 +192,7 @@ public class SceneLoader : MonoBehaviour
 
         isLoading = false;
         if (showLoadingScreen) toggleLoadingScreen.RaiseEvent(false);
+
         fadeRequestChannel.FadeIn(fadeDuration);
 
         StartGamePlay();

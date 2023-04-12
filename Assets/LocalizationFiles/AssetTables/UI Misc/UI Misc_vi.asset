@@ -253,6 +253,22 @@ MonoBehaviour:
     m_Localized: "\u0110\u1ED3ng \xDD"
     m_Metadata:
       m_Items: []
+  - m_Id: 695374196600832
+    m_Localized: "T\u1EA1m d\u1EEBng!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 695477745577984
+    m_Localized: "T\u1EDBi gi\u1EDD ng\u1EEBng r\u1ED3i, zzzz"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 695622000275456
+    m_Localized: "T\u1EA1m d\u1EEBng"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 695679827144704
+    m_Localized: "C\xE0i \u0111\u1EB7t"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
