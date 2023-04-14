@@ -34,9 +34,8 @@ public class SceneLoader : MonoBehaviour
 
     private bool showLoadingScreen;
     private SceneInstance gameplayManagerSceneInstance = new SceneInstance();
-    private float fadeDuration = .5f;
+    private float fadeDuration = 1f;
 
-    [SerializeField]
     private bool isLoading = false; //To prevent a new loading request while already loading a new scene
 
     private void OnEnable()
@@ -145,7 +144,7 @@ public class SceneLoader : MonoBehaviour
         fadeRequestChannel.FadeOut(fadeDuration);
         yield return new WaitForSeconds(fadeDuration);
 
-        if (currentlyLoadedScene != null)
+        if (currentlyLoadedScene != null && sceneToLoad.UnloadPreviousScene)
         {
             if (currentlyLoadedScene.handle.IsValid())
             {

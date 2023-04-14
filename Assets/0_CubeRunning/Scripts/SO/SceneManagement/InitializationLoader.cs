@@ -20,10 +20,7 @@ public class InitializationLoader : MonoBehaviour
 
     private LoadEventChannelSO requestLoadSceneEventChannel;
 
-    private void Start()
-    {
-        LoadManagerScene();
-    }
+    private void Awake() => LoadManagerScene();
 
     #region Class Methods
 
@@ -38,14 +35,6 @@ public class InitializationLoader : MonoBehaviour
 
     private void OnManagerSceneLoaded(AsyncOperationHandle<SceneInstance> obj)
     {
-        requestLoadScene.LoadAssetAsync<LoadEventChannelSO>().Completed += LoadMainMenu;
-    }
-
-    private void LoadMainMenu(AsyncOperationHandle<LoadEventChannelSO> obj)
-    {
-        requestLoadSceneEventChannel = obj.Result;
-
-        requestLoadSceneEventChannel.RequestLoadScene(sceneToLoad);
         StartCoroutine(DownloadScene());
     }
 
@@ -77,7 +66,7 @@ public class InitializationLoader : MonoBehaviour
     {
         requestLoadSceneEventChannel = obj.Result;
 
-        requestLoadSceneEventChannel.RequestLoadScene(sceneToLoad, false, true);
+        requestLoadSceneEventChannel.RequestLoadScene(sceneToLoad);
         SceneManager.UnloadSceneAsync(0);
     }
 
