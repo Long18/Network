@@ -63,7 +63,7 @@ public class EditorColdStartup : MonoBehaviour
     private void OnNotifyChannelLoaded(AsyncOperationHandle<LoadEventChannelSO> obj)
     {
         if (thisSceneSO != null)
-            obj.Result.RequestLoadScene(thisSceneSO);
+            obj.Result.RequestLoadScene(thisSceneSO, true);
         else
             onSceneReadyChannel.RaiseEvent();
     }

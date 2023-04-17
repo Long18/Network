@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.AddressableAssets;
@@ -18,8 +19,6 @@ public class InitializationLoader : MonoBehaviour
     [Header("Broadcasting on")] [SerializeField]
     private AssetReference requestLoadScene = default;
 
-    private LoadEventChannelSO requestLoadSceneEventChannel;
-
     private void Awake() => LoadManagerScene();
 
     #region Class Methods
@@ -33,13 +32,11 @@ public class InitializationLoader : MonoBehaviour
     }
 
 
-    private void OnManagerSceneLoaded(AsyncOperationHandle<SceneInstance> obj)
-    {
-        StartCoroutine(DownloadScene());
-    }
+    private void OnManagerSceneLoaded(AsyncOperationHandle<SceneInstance> obj) => StartCoroutine(DownloadScene());
 
     /// <summary>
-    /// This function is used to load the scene from the addressable 
+    /// This function is used to load the scene from the addressable
+    /// and get the progress of the download
     /// </summary>
     private IEnumerator DownloadScene()
     {
@@ -50,6 +47,9 @@ public class InitializationLoader : MonoBehaviour
         {
             var status = handle.GetDownloadStatus();
             float progress = status.Percent;
+            
+            // TODO: Get the progress of the download and send it to the loading screen
+            
 #if UNITY_EDITOR
             Debug.Log($"[InitializationLoader] Download progress: {progress}");
 #endif
@@ -61,12 +61,11 @@ public class InitializationLoader : MonoBehaviour
     /// This function is loaded when the scene is loaded 
     /// and unload the current scene (Boot Scene)
     /// </summary>
-    /// <param name="obj">The scene you want to load</param>
-    private void OnRequestLoadSceneEventAssetLoaded(AsyncOperationHandle<LoadEventChannelSO> obj)
+    /// <param name="requestScene">The scene you want to load</param>
+    private void OnRequestLoadSceneEventAssetLoaded(AsyncOperationHandle<LoadEventChannelSO> requestScene)
     {
-        requestLoadSceneEventChannel = obj.Result;
+        requestScene.Result.RequestLoadScene(sceneToLoad, true);
 
-        requestLoadSceneEventChannel.RequestLoadScene(sceneToLoad);
         SceneManager.UnloadSceneAsync(0);
     }
 

@@ -33,7 +33,7 @@ public class SceneLoader : MonoBehaviour
     private AsyncOperationHandle<SceneInstance> gameplayManagerLoadingOpHandle;
 
     private bool showLoadingScreen;
-    private SceneInstance gameplayManagerSceneInstance = new SceneInstance();
+    private SceneInstance gameplayManagerSceneInstance;
     private float fadeDuration = 1f;
 
     private bool isLoading = false; //To prevent a new loading request while already loading a new scene
@@ -73,10 +73,10 @@ public class SceneLoader : MonoBehaviour
                 gameplayManagerLoadingOpHandle.WaitForCompletion();
                 gameplayManagerSceneInstance = gameplayManagerLoadingOpHandle.Result;
                 StartGamePlay();
-                return;
+                break;
             default:
                 StartGamePlay();
-                return;
+                break;
         }
     }
 
@@ -95,7 +95,7 @@ public class SceneLoader : MonoBehaviour
         isLoading = true;
 
         // In case we are coming from the main menu, we need to load the manager scene first
-        if (gameplayManagerSceneInstance.Scene == null || !gameplayManagerSceneInstance.Scene.isLoaded)
+        if (!gameplayManagerSceneInstance.Scene.IsValid())
         {
             gameplayManagerLoadingOpHandle =
                 Addressables.LoadSceneAsync(interactiveManager.scene, LoadSceneMode.Additive, true);
@@ -126,11 +126,8 @@ public class SceneLoader : MonoBehaviour
         isLoading = true;
 
         //In case we are coming from a Location back to the main menu, we need to get rid of the persistent Gameplay manager scene
-        if (gameplayManagerSceneInstance.Scene != null && gameplayManagerSceneInstance.Scene.isLoaded)
-        {
-            var handle = Addressables.UnloadSceneAsync(gameplayManagerSceneInstance, true);
-            handle.Completed += (operationHandle => Resources.UnloadUnusedAssets());
-        }
+        if (gameplayManagerSceneInstance.Scene.IsValid())
+            Addressables.UnloadSceneAsync(gameplayManagerLoadingOpHandle);
 
         StartCoroutine(UnloadPreviousScene());
     }
@@ -143,6 +140,7 @@ public class SceneLoader : MonoBehaviour
         inputReader.DisableAllInput();
         fadeRequestChannel.FadeOut(fadeDuration);
         yield return new WaitForSeconds(fadeDuration);
+
 
         if (currentlyLoadedScene != null && sceneToLoad.UnloadPreviousScene)
         {
@@ -176,6 +174,7 @@ public class SceneLoader : MonoBehaviour
         if (showLoadingScreen) toggleLoadingScreen.RaiseEvent(true);
 
         loadingOperationHandle = Addressables.LoadSceneAsync(sceneToLoad.scene, LoadSceneMode.Additive, true, 0);
+        sceneToLoad.handle = loadingOperationHandle;
         loadingOperationHandle.Completed += OnNewSceneLoaded;
     }
 

@@ -1,5 +1,4 @@
 using System;
-using Photon.Pun;
 using UnityEngine;
 
 // ReSharper disable All
@@ -9,8 +8,6 @@ public class Protagonist : MonoBehaviour
     [SerializeField] private InputReaderSO inputReader = default;
 
     [SerializeField] private TransformAnchor gameplayCameraTransform = default;
-
-    [SerializeField] private PhotonView view = default;
 
     private Vector2 inputVector;
     private float previousSpeed;
@@ -62,10 +59,6 @@ public class Protagonist : MonoBehaviour
 
     private void RecalculateMovement()
     {
-#if !UNITY_EDITOR
-        if (!view.IsMine) return;
-#endif
-
         float targetSpeed;
         Vector3 adjustedMovement;
 
