@@ -42,6 +42,11 @@ public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, Game
 
     private GameInput gameInput;
 
+#if UNITY_EDITOR
+    private string statusInput = "Default";
+    public string StatusInput => statusInput;
+#endif
+
     private void OnEnable()
     {
         if (gameInput == null)
@@ -244,17 +249,26 @@ public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, Game
     {
         gameInput.Gameplay.Enable();
         gameInput.Menus.Disable();
+#if UNITY_EDITOR
+        statusInput = "Gameplay";
+#endif
     }
 
     public void EnableMenuInput()
     {
         gameInput.Menus.Enable();
         gameInput.Gameplay.Disable();
+#if UNITY_EDITOR
+        statusInput = "Menu";
+#endif
     }
 
     public void DisableAllInput()
     {
         gameInput.Gameplay.Disable();
         gameInput.Menus.Disable();
+#if UNITY_EDITOR
+        statusInput = "Disabled";
+#endif
     }
 }

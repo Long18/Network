@@ -74,6 +74,8 @@ public class UIManager : MonoBehaviour
 
         pauseScreen.gameObject.SetActive(false);
 
+        gameStateManager.ReturnToPreviousGameState();
+
         if (gameStateManager.CurrentGameState == GameState.Gameplay
             || gameStateManager.CurrentGameState == GameState.Combat)
         {
