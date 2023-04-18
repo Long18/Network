@@ -53,3 +53,4 @@ MonoBehaviour:
   toggleLoadingScreen: {fileID: 11400000, guid: 7d9006cc3176d1c418d865bfd0482f58, type: 2}
   onSceneReady: {fileID: 11400000, guid: e0f0bc207d62f774eb8865efbe6df6e0, type: 2}
   fadeRequestChannel: {fileID: 11400000, guid: 941478bc4ad14514cbd3981ff0eb51f1, type: 2}
+  loadingProgressChannel: {fileID: 11400000, guid: 498535923f5585b4cb11094a2fcb9d7e, type: 2}

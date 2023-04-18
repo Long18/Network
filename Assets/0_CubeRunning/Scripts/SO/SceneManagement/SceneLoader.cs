@@ -26,6 +26,7 @@ public class SceneLoader : MonoBehaviour
 
     [SerializeField] private VoidEventChannelSO onSceneReady = default; //picked up by the SpawnSystem
     [SerializeField] private FadeChannelSO fadeRequestChannel = default;
+    [SerializeField] private FloatEventChannelSO loadingProgressChannel = default;
 
     private GameSceneSO sceneToLoad;
     private GameSceneSO currentlyLoadedScene;
@@ -97,6 +98,7 @@ public class SceneLoader : MonoBehaviour
         // In case we are coming from the main menu, we need to load the manager scene first
         if (!gameplayManagerSceneInstance.Scene.IsValid())
         {
+            DownloadAsset(interactiveManager.scene);
             gameplayManagerLoadingOpHandle =
                 Addressables.LoadSceneAsync(interactiveManager.scene, LoadSceneMode.Additive, true);
             gameplayManagerLoadingOpHandle.Completed += OnGameplayManagerLoaded;
@@ -173,9 +175,25 @@ public class SceneLoader : MonoBehaviour
     {
         if (showLoadingScreen) toggleLoadingScreen.RaiseEvent(true);
 
+        DownloadAsset(sceneToLoad.scene);
         loadingOperationHandle = Addressables.LoadSceneAsync(sceneToLoad.scene, LoadSceneMode.Additive, true, 0);
         sceneToLoad.handle = loadingOperationHandle;
         loadingOperationHandle.Completed += OnNewSceneLoaded;
+    }
+
+    private IEnumerator DownloadAsset(SceneAssetReference scene)
+    {
+        var handle = Addressables.LoadSceneAsync(scene, LoadSceneMode.Additive, true, 0);
+        yield return handle;
+
+        while (!handle.IsDone)
+        {
+            var status = handle.GetDownloadStatus();
+            float progress = status.Percent;
+
+            loadingProgressChannel.RaiseEvent(progress);
+            yield return null;
+        }
     }
 
     private void OnNewSceneLoaded(AsyncOperationHandle<SceneInstance> obj)
