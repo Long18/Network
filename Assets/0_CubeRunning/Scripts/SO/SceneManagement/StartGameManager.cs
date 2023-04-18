@@ -47,7 +47,6 @@ public class StartGameManager : MonoBehaviour
 
         saveSystem.WriteEmptySaveFile();
         saveSystem.SetNewGameData();
-        Debug.Log("New game started");
         loadLocation.RequestLoadScene(locationsToLoad, showLoadScreen, true);
     }
 

@@ -16,14 +16,12 @@ public class SpawnSystem : MonoBehaviour
     [Header("Listen Events")] [SerializeField]
     private VoidEventChannelSO onSceneReady = default; //Raised by SceneLoader when the scene is set to active
 
-    private LocationEntrance[] spawnLocations;
-    private Transform defaultSpawnPoint;
+    [Header("Other")] [SerializeField] private LocationEntrance[] spawnLocations;
+    [SerializeField] private Transform defaultSpawnPoint;
     private bool isMultiplayer = false;
 
     public void Awake()
     {
-        spawnLocations = GameObject.FindObjectsOfType<LocationEntrance>();
-        defaultSpawnPoint = transform.GetChild(0);
         isMultiplayer = saveSystem.CheckMultiplayer();
     }
 

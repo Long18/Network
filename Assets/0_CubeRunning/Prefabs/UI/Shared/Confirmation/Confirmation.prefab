@@ -345,8 +345,8 @@ MonoBehaviour:
   titleText: {fileID: 1501367363504606154}
   descriptionText: {fileID: 1501367363450176145}
   buttonClose: {fileID: 1501367363822524603}
-  popupButton1: {fileID: 2775373477038353678}
-  popupButton2: {fileID: 1501367363510933103}
+  confirmButton: {fileID: 2775373477038353678}
+  cancelButton: {fileID: 1501367363510933103}
   inputReader: {fileID: 11400000, guid: 3e5c093a20096c7479b821fc43c36906, type: 2}
 --- !u!1 &1501367363504606156
 GameObject:
@@ -805,7 +805,7 @@ PrefabInstance:
       objectReference: {fileID: 2775373477038353679}
     - target: {fileID: 3625950550631738333, guid: e37c223aef43e714c8d268664f94aede, type: 3}
       propertyPath: m_Name
-      value: Button-2
+      value: Button-Cancel
       objectReference: {fileID: 0}
     - target: {fileID: 3625950550631738334, guid: e37c223aef43e714c8d268664f94aede, type: 3}
       propertyPath: m_Pivot.x
@@ -890,6 +890,14 @@ PrefabInstance:
     - target: {fileID: 3625950550631738334, guid: e37c223aef43e714c8d268664f94aede, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3625950552311683668, guid: e37c223aef43e714c8d268664f94aede, type: 3}
+      propertyPath: m_text
+      value: Cancel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3625950552311683668, guid: e37c223aef43e714c8d268664f94aede, type: 3}
+      propertyPath: m_fontSize
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 3625950552311683670, guid: e37c223aef43e714c8d268664f94aede, type: 3}
       propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
@@ -937,7 +945,7 @@ PrefabInstance:
       objectReference: {fileID: 1501367363510933102}
     - target: {fileID: 3625950550631738333, guid: e37c223aef43e714c8d268664f94aede, type: 3}
       propertyPath: m_Name
-      value: Button-1
+      value: Button-Confirm
       objectReference: {fileID: 0}
     - target: {fileID: 3625950550631738334, guid: e37c223aef43e714c8d268664f94aede, type: 3}
       propertyPath: m_Pivot.x
@@ -1022,6 +1030,14 @@ PrefabInstance:
     - target: {fileID: 3625950550631738334, guid: e37c223aef43e714c8d268664f94aede, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3625950552311683668, guid: e37c223aef43e714c8d268664f94aede, type: 3}
+      propertyPath: m_text
+      value: Confirm
+      objectReference: {fileID: 0}
+    - target: {fileID: 3625950552311683668, guid: e37c223aef43e714c8d268664f94aede, type: 3}
+      propertyPath: m_fontSize
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 3625950552311683670, guid: e37c223aef43e714c8d268664f94aede, type: 3}
       propertyPath: m_StringReference.m_TableReference.m_TableCollectionName

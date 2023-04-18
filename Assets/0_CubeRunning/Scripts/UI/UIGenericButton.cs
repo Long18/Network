@@ -23,27 +23,24 @@ public class UIGenericButton : MonoBehaviour
     public void SetButton(bool isSelect)
     {
         isDefaultSelection = isSelect;
-        if (isSelect)
-            button.UpdateSelected();
+        if (isSelect) button.UpdateSelected();
     }
 
     public void SetButton(LocalizedString localizedString, bool isSelected)
     {
         buttonText.StringReference = localizedString;
 
-        if (isSelected)
-            SelectButton();
+        if (isSelected) SelectButton();
     }
 
     public void SetButton(string tableEntryReference, bool isSelected)
     {
         buttonText.StringReference.TableEntryReference = tableEntryReference;
 
-        if (isSelected)
-            SelectButton();
+        if (isSelected) SelectButton();
     }
 
     private void SelectButton() => button.Select();
 
-    public void Click() => Clicked.Invoke();
+    public void OnClick() => Clicked.Invoke();
 }

@@ -45,9 +45,13 @@ public class UIMenuManager : MonoBehaviour
     private void ButtonSinglePlayerClicked()
     {
         if (!hasSaveData)
+        {
             ConfirmStartNewSinglePlayerGame();
+        }
         else
+        {
             ShowStartNewGameConfirmationPopup();
+        }
     }
 
     private void ConfirmStartNewSinglePlayerGame() => startNewSinglePlayerGameEvent.RaiseEvent();
@@ -58,7 +62,7 @@ public class UIMenuManager : MonoBehaviour
     {
         confirmationPanel.ConfirmationResponseAction += StartNewGameConfirmationResponse;
         confirmationPanel.ClosePanelAction += HideConfirmationPanel;
-        
+
         confirmationPanel.gameObject.SetActive(true);
         confirmationPanel.SetPanel(ConfirmationType.NewGame);
     }
@@ -67,11 +71,16 @@ public class UIMenuManager : MonoBehaviour
     {
         confirmationPanel.ConfirmationResponseAction -= StartNewGameConfirmationResponse;
         confirmationPanel.ClosePanelAction -= HideConfirmationPanel;
-
         if (isNewGameConfirmed)
+        {
             ConfirmStartNewSinglePlayerGame();
+        }
         else
-            continueGameEvent.RaiseEvent();
+        {
+            HideConfirmationPanel();
+        }
+
+        mainMenuPanel.SetMenuScreen(hasSaveData);
     }
 
     private void HideConfirmationPanel()

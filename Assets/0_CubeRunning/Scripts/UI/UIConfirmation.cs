@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Localization.Components;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public enum ButtonType
@@ -26,19 +25,19 @@ public class UIConfirmation : MonoBehaviour
     [SerializeField] private LocalizeStringEvent titleText = default;
     [SerializeField] private LocalizeStringEvent descriptionText = default;
     [SerializeField] private Button buttonClose = default;
-    [SerializeField] private UIGenericButton popupButton1 = default;
-    [SerializeField] private UIGenericButton popupButton2 = default;
+    [SerializeField] private UIGenericButton confirmButton = default;
+    [SerializeField] private UIGenericButton cancelButton = default;
     [SerializeField] private InputReaderSO inputReader = default;
 
     private ConfirmationType actualType;
 
-    public event UnityAction<bool> ConfirmationResponseAction;
-    public event UnityAction ClosePanelAction;
+    public event UnityAction<bool> ConfirmationResponseAction = delegate { };
+    public event UnityAction ClosePanelAction = delegate { };
 
     private void OnDisable()
     {
-        popupButton2.Clicked -= CancelButtonClicked;
-        popupButton1.Clicked -= ConfirmButtonClicked;
+        cancelButton.Clicked -= CancelButtonClicked;
+        confirmButton.Clicked -= ConfirmButtonClicked;
         inputReader.MenuCloseEvent -= CloseMenuButtonClicked;
     }
 
@@ -57,15 +56,15 @@ public class UIConfirmation : MonoBehaviour
             case ConfirmationType.BackToMenu:
                 isConfirmation = true;
 
-                popupButton1.SetButton(tableEntryReferenceConfirm, true);
-                popupButton2.SetButton(tableEntryReferenceCancel, false);
+                confirmButton.SetButton(tableEntryReferenceConfirm, true);
+                cancelButton.SetButton(tableEntryReferenceCancel, false);
                 hasExitButton = true;
                 break;
             case ConfirmationType.Quit:
                 isConfirmation = true;
 
-                popupButton1.SetButton(tableEntryReferenceConfirm, true);
-                popupButton2.SetButton(tableEntryReferenceCancel, false);
+                confirmButton.SetButton(tableEntryReferenceConfirm, true);
+                cancelButton.SetButton(tableEntryReferenceCancel, false);
                 hasExitButton = false;
                 break;
             default:
@@ -76,18 +75,18 @@ public class UIConfirmation : MonoBehaviour
 
         if (isConfirmation)
         {
-            popupButton1.gameObject.SetActive(true);
-            popupButton2.gameObject.SetActive(true);
+            confirmButton.gameObject.SetActive(true);
+            cancelButton.gameObject.SetActive(true);
 
-            popupButton2.Clicked += CancelButtonClicked;
-            popupButton1.Clicked += ConfirmButtonClicked;
+            confirmButton.Clicked += ConfirmButtonClicked;
+            cancelButton.Clicked += CancelButtonClicked;
         }
         else
         {
-            popupButton1.gameObject.SetActive(true);
-            popupButton2.gameObject.SetActive(false);
+            confirmButton.gameObject.SetActive(true);
+            cancelButton.gameObject.SetActive(false);
 
-            popupButton2.Clicked += ConfirmButtonClicked;
+            confirmButton.Clicked += ConfirmButtonClicked;
         }
 
         buttonClose.gameObject.SetActive(hasExitButton);
@@ -96,7 +95,7 @@ public class UIConfirmation : MonoBehaviour
             inputReader.MenuCloseEvent += CloseMenuButtonClicked;
     }
 
-    public void CloseMenuButtonClicked() => ClosePanelAction?.Invoke();
-    private void ConfirmButtonClicked() => ConfirmationResponseAction?.Invoke(true);
-    private void CancelButtonClicked() => ConfirmationResponseAction?.Invoke(false);
+    public void CloseMenuButtonClicked() => ClosePanelAction.Invoke();
+    private void ConfirmButtonClicked() => ConfirmationResponseAction.Invoke(true);
+    private void CancelButtonClicked() => ConfirmationResponseAction.Invoke(false);
 }

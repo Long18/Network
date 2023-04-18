@@ -514,6 +514,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6753642163016210220, guid: 5969a6e295183b14aa458c9111461a23, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6753642163016210220, guid: 5969a6e295183b14aa458c9111461a23, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8460269ea3b7c4f4a857f81ab8ffc4e9, type: 3}
+    - target: {fileID: 6753642163016210220, guid: 5969a6e295183b14aa458c9111461a23, type: 3}
+      propertyPath: m_FillCenter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6753642163016210220, guid: 5969a6e295183b14aa458c9111461a23, type: 3}
+      propertyPath: m_UseSpriteMesh
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6753642163016210220, guid: 5969a6e295183b14aa458c9111461a23, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6753642163016210220, guid: 5969a6e295183b14aa458c9111461a23, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 2.95
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5969a6e295183b14aa458c9111461a23, type: 3}
 --- !u!114 &5610603014021657217 stripped

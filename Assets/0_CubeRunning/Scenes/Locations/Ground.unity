@@ -1232,23 +1232,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1939444117231340554, guid: 1b4b355bbb8f38b4aaa99f99dda75a77, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.38908395
+      value: -0.38908392
       objectReference: {fileID: 0}
     - target: {fileID: 1939444117231340554, guid: 1b4b355bbb8f38b4aaa99f99dda75a77, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.067615435
+      value: -0.06761543
       objectReference: {fileID: 0}
     - target: {fileID: 1939444117231340554, guid: 1b4b355bbb8f38b4aaa99f99dda75a77, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9051514
+      value: 0.9051515
       objectReference: {fileID: 0}
     - target: {fileID: 1939444117917524322, guid: 1b4b355bbb8f38b4aaa99f99dda75a77, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.389084
+      value: -0.38908395
       objectReference: {fileID: 0}
     - target: {fileID: 1939444117917524322, guid: 1b4b355bbb8f38b4aaa99f99dda75a77, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.067615435
+      value: -0.06761541
       objectReference: {fileID: 0}
     - target: {fileID: 1939444118714165942, guid: 1b4b355bbb8f38b4aaa99f99dda75a77, type: 3}
       propertyPath: m_Name
@@ -2076,6 +2076,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b97112a1c91e7d140b713cb57680ebd4, type: 3}
+--- !u!114 &1245744308324644164 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1245744309047439511, guid: b97112a1c91e7d140b713cb57680ebd4, type: 3}
+  m_PrefabInstance: {fileID: 1245744308324644163}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d51ef955f2d4b75aab55155149e5c9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2406445437535031409
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2131,5 +2142,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 2406445437098441669, guid: 20e9c31a320c541489d08791b2593bf7, type: 3}
+      propertyPath: spawnLocations.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2406445437098441669, guid: 20e9c31a320c541489d08791b2593bf7, type: 3}
+      propertyPath: spawnLocations.Array.data[0]
+      value: 
+      objectReference: {fileID: 1245744308324644164}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20e9c31a320c541489d08791b2593bf7, type: 3}
