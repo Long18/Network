@@ -5,7 +5,7 @@ using UnityEngine.Events;
 /// This class is used for Events that have one float argument.
 /// Example: An Achievement unlock event, where the float is the Achievement ID.
 /// </summary>
-[CreateAssetMenu(menuName = "Events/Bool Event Channel", order = 0)]
+[CreateAssetMenu(menuName = "Events/Float Event Channel", order = 0)]
 public class FloatEventChannelSO : ScriptableObject
 {
     public event UnityAction<float> OnEventRaised;

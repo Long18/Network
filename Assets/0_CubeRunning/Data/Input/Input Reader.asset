@@ -15,4 +15,4 @@ MonoBehaviour:
   guid: 3e5c093a20096c7479b821fc43c36906
   Description: Centralised location where all input is read. Any object in need of
     reading input can reference this SO and just hook into its event delegates.
-  gameStateManager: {fileID: 0}
+  gameStateManager: {fileID: 11400000, guid: 8c7562c1dc1629547b83b87a777172b3, type: 2}

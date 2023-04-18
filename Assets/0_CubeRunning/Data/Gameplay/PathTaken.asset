@@ -16,4 +16,4 @@ MonoBehaviour:
   Description: Contains a reference to the last PathSO taken by the player during
     gameplay, which is set by LocationExit scripts. It is used by the SpawnSystem
     to determine the LocationEntrance when spawning the player in a new scene.
-  lastPathTaken: {fileID: 0}
+  lastPathTaken: {fileID: 11400000, guid: e10a1ba8e1b4f364d888b143bfdbb9d7, type: 2}

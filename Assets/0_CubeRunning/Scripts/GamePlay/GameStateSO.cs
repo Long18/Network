@@ -58,14 +58,27 @@ public class GameStateSO : DescriptionBaseSO
         if (newGameState == CurrentGameState)
             return;
 
+        if (newGameState == GameState.Combat)
+            onCombatStateEvent.RaiseEvent(true);
+        else
+            onCombatStateEvent.RaiseEvent(false);
+
         previousGameState = currentGameState;
         currentGameState = newGameState;
-
-        onCombatStateEvent.RaiseEvent(newGameState == GameState.Combat);
     }
 
     public void ReturnToPreviousGameState()
     {
-        UpdateGameState(previousGameState);
+        if (previousGameState == currentGameState) return;
+
+        if (previousGameState == GameState.Combat)
+            onCombatStateEvent.RaiseEvent(false);
+        else if (currentGameState == GameState.Combat)
+            onCombatStateEvent.RaiseEvent(true);
+
+        (previousGameState, currentGameState) = (currentGameState, previousGameState); // Swap values
+        // - previousGameState is assigned the value of currentGameState
+        // - currentGameState is assigned the value of previousGameState
+        // - previousGameState is assigned the value of currentGameState
     }
 }

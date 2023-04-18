@@ -1,14 +1,13 @@
 using System;
-using Photon.Pun;
 using UnityEngine;
+
+// ReSharper disable All
 
 public class Protagonist : MonoBehaviour
 {
     [SerializeField] private InputReaderSO inputReader = default;
 
     [SerializeField] private TransformAnchor gameplayCameraTransform = default;
-
-    [SerializeField] private PhotonView view = default;
 
     private Vector2 inputVector;
     private float previousSpeed;
@@ -30,10 +29,7 @@ public class Protagonist : MonoBehaviour
     public const float AIR_RESISTANCE = 5f;
 
 
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        lastHit = hit;
-    }
+    private void OnControllerColliderHit(ControllerColliderHit hit) => lastHit = hit;
 
     private void OnEnable()
     {
@@ -43,6 +39,7 @@ public class Protagonist : MonoBehaviour
         inputReader.StartedRunning += OnStartedRunning;
         inputReader.StoppedRunning += OnStoppedRunning;
         inputReader.ClimbEvent += OnClimbingInitiated;
+        inputReader.ClimbCanceledEvent += OnClimbingCanceled;
         inputReader.AttackEvent += OnStartedAttack;
     }
 
@@ -54,20 +51,11 @@ public class Protagonist : MonoBehaviour
         inputReader.StoppedRunning -= OnStoppedRunning;
         inputReader.StartedRunning -= OnStartedRunning;
         inputReader.ClimbEvent -= OnClimbingInitiated;
+        inputReader.ClimbCanceledEvent -= OnClimbingCanceled;
         inputReader.AttackEvent -= OnStartedAttack;
     }
 
-    private void Update()
-    {
-#if UNITY_EDITOR
-        RecalculateMovement();
-#else
-        if (view.IsMine)
-        {
-            RecalculateMovement();
-        }
-#endif
-    }
+    private void Update() => RecalculateMovement();
 
     private void RecalculateMovement()
     {
@@ -103,17 +91,13 @@ public class Protagonist : MonoBehaviour
         {
             // This is used to set the speed to the maximum if holding the Shift key,
             // to allow keyboard players to "run"
-            if (isRunning)
-                targetSpeed = 1f;
-
-            if (attackInput)
-                targetSpeed = .05f;
+            if (isRunning) targetSpeed = 1f;
+            if (attackInput) targetSpeed = .05f;
         }
 
         targetSpeed = Mathf.Lerp(previousSpeed, targetSpeed, Time.deltaTime * 4f);
 
         movementInput = adjustedMovement.normalized * targetSpeed;
-
         previousSpeed = targetSpeed;
     }
 
@@ -121,16 +105,15 @@ public class Protagonist : MonoBehaviour
     private void OnMove(Vector2 movement) => inputVector = movement;
 
     private void OnJumpInitiated() => jumpInput = true;
-
     private void OnJumpCanceled() => jumpInput = false;
     private void OnStoppedRunning() => isRunning = false;
-
     private void OnStartedRunning() => isRunning = true;
-
 
     private void OnStartedAttack() => attackInput = true;
 
-    private void OnClimbingInitiated() => climbInput = true;
+    // Triggered from Animation Event
+    public void ConsumeAttackInput() => attackInput = false;
 
+    private void OnClimbingInitiated() => climbInput = true;
     private void OnClimbingCanceled() => climbInput = false;
 }

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8412457401394636b26eaf081224fa01, type: 3}
   m_Name: IsAttacking_True_OnEnter
   m_EditorClassIdentifier: 
-  description: 
+  description: Sets a Parameter on the character's Animator controller
   parameterType: 0
   parameterName: IsAttacking
-  boolValue: 0
+  boolValue: 1
   intValue: 0
   floatValue: 0
   whenToRun: 0

@@ -1,8 +1,6 @@
 using System.Collections.Generic;
-using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Playables;
-using UnityEngine.Serialization;
 
 public enum InteractionType
 {
@@ -94,6 +92,9 @@ public class InteractionManager : MonoBehaviour
 
             //No need to do anything for Pickup type, the StateMachine will transition to the state
             //and then the AnimationClip will call Collect()
+            default:
+                inputReader.EnableMenuInput();
+                break;
         }
     }
 
@@ -110,18 +111,18 @@ public class InteractionManager : MonoBehaviour
     {
         Interaction newPotentialInteraction = new Interaction(InteractionType.None, obj);
 
-        if (obj.CompareTag("Pickable"))
-        {
-            newPotentialInteraction.type = InteractionType.PickUp;
-        }
-        else if (obj.CompareTag("CookingPot"))
-        {
-            newPotentialInteraction.type = InteractionType.Cook;
-        }
-        else if (obj.CompareTag("NPC"))
-        {
-            newPotentialInteraction.type = InteractionType.Talk;
-        }
+        // if (obj.CompareTag("Pickable"))
+        // {
+        //     newPotentialInteraction.type = InteractionType.PickUp;
+        // }
+        // else if (obj.CompareTag("CookingPot"))
+        // {
+        //     newPotentialInteraction.type = InteractionType.Cook;
+        // }
+        // else if (obj.CompareTag("NPC"))
+        // {
+        //     newPotentialInteraction.type = InteractionType.Talk;
+        // }
 
         if (newPotentialInteraction.type != InteractionType.None)
         {

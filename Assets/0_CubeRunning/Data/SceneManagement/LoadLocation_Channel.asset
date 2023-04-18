@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 156b48177d8947da9674208405764962, type: 3}
+  m_Name: LoadLocation_Channel
+  m_EditorClassIdentifier: 
+  guid: 5cb09fbf2621ccc4c994f67b1d7d52ac
+  Description: 'Raised to request the loading of a new Location scene. Usually as
+    a result of the player entering a trigger to move to another location.
+
+'

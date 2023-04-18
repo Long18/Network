@@ -13,13 +13,12 @@ MonoBehaviour:
   m_Name: WalkAttacking
   m_EditorClassIdentifier: 
   _actions:
-  - {fileID: 11400000, guid: 201885673bd707f4c9b5f3a92eca204f, type: 2}
-  - {fileID: 11400000, guid: 6a9da1e686e8c3142bcbcc7ccb5bd5ac, type: 2}
-  - {fileID: 11400000, guid: bd85c54d16eb60c4c99504f1679af851, type: 2}
-  - {fileID: 11400000, guid: 47d9da417e68970419335f80f4395239, type: 2}
-  - {fileID: 11400000, guid: 4badb7afa3370ba4d8a229584c5c744f, type: 2}
-  - {fileID: 11400000, guid: fa0ce5b895dcf17499819f0d6f2dce96, type: 2}
-  - {fileID: 11400000, guid: 5aac41c53e47f1040a52303b2000ceb5, type: 2}
-  - {fileID: 11400000, guid: 74800142628360a42bb516b1e5c630e1, type: 2}
-  - {fileID: 11400000, guid: 5cb6e4529b034ff4dbc7a7aa863ce969, type: 2}
-  - {fileID: 11400000, guid: 23e8862a3aca1b6439bda3bf27d03897, type: 2}
+  - {fileID: 11400000, guid: 4b319fbe1345fc84cbe5aaf129f42142, type: 2}
+  - {fileID: 11400000, guid: b510d286edf07be4fb9a60dc71d7bdd2, type: 2}
+  - {fileID: 11400000, guid: 6ac3496465bc4c04894e5db6a28c5131, type: 2}
+  - {fileID: 11400000, guid: fd4f927ab083cea42bd5eeb49fd2293e, type: 2}
+  - {fileID: 11400000, guid: 719c25271cbb95f4aaf219c771f318f7, type: 2}
+  - {fileID: 11400000, guid: 4054c0f8fa2743540a48218556b4bcc8, type: 2}
+  - {fileID: 11400000, guid: 42096ebd9535c1f4689dc49fb19fb5ef, type: 2}
+  - {fileID: 11400000, guid: 2b71480e8d2f1fc4eaa551678ec6b283, type: 2}
+  - {fileID: 11400000, guid: 104da656d2eac6247af29bbf9d101969, type: 2}

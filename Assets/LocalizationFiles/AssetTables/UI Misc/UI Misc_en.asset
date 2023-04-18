@@ -1,0 +1,273 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: UI Misc_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: ecd6e29d77ea7504f902ceb171fb4e41, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 21885448192
+    m_Localized: Quit?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 110070689792
+    m_Localized: Are you sure you want to quit?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 177456377856
+    m_Localized: New Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 253830459392
+    m_Localized: 'Do you want to start a new game or continue the previous one?
+
+      If
+      you start a new game all previous progress will be erased.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 494726115328
+    m_Localized: No
+    m_Metadata:
+      m_Items: []
+  - m_Id: 538636283904
+    m_Localized: "Ok\t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 570622046208
+    m_Localized: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 610614734848
+    m_Localized: No
+    m_Metadata:
+      m_Items: []
+  - m_Id: 643842011136
+    m_Localized: Hold on!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 703409516544
+    m_Localized: 'Take your time. '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 773487947776
+    m_Localized: Resume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 818912260096
+    m_Localized: Back To Menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 877926117376
+    m_Localized: Already?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 925409832960
+    m_Localized: 'Are you sure you want to go back to the main menu? '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 993030402048
+    m_Localized: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1024206663680
+    m_Localized: "No\t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1066812403712
+    m_Localized: Sound FX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1108038217728
+    m_Localized: Music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1139910733824
+    m_Localized: Save
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1160060170240
+    m_Localized: Reset
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1284865880064
+    m_Localized: Anti Aliasing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1352029270016
+    m_Localized: Shadow quality
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1390264545280
+    m_Localized: Shadow Distance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1441107898368
+    m_Localized: On
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1470451249152
+    m_Localized: Off
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1513421893632
+    m_Localized: Soft Shadows
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1553645268992
+    m_Localized: Disable Shadows
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1576445505536
+    m_Localized: 'Hard Shadows '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1595873521664
+    m_Localized: Off
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1621848846336
+    m_Localized: Close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1651276083200
+    m_Localized: Optimal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1671962390528
+    m_Localized: Far
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1692204101632
+    m_Localized: Master Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1717776773120
+    m_Localized: Continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1744549015552
+    m_Localized: New Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1792573796352
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1833891885056
+    m_Localized: Credits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1897334927360
+    m_Localized: Exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2009977155584
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2055531491328
+    m_Localized: Customization
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2100293103616
+    m_Localized: Audio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2150725414912
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2174372900864
+    m_Localized: Graphics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2194593640448
+    m_Localized: SFX Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2243004297216
+    m_Localized: Resolution
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2270476988416
+    m_Localized: Fullscreen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2300508205056
+    m_Localized: Graphic quality
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2341016793088
+    m_Localized: Anti Aliasing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2354748944384
+    m_Localized: Shadow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2390027235328
+    m_Localized: Music Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 326065012174848
+    m_Localized: Fullscreen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 367881933647872
+    m_Localized: 'Do you want to start a new game or continue the previous one?
+
+      If
+      you start a new game all previous progress will be erased.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 368071633629184
+    m_Localized: New Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 368221403836416
+    m_Localized: No
+    m_Metadata:
+      m_Items: []
+  - m_Id: 368377939456000
+    m_Localized: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 370461267030016
+    m_Localized: Join Muiltiplayer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 373342556745728
+    m_Localized: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 695374196600832
+    m_Localized: Hold on!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 695477745577984
+    m_Localized: 'Take your time. '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 695622000275456
+    m_Localized: Resume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 695679827144704
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

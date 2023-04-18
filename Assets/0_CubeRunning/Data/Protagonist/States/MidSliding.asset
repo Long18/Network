@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: MidSliding
   m_EditorClassIdentifier: 
   _actions:
-  - {fileID: 11400000, guid: 9e558dc250163db40a4e1f7241ee15c2, type: 2}
-  - {fileID: 11400000, guid: 47d9da417e68970419335f80f4395239, type: 2}
-  - {fileID: 11400000, guid: 4badb7afa3370ba4d8a229584c5c744f, type: 2}
+  - {fileID: 11400000, guid: 3e374196910a6264da933ae04593dd51, type: 2}
+  - {fileID: 11400000, guid: fd4f927ab083cea42bd5eeb49fd2293e, type: 2}
+  - {fileID: 11400000, guid: 719c25271cbb95f4aaf219c771f318f7, type: 2}

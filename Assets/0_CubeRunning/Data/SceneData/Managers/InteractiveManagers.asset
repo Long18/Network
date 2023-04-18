@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97adc05474f246cea590c4682dd4a2ec, type: 3}
+  m_Name: InteractiveManagers
+  m_EditorClassIdentifier: 
+  guid: bfba02c622f56e345933ddac3fc65ada
+  Description: Gameplay elements including UI and inventory manager
+  sceneType: 4
+  scene:
+    m_AssetGUID: 9223532c9ee73ea4dbfb5e66a0b19d31
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  UnloadPreviousScene: 0

@@ -38,17 +38,23 @@ public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, Game
     public event UnityAction MenuCloseEvent = delegate { };
     public event UnityAction OpenInventoryEvent = delegate { }; // Used to bring up the inventory
     public event UnityAction CloseInventoryEvent = delegate { }; // Used to bring up the inventory
-    public event UnityAction<float> TabSwitched = delegate { };
+    public event UnityAction<float> TabSwitchedEvent = delegate { };
 
     private GameInput gameInput;
 
+#if UNITY_EDITOR
+    private string statusInput = "Default";
+    public string StatusInput => statusInput;
+#endif
+
     private void OnEnable()
     {
-        if (gameInput != null) return;
-
-        gameInput = new GameInput();
-        gameInput.Menus.SetCallbacks(this);
-        gameInput.Gameplay.SetCallbacks(this);
+        if (gameInput == null)
+        {
+            gameInput = new GameInput();
+            gameInput.Menus.SetCallbacks(this);
+            gameInput.Gameplay.SetCallbacks(this);
+        }
     }
 
     private void OnDisable()
@@ -72,27 +78,26 @@ public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, Game
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (MoveEvent == null) return;
         MoveEvent.Invoke(context.ReadValue<Vector2>());
     }
 
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (JumpEvent == null && context.phase != InputActionPhase.Performed) return;
-        JumpEvent.Invoke();
+        if (context.phase == InputActionPhase.Performed)
+            JumpEvent.Invoke();
 
-        if (JumpCanceledEvent == null && context.phase != InputActionPhase.Canceled) return;
-        JumpCanceledEvent.Invoke();
+        if (context.phase == InputActionPhase.Canceled)
+            JumpCanceledEvent.Invoke();
     }
 
     public void OnClimb(InputAction.CallbackContext context)
     {
-        if (ClimbEvent == null && context.phase != InputActionPhase.Performed) return;
-        ClimbEvent.Invoke();
+        if (context.phase == InputActionPhase.Performed)
+            ClimbEvent.Invoke();
 
-        if (ClimbCanceledEvent == null && context.phase != InputActionPhase.Canceled) return;
-        ClimbCanceledEvent.Invoke();
+        if (context.phase == InputActionPhase.Canceled)
+            ClimbCanceledEvent.Invoke();
     }
 
     public void OnMouseControlCamera(InputAction.CallbackContext context)
@@ -119,12 +124,13 @@ public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, Game
 
     public void OnOpenInventory(InputAction.CallbackContext context)
     {
-        if (context.phase != InputActionPhase.Performed) return;
+        if (context.phase == InputActionPhase.Performed)
+        {
+        }
     }
 
     public void OnRotateCamera(InputAction.CallbackContext context)
     {
-        if (CameraMoveEvent == null) return;
         CameraMoveEvent.Invoke(context.ReadValue<Vector2>(), IsDeviceMouse(context));
     }
 
@@ -134,115 +140,135 @@ public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, Game
     public void OnInteract(InputAction.CallbackContext context)
     {
         if (gameStateManager.CurrentGameState == GameState.Gameplay &&
-            context.phase != InputActionPhase.Performed) return;
-        InteractEvent.Invoke();
+            context.phase == InputActionPhase.Performed)
+            InteractEvent.Invoke();
     }
 
     public void OnPause(InputAction.CallbackContext context)
     {
-        if (context.phase != InputActionPhase.Performed) return;
-        MenuPauseEvent.Invoke();
+        if (context.phase == InputActionPhase.Performed)
+            MenuPauseEvent.Invoke();
     }
 
 
     public void OnMoveSelection(InputAction.CallbackContext context)
     {
-        if (context.phase != InputActionPhase.Performed) return;
-        MoveSelectionEvent.Invoke();
+        if (context.phase == InputActionPhase.Performed)
+            MoveSelectionEvent.Invoke();
     }
 
 
     public void OnConfirm(InputAction.CallbackContext context)
     {
-        if (context.phase != InputActionPhase.Performed) return;
-        MenuClickButtonEvent.Invoke();
+        if (context.phase == InputActionPhase.Performed)
+            MenuClickButtonEvent.Invoke();
     }
 
     public void OnCancel(InputAction.CallbackContext context)
     {
-        if (context.phase != InputActionPhase.Performed) return;
-        MenuCloseEvent.Invoke();
+        if (context.phase == InputActionPhase.Performed)
+            MenuCloseEvent.Invoke();
     }
 
     public void OnMouseMove(InputAction.CallbackContext context)
     {
-        if (context.phase != InputActionPhase.Performed) return;
-        MenuMouseMoveEvent.Invoke();
+        if (context.phase == InputActionPhase.Performed)
+            MenuMouseMoveEvent.Invoke();
     }
 
     public void OnUnpause(InputAction.CallbackContext context)
     {
-        if (context.phase != InputActionPhase.Performed) return;
-        MenuUnpauseEvent.Invoke();
+        if (context.phase == InputActionPhase.Performed)
+            MenuUnpauseEvent.Invoke();
     }
 
     public void OnChangeTab(InputAction.CallbackContext context)
     {
-        if (context.phase != InputActionPhase.Performed) return;
-        TabSwitched.Invoke(context.ReadValue<float>());
+        if (context.phase == InputActionPhase.Performed)
+            TabSwitchedEvent.Invoke(context.ReadValue<float>());
     }
 
     public void OnInventoryActionButton(InputAction.CallbackContext context)
     {
-        if (context.phase != InputActionPhase.Performed) return;
-        InventoryActionButtonEvent.Invoke();
+        if (context.phase == InputActionPhase.Performed)
+            InventoryActionButtonEvent.Invoke();
     }
 
     public void OnSaveActionButton(InputAction.CallbackContext context)
     {
-        if (context.phase != InputActionPhase.Performed) return;
-        SaveActionButtonEvent.Invoke();
+        if (context.phase == InputActionPhase.Performed)
+            SaveActionButtonEvent.Invoke();
     }
 
     public void OnResetActionButton(InputAction.CallbackContext context)
     {
-        if (context.phase != InputActionPhase.Performed) return;
-        ResetActionButtonEvent.Invoke();
+        if (context.phase == InputActionPhase.Performed)
+            ResetActionButtonEvent.Invoke();
     }
 
     public void OnClick(InputAction.CallbackContext context)
     {
-        if (context.phase != InputActionPhase.Performed) return;
+        if (context.phase == InputActionPhase.Performed)
+        {
+        }
     }
 
     public void OnPoint(InputAction.CallbackContext context)
     {
-        if (context.phase != InputActionPhase.Performed) return;
+        if (context.phase == InputActionPhase.Performed)
+        {
+        }
     }
 
     public void OnRightClick(InputAction.CallbackContext context)
     {
-        if (context.phase != InputActionPhase.Performed) return;
+        if (context.phase == InputActionPhase.Performed)
+        {
+        }
     }
 
     public void OnNavigate(InputAction.CallbackContext context)
     {
-        if (context.phase != InputActionPhase.Performed) return;
+        if (context.phase == InputActionPhase.Performed)
+        {
+        }
     }
 
     public void OnSubmit(InputAction.CallbackContext context)
     {
-        if (context.phase != InputActionPhase.Performed) return;
+        if (context.phase == InputActionPhase.Performed)
+        {
+        }
     }
 
     public void OnCloseInventory(InputAction.CallbackContext context) => CloseInventoryEvent.Invoke();
 
+    public bool LeftMouseDown() => Mouse.current.leftButton.isPressed;
 
     public void EnableGameplayInput()
     {
-        gameInput.Menus.Disable();
         gameInput.Gameplay.Enable();
+        gameInput.Menus.Disable();
+#if UNITY_EDITOR
+        statusInput = "Gameplay";
+#endif
     }
 
     public void EnableMenuInput()
     {
         gameInput.Menus.Enable();
         gameInput.Gameplay.Disable();
+#if UNITY_EDITOR
+        statusInput = "Menu";
+#endif
     }
 
     public void DisableAllInput()
     {
         gameInput.Gameplay.Disable();
         gameInput.Menus.Disable();
+#if UNITY_EDITOR
+        statusInput = "Disabled";
+#endif
     }
 }
