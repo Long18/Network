@@ -12,7 +12,7 @@ public class BoolEventChannelSO : DescriptionBaseSO
     public event UnityAction<bool> OnEventRaised;
 
 #if UNITY_EDITOR
-    [SerializeField] private bool lastValue;
+    [SerializeField, ReadOnly] private bool lastValue;
     public bool LastValue
     {
         get { return lastValue; }

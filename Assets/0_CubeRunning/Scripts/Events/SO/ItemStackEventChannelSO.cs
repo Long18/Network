@@ -11,7 +11,7 @@ public class ItemStackEventChannelSO : DescriptionBaseSO
     public UnityAction<ItemStack> OnEventRaised;
 
 #if UNITY_EDITOR
-    [SerializeField] private ItemStack lastValue;
+    [SerializeField,ReadOnly] private ItemStack lastValue;
 
     public ItemStack LastValue
     {

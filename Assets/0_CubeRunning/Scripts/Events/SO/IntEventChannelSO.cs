@@ -11,7 +11,7 @@ public class IntEventChannelSO : DescriptionBaseSO
     public event UnityAction<int> OnEventRaised;
 
 #if UNITY_EDITOR
-    [SerializeField] private int lastValue;
+    [SerializeField, ReadOnly] private int lastValue;
     public int LastValue
     {
         get { return lastValue; }

@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private GameStateSO _gameState = default;
+    [SerializeField] private GameStateSO gameState = default;
 
     private void Start()
     {
@@ -14,6 +13,6 @@ public class GameManager : MonoBehaviour
 
     void StartGame()
     {
-        _gameState.UpdateGameState(GameState.Gameplay);
+        gameState.UpdateGameState(GameState.Gameplay);
     }
 }

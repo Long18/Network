@@ -11,7 +11,7 @@ public class FloatEventChannelSO : ScriptableObject
     public event UnityAction<float> OnEventRaised;
 
 #if UNITY_EDITOR
-    [SerializeField] private float lastValue;
+    [SerializeField, ReadOnly] private float lastValue;
     public float LastValue
     {
         get { return lastValue; }

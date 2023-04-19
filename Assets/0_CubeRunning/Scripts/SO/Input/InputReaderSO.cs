@@ -52,6 +52,7 @@ public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, Game
         if (gameInput == null)
         {
             gameInput = new GameInput();
+            
             gameInput.Menus.SetCallbacks(this);
             gameInput.Gameplay.SetCallbacks(this);
         }
@@ -208,37 +209,22 @@ public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, Game
 
     public void OnClick(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Performed)
-        {
-        }
     }
 
     public void OnPoint(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Performed)
-        {
-        }
     }
 
     public void OnRightClick(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Performed)
-        {
-        }
     }
 
     public void OnNavigate(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Performed)
-        {
-        }
     }
 
     public void OnSubmit(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Performed)
-        {
-        }
     }
 
     public void OnCloseInventory(InputAction.CallbackContext context) => CloseInventoryEvent.Invoke();

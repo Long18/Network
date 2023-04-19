@@ -12,6 +12,7 @@ public class SpawnSystem : MonoBehaviour
     [SerializeField] private TransformEventChannelSO playerInstantiatedChannel = default;
     [SerializeField] private PathStorageSO pathTaken = default;
     [SerializeField] private SaveSystem saveSystem = default;
+    [SerializeField] private Protagonist playerPrefab = default;
 
     [Header("Listen Events")] [SerializeField]
     private VoidEventChannelSO onSceneReady = default; //Raised by SceneLoader when the scene is set to active
@@ -40,24 +41,23 @@ public class SpawnSystem : MonoBehaviour
     private void SpawnPlayer()
     {
         Transform spawnLocation = GetSpawnLocation();
-        GameObject player = null;
+        Protagonist player = null;
 
         // for each player, i want random spawn location around 10m radius
-        var randNum = Random.Range(0, 10);
-        spawnLocation.position += new Vector3(spawnLocation.position.x + randNum, spawnLocation.position.y,
-            spawnLocation.position.z + randNum);
+        // var randNum = Random.Range(0, 10);
+        // spawnLocation.position += new Vector3(spawnLocation.position.x + randNum, spawnLocation.position.y,
+        //     spawnLocation.position.z + randNum);
 
         if (!isMultiplayer)
         {
-            player =
-                Instantiate(Resources.Load("Player/Player"), spawnLocation.position, spawnLocation.rotation) as
-                    GameObject;
+            player = Instantiate(playerPrefab, spawnLocation.position, spawnLocation.rotation);
         }
         else
         {
             // TODO: Implement multiplayer
 //          player = PhotonNetwork.Instantiate("Player/Player", spawnLocation.position, spawnLocation.rotation);
         }
+
 
         playerInstantiatedChannel.RaiseEvent(player.transform);
         playerTransformAnchor.Provide(player.transform);

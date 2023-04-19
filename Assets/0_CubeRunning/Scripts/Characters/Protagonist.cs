@@ -95,7 +95,7 @@ public class Protagonist : MonoBehaviour
             if (attackInput) targetSpeed = .05f;
         }
 
-        targetSpeed = Mathf.Lerp(previousSpeed, targetSpeed, Time.deltaTime * 4f);
+        targetSpeed = Mathf.Lerp(previousSpeed, targetSpeed, Time.deltaTime * 40f);
 
         movementInput = adjustedMovement.normalized * targetSpeed;
         previousSpeed = targetSpeed;

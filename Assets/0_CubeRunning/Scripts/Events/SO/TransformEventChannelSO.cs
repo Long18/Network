@@ -11,7 +11,7 @@ public class TransformEventChannelSO : DescriptionBaseSO
     public UnityAction<Transform> OnEventRaised;
 
 #if UNITY_EDITOR
-    [SerializeField] private Transform lastValue;
+    [SerializeField, ReadOnly] private Transform lastValue;
 
     public Transform LastValue
     {

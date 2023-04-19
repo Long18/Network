@@ -12,7 +12,7 @@ public class ItemEventChannelSO : DescriptionBaseSO
 
 
 #if UNITY_EDITOR
-    [SerializeField] private ItemSO lastValue;
+    [SerializeField, ReadOnly] private ItemSO lastValue;
 
     public ItemSO LastValue
     {
