@@ -49,7 +49,6 @@ public class SaveSystem : ScriptableObject
             return true;
         }
 
-        Debug.Log($"[SaveSystem] No save data found at {saveFilename}");
         return false;
     }
 

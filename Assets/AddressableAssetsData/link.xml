@@ -46,6 +46,10 @@
     <type fullname="MultiInputSelectableElement" preserve="all" />
     <type fullname="PathSO" preserve="all" />
     <type fullname="PathStorageSO" preserve="all" />
+    <type fullname="PlayJumpParticlesActionSO" preserve="all" />
+    <type fullname="PlayLandParticlesActionSO" preserve="all" />
+    <type fullname="PlayLiftoffJumpParticlesActionSO" preserve="all" />
+    <type fullname="PlayWalkingParticlesActionSO" preserve="all" />
     <type fullname="RaiseVoidEventActionSO" preserve="all" />
     <type fullname="ResetGetHitStateSO" preserve="all" />
     <type fullname="RotateActionSO" preserve="all" />

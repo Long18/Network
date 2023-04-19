@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.Serialization;
 
 public enum InteractionType
 {
@@ -16,47 +17,46 @@ public class InteractionManager : MonoBehaviour
 
     //Events for the different interaction types
     [Header("Broadcasting on")] [SerializeField]
-    private ItemEventChannelSO _onObjectPickUp = default;
+    private ItemEventChannelSO onObjectPickUp = default;
 
-    // [SerializeField] private VoidEventChannelSO _onCookingStart = default;
-    // [SerializeField] private DialogueActorChannelSO _startTalking = default;
-    // [SerializeField] private InteractionUIEventChannelSO _toggleInteractionUI = default;
+    // [SerializeField] private VoidEventChannelSO onCookingStart = default;
+    // [SerializeField] private DialogueActorChannelSO startTalking = default;
+    // [SerializeField] private InteractionUIEventChannelSO toggleInteractionUI = default;
 
-    [Header("Listening to")] [SerializeField]
-    private VoidEventChannelSO _onInteractionEnded = default;
-    // [SerializeField] private PlayableDirectorChannelSO _onCutsceneStart = default;
+    [FormerlySerializedAs("_onInteractionEnded")] [Header("Listening to")] [SerializeField]
+    private VoidEventChannelSO onInteractionEnded = default;
+    // [SerializeField] private PlayableDirectorChannelSO onCutsceneStart = default;
 
     [ReadOnly]
     public InteractionType currentInteractionType; //This is checked/consumed by conditions in the StateMachine
 
-    private LinkedList<Interaction>
-        _potentialInteractions =
-            new LinkedList<Interaction>(); //To store the objects we the player could potentially interact with
+    private LinkedList<Interaction> potentialInteractions =
+        new LinkedList<Interaction>(); //To store the objects we the player could potentially interact with
 
     private void OnEnable()
     {
         inputReader.InteractEvent += OnInteractionButtonPress;
-        _onInteractionEnded.OnEventRaised += OnInteractionEnd;
+        onInteractionEnded.OnEventRaised += OnInteractionEnd;
         // _onCutsceneStart.OnEventRaised += ResetPotentialInteractions;
     }
 
     private void OnDisable()
     {
         inputReader.InteractEvent -= OnInteractionButtonPress;
-        _onInteractionEnded.OnEventRaised -= OnInteractionEnd;
+        onInteractionEnded.OnEventRaised -= OnInteractionEnd;
         // _onCutsceneStart.OnEventRaised -= ResetPotentialInteractions;
     }
 
     // Called mid-way through the AnimationClip of collecting
     private void Collect()
     {
-        GameObject itemObject = _potentialInteractions.First.Value.interactableObject;
-        _potentialInteractions.RemoveFirst();
+        GameObject itemObject = potentialInteractions.First.Value.interactableObject;
+        potentialInteractions.RemoveFirst();
 
-        if (_onObjectPickUp != null)
+        if (onObjectPickUp != null)
         {
             ItemSO currentItem = itemObject.GetComponent<CollectableItem>().GetItem();
-            _onObjectPickUp.RaiseEvent(currentItem);
+            onObjectPickUp.RaiseEvent(currentItem);
         }
 
         Destroy(itemObject); //TODO: maybe move this destruction in a more general manger, to implement a removal SFX
@@ -66,12 +66,12 @@ public class InteractionManager : MonoBehaviour
 
     private void OnInteractionButtonPress()
     {
-        if (_potentialInteractions.Count == 0)
+        if (potentialInteractions.Count == 0)
             return;
 
-        currentInteractionType = _potentialInteractions.First.Value.type;
+        currentInteractionType = potentialInteractions.First.Value.type;
 
-        switch (_potentialInteractions.First.Value.type)
+        switch (potentialInteractions.First.Value.type)
         {
             // case InteractionType.Cook:
             //     if (_onCookingStart != null)
@@ -126,26 +126,26 @@ public class InteractionManager : MonoBehaviour
 
         if (newPotentialInteraction.type != InteractionType.None)
         {
-            _potentialInteractions.AddFirst(newPotentialInteraction);
+            potentialInteractions.AddFirst(newPotentialInteraction);
             RequestUpdateUI(true);
         }
     }
 
     private void RemovePotentialInteraction(GameObject obj)
     {
-        LinkedListNode<Interaction> currentNode = _potentialInteractions.First;
+        LinkedListNode<Interaction> currentNode = potentialInteractions.First;
         while (currentNode != null)
         {
             if (currentNode.Value.interactableObject == obj)
             {
-                _potentialInteractions.Remove(currentNode);
+                potentialInteractions.Remove(currentNode);
                 break;
             }
 
             currentNode = currentNode.Next;
         }
 
-        RequestUpdateUI(_potentialInteractions.Count > 0);
+        RequestUpdateUI(potentialInteractions.Count > 0);
     }
 
     private void RequestUpdateUI(bool visible)
@@ -172,7 +172,7 @@ public class InteractionManager : MonoBehaviour
 
     private void ResetPotentialInteractions(PlayableDirector _playableDirector)
     {
-        _potentialInteractions.Clear();
-        RequestUpdateUI(_potentialInteractions.Count > 0);
+        potentialInteractions.Clear();
+        RequestUpdateUI(potentialInteractions.Count > 0);
     }
 }

@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44b3d687684302544b7c240cfbe221eb, type: 3}
+  m_Script: {fileID: 11500000, guid: a436b3a8b29c44b9aeb1f9375f7c9760, type: 3}
   m_Name: PlayLiftoffJumpParticles
   m_EditorClassIdentifier: 
   description: Plays one off jump particles at full power
