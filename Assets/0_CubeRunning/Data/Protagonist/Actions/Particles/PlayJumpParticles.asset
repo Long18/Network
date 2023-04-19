@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d4626beca74e2c43b7101165ecf3d06, type: 3}
+  m_Script: {fileID: 11500000, guid: 84579e2f23ca4e63b9448da12ac955c5, type: 3}
   m_Name: PlayJumpParticles
   m_EditorClassIdentifier: 
   description: Plays one off particles
