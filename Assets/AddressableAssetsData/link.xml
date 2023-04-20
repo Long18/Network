@@ -14,6 +14,7 @@
     <type fullname="ClearInputCache_OnEnterSO" preserve="all" />
     <type fullname="ClickToPlaceHelper" preserve="all" />
     <type fullname="Damageable" preserve="all" />
+    <type fullname="DepthNormalsFeature" preserve="all" />
     <type fullname="DescendActionSO" preserve="all" />
     <type fullname="DestroyEntitySO" preserve="all" />
     <type fullname="DroppableRewardConfigSO" preserve="all" />
@@ -51,6 +52,7 @@
     <type fullname="MultiInputButton" preserve="all" />
     <type fullname="MultiInputSelectableElement" preserve="all" />
     <type fullname="MusicPlayer" preserve="all" />
+    <type fullname="OrientListener" preserve="all" />
     <type fullname="PathSO" preserve="all" />
     <type fullname="PathStorageSO" preserve="all" />
     <type fullname="PlayerEffectController" preserve="all" />
@@ -59,6 +61,7 @@
     <type fullname="PlayLiftoffJumpParticlesActionSO" preserve="all" />
     <type fullname="PlayWalkingParticlesActionSO" preserve="all" />
     <type fullname="Protagonist" preserve="all" />
+    <type fullname="ProtagonistAudio" preserve="all" />
     <type fullname="RaiseVoidEventActionSO" preserve="all" />
     <type fullname="RandomIdleAnimationBehaviour" preserve="all" />
     <type fullname="ResetGetHitStateSO" preserve="all" />
@@ -152,12 +155,15 @@
   <assembly fullname="Unity.InputSystem, Version=1.5.1.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="UnityEngine.InputSystem.InputActionAsset" preserve="all" />
     <type fullname="UnityEngine.InputSystem.InputActionReference" preserve="all" />
+    <type fullname="UnityEngine.InputSystem.InputSettings" preserve="all" />
     <type fullname="UnityEngine.InputSystem.UI.InputSystemUIInputModule" preserve="all" />
     <type fullname="UnityEngine.InputSystem.InputAction" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.InputSystem.InputActionMap" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.InputSystem.InputBinding" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.InputSystem.InputControlScheme" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.InputSystem.InputControlScheme/DeviceRequirement" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.InputSystem.InputSettings/iOSSettings" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.InputSystem.iOS.PrivacyDataUsage" preserve="nothing" serialized="true" />
   </assembly>
   <assembly fullname="Unity.Localization, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="UnityEngine.Localization.Components.LocalizeStringEvent" preserve="all" />
@@ -200,6 +206,7 @@
     <type fullname="UnityEngine.Rendering.Universal.UniversalRendererData" preserve="all" />
     <type fullname="UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset" preserve="all" />
     <type fullname="UnityEngine.Rendering.Universal.Vignette" preserve="all" />
+    <type fullname="UnityEngine.Rendering.Universal.WhiteBalance" preserve="all" />
     <type fullname="UnityEngine.Rendering.Universal.XRSystemData" preserve="all" />
     <type fullname="UnityEngine.Experimental.Rendering.Universal.RenderObjects/CustomCameraSettings" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.Experimental.Rendering.Universal.RenderObjects/FilterSettings" preserve="nothing" serialized="true" />

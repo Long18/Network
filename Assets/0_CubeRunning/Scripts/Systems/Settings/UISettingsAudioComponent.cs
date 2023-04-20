@@ -56,15 +56,15 @@ public class UISettingsAudioComponent : MonoBehaviour
         masterVolumeField.OnPreviousOption -= DecreaseMasterVolume;
     }
 
-    public void Setup(float musicVolume, float sfxVolume, float masterVolume)
+    public void Setup(float _musicVolume, float _sfxVolume, float _masterVolume)
     {
-        this.masterVolume = masterVolume;
-        this.musicVolume = sfxVolume;
-        this.sfxVolume = musicVolume;
+        masterVolume = _masterVolume;
+        musicVolume = _musicVolume;
+        sfxVolume = _sfxVolume;
 
-        savedMasterVolume = this.masterVolume;
-        savedMusicVolume = this.musicVolume;
-        savedSfxVolume = this.sfxVolume;
+        savedMasterVolume = masterVolume;
+        savedMusicVolume = musicVolume;
+        savedSfxVolume = sfxVolume;
 
         SetMusicVolumeField();
         SetSfxVolumeField();
@@ -161,6 +161,6 @@ public class UISettingsAudioComponent : MonoBehaviour
         savedMusicVolume = musicVolume;
         savedSfxVolume = sfxVolume;
         //save Audio
-        Save.Invoke(musicVolume, sfxVolume, masterVolume);
+        Save.Invoke(masterVolume, sfxVolume, musicVolume);
     }
 }

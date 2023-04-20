@@ -4,11 +4,13 @@ using UnityEngine.Serialization;
 
 public class AudioManager : MonoBehaviour
 {
+    [Header("Config")] [SerializeField] private SettingsSO settings = default;
+    [SerializeField] private SaveSystem saveSystem = default;
+
     [Header("SoundEmitters pool")] [SerializeField]
     private SoundEmitterPoolSO pool = default;
 
     [SerializeField] private int initialSize = 10;
-
 
     [Header("Listening on channels")]
     [Tooltip("The SoundManager listens to this event, fired by objects in any scene, to play SFXs")]
@@ -51,6 +53,13 @@ public class AudioManager : MonoBehaviour
 
         pool.Prewarm(initialSize);
         pool.SetParent(this.transform);
+
+        if (saveSystem.LoadSaveDataFromDisk())
+        {
+            masterVolume = settings.MasterVolume;
+            musicVolume = settings.MusicVolume;
+            sfxVolume = settings.SfxVolume;
+        }
     }
 
     private void OnEnable()
@@ -84,15 +93,24 @@ public class AudioManager : MonoBehaviour
     /// This is only used in the Editor, to debug volumes.
     /// It is called when any of the variables is changed, and will directly change the value of the volumes on the AudioMixer.
     /// </summary>
+#if UNITY_EDITOR
     void OnValidate()
     {
         if (Application.isPlaying)
         {
+            if (saveSystem.LoadSaveDataFromDisk())
+            {
+                masterVolume = settings.MasterVolume;
+                musicVolume = settings.MusicVolume;
+                sfxVolume = settings.SfxVolume;
+            }
+
             SetGroupVolume("MasterVolume", masterVolume);
             SetGroupVolume("MusicVolume", musicVolume);
             SetGroupVolume("SFXVolume", sfxVolume);
         }
     }
+#endif
 
     void ChangeMasterVolume(float newVolume)
     {

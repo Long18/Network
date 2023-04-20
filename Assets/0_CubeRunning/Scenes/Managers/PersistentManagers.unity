@@ -587,7 +587,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1150739317
 MonoBehaviour:
@@ -602,11 +602,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SaveSettingsEvent: {fileID: 11400000, guid: cb7b1eb8b108558409503d747d789511, type: 2}
-  _currentSettings: {fileID: 11400000, guid: d75986071642d9b45b0ab17616b1d66c, type: 2}
-  _saveSystem: {fileID: 11400000, guid: 010ec05ebc106bc40bc6f83ecdaff109, type: 2}
-  _changeMasterVolumeEventChannel: {fileID: 11400000, guid: df1dba11adff670409397669b94f8350, type: 2}
-  _changeSFXVolumeEventChannel: {fileID: 11400000, guid: c11d5828c26a1234ea4594a73fa45384, type: 2}
-  _changeMusicVolumeEventChannel: {fileID: 11400000, guid: 7036b572b2f35614b945ec743317dc51, type: 2}
+  currentSettings: {fileID: 11400000, guid: d75986071642d9b45b0ab17616b1d66c, type: 2}
+  urpAsset: {fileID: 11400000, guid: 19ba41d7c0026c3459d37c2fe90c55a0, type: 2}
+  saveSystem: {fileID: 11400000, guid: 010ec05ebc106bc40bc6f83ecdaff109, type: 2}
+  changeMasterVolumeEventChannel: {fileID: 11400000, guid: df1dba11adff670409397669b94f8350, type: 2}
+  changeSFXVolumeEventChannel: {fileID: 11400000, guid: c11d5828c26a1234ea4594a73fa45384, type: 2}
+  changeMusicVolumeEventChannel: {fileID: 11400000, guid: 7036b572b2f35614b945ec743317dc51, type: 2}
 --- !u!1 &1366823313
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,7 +655,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1667760858
 GameObject:
@@ -845,6 +846,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcf69f82f8783049ab749ba8f527f89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settings: {fileID: 11400000, guid: d75986071642d9b45b0ab17616b1d66c, type: 2}
+  saveSystem: {fileID: 11400000, guid: 010ec05ebc106bc40bc6f83ecdaff109, type: 2}
   pool: {fileID: 11400000, guid: cb8ad46d50073834ca66de17e50fb573, type: 2}
   initialSize: 10
   SFXEventChannel: {fileID: 11400000, guid: 67dbf7759eaf57b41bfb4f9785456443, type: 2}
@@ -854,7 +857,7 @@ MonoBehaviour:
   masterVolumeEventChannel: {fileID: 11400000, guid: df1dba11adff670409397669b94f8350, type: 2}
   audioMixer: {fileID: 24100000, guid: 548a7f001ca6d3d4cb67c8edf84f62a3, type: 2}
   masterVolume: 1
-  musicVolume: 0.8
+  musicVolume: 1
   sfxVolume: 1
 --- !u!4 &2138684034
 Transform:

@@ -342,6 +342,7 @@ GameObject:
   m_Component:
   - component: {fileID: 812370113822971178}
   - component: {fileID: 6383891510867289333}
+  - component: {fileID: 5718534013248399351}
   m_Layer: 0
   m_Name: AudioListener
   m_TagString: Untagged
@@ -372,6 +373,19 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2158094385862421605}
   m_Enabled: 1
+--- !u!114 &5718534013248399351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2158094385862421605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ade2516f57e849c696156d1986d64b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraTransform: {fileID: 11400000, guid: ef8fc9719e261454dae7f15197414911, type: 2}
 --- !u!1 &2161077806488018742
 GameObject:
   m_ObjectHideFlags: 0
@@ -710,6 +724,7 @@ GameObject:
   - component: {fileID: 6182268556711939680}
   - component: {fileID: 4325078152821789685}
   - component: {fileID: 1568964061318395693}
+  - component: {fileID: 4345167552182929482}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -870,6 +885,26 @@ MonoBehaviour:
   walkingParticles: {fileID: 861703279003951732}
   landParticles: {fileID: 3056925081403815034}
   jumpParticles: {fileID: 352701885241321648}
+--- !u!114 &4345167552182929482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6182268556711939681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3533152a3bfe40c9bbeaf29cd57ec2dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxEventChannel: {fileID: 11400000, guid: 67dbf7759eaf57b41bfb4f9785456443, type: 2}
+  audioConfig: {fileID: 11400000, guid: 77079346d0b0a6c4496ea8f61cce766a, type: 2}
+  gameState: {fileID: 11400000, guid: 8c7562c1dc1629547b83b87a777172b3, type: 2}
+  liftJump: {fileID: 11400000, guid: f2ae4167b56c9364286ee2188079f00e, type: 2}
+  land: {fileID: 11400000, guid: c0befd3236d3f5f4ea49020e7dc6266c, type: 2}
+  footsteps: {fileID: 11400000, guid: 5b232fb841025a944a1142b651d16007, type: 2}
+  getHit: {fileID: 11400000, guid: e44aca98ecd12a1408843e0466cf7257, type: 2}
+  die: {fileID: 11400000, guid: e44aca98ecd12a1408843e0466cf7257, type: 2}
 --- !u!1 &6246980017044283203
 GameObject:
   m_ObjectHideFlags: 0

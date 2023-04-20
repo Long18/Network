@@ -1,25 +1,24 @@
 ﻿using UnityEngine;
-using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
-// using UnityEngine.Rendering.Universal;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.Serialization;
+
 
 public class SettingsSystem : MonoBehaviour
 {
     [SerializeField] private VoidEventChannelSO SaveSettingsEvent = default;
+    [SerializeField] private SettingsSO currentSettings = default;
+    [SerializeField] private UniversalRenderPipelineAsset urpAsset = default;
+    [SerializeField] private SaveSystem saveSystem = default;
 
-    [SerializeField] private SettingsSO _currentSettings = default;
-
-    // [SerializeField] private UniversalRenderPipelineAsset _urpAsset = default;
-    [SerializeField] private SaveSystem _saveSystem = default;
-
-    [SerializeField] private FloatEventChannelSO _changeMasterVolumeEventChannel = default;
-    [SerializeField] private FloatEventChannelSO _changeSFXVolumeEventChannel = default;
-    [SerializeField] private FloatEventChannelSO _changeMusicVolumeEventChannel = default;
+    [Header("Sound")] [SerializeField] private FloatEventChannelSO changeMasterVolumeEventChannel = default;
+    [SerializeField] private FloatEventChannelSO changeSFXVolumeEventChannel = default;
+    [SerializeField] private FloatEventChannelSO changeMusicVolumeEventChannel = default;
 
     private void Awake()
     {
-        _saveSystem.LoadSaveDataFromDisk();
-        _currentSettings.LoadSavedSettings(_saveSystem.saveData);
+        saveSystem.LoadSaveDataFromDisk();
+        currentSettings.LoadSavedSettings(saveSystem.saveData);
         SetCurrentSettings();
     }
 
@@ -38,23 +37,20 @@ public class SettingsSystem : MonoBehaviour
     /// </summary>
     void SetCurrentSettings()
     {
-        _changeMusicVolumeEventChannel.RaiseEvent(_currentSettings.MusicVolume); //raise event for volume change
-        _changeSFXVolumeEventChannel.RaiseEvent(_currentSettings.SfxVolume); //raise event for volume change
-        _changeMasterVolumeEventChannel.RaiseEvent(_currentSettings.MasterVolume); //raise event for volume change
+        changeMusicVolumeEventChannel.RaiseEvent(currentSettings.MusicVolume); //raise event for volume change
+        changeSFXVolumeEventChannel.RaiseEvent(currentSettings.SfxVolume); //raise event for volume change
+        changeMasterVolumeEventChannel.RaiseEvent(currentSettings.MasterVolume); //raise event for volume change
         Resolution
             currentResolution =
                 Screen.currentResolution; // get a default resolution in case saved resolution doesn't exist in the resolution List
-        if (_currentSettings.ResolutionsIndex < Screen.resolutions.Length)
-            currentResolution = Screen.resolutions[_currentSettings.ResolutionsIndex];
-        Screen.SetResolution(currentResolution.width, currentResolution.height, _currentSettings.IsFullscreen);
-        // _urpAsset.shadowDistance = _currentSettings.ShadowDistance;
-        // _urpAsset.msaaSampleCount = _currentSettings.AntiAliasingIndex;
+        if (currentSettings.ResolutionsIndex < Screen.resolutions.Length)
+            currentResolution = Screen.resolutions[currentSettings.ResolutionsIndex];
+        Screen.SetResolution(currentResolution.width, currentResolution.height, currentSettings.IsFullscreen);
+        urpAsset.shadowDistance = currentSettings.ShadowDistance;
+        urpAsset.msaaSampleCount = currentSettings.AntiAliasingIndex;
 
-        LocalizationSettings.SelectedLocale = _currentSettings.CurrentLocale;
+        LocalizationSettings.SelectedLocale = currentSettings.CurrentLocale;
     }
 
-    void SaveSettings()
-    {
-        _saveSystem.SaveDataToDisk();
-    }
+    void SaveSettings() => saveSystem.SaveDataToDisk();
 }

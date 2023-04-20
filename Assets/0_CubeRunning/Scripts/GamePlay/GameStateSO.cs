@@ -8,6 +8,8 @@ public enum GameState
     Pause = 1, // Pause menu is opened, the whole game world is frozen
     Inventory = 2,
     Combat = 3, // Enemy is nearby and alert, player can't open Inventory or initiate dialogues, but can pause the game
+    Cutscene = 4,
+    LocationTransition = 5, // When the character steps into LocationExit trigger, fade to black begins and control is removed from the player
 }
 
 [CreateAssetMenu(fileName = "GameState", menuName = "Gameplay/GameState", order = 1)]
