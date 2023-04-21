@@ -8,7 +8,7 @@ public class SoundEmitter : MonoBehaviour
 {
     private AudioSource audioSource;
 
-    public event UnityAction<SoundEmitter> OnSoundFinishedPlaying;
+    public event UnityAction<SoundEmitter> OnSoundFinishedPlaying = delegate { };
 
     private void Awake()
     {
@@ -29,8 +29,8 @@ public class SoundEmitter : MonoBehaviour
         settings.ApplyTo(audioSource);
         audioSource.transform.position = position;
         audioSource.loop = hasToLoop;
-        audioSource.time =
-            0f; //Reset in case this AudioSource is being reused for a short SFX after being used for a long music track
+        //Reset in case this AudioSource is being reused for a short SFX after being used for a long music track
+        audioSource.time = 0f;
         audioSource.Play();
 
         if (!hasToLoop)
@@ -54,7 +54,7 @@ public class SoundEmitter : MonoBehaviour
 
     public float FadeMusicOut(float duration)
     {
-        audioSource.DOFade(0f, duration).onComplete += OnFadeOutComplete;
+        audioSource.DOFade(0.0f, duration).onComplete += OnFadeOutComplete;
 
         return audioSource.time;
     }

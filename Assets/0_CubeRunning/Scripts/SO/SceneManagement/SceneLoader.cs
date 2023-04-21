@@ -97,16 +97,9 @@ public class SceneLoader : MonoBehaviour
 
         // In case we are coming from the main menu, we need to load the manager scene first
         if (!gameplayManagerSceneInstance.Scene.IsValid())
-        {
-            DownloadAsset(interactiveManager.scene);
-            gameplayManagerLoadingOpHandle =
-                Addressables.LoadSceneAsync(interactiveManager.scene, LoadSceneMode.Additive, true);
-            gameplayManagerLoadingOpHandle.Completed += OnGameplayManagerLoaded;
-        }
+            StartCoroutine(DownloadAsset(interactiveManager.scene));
         else
-        {
             StartCoroutine(UnloadPreviousScene());
-        }
     }
 
     private void OnGameplayManagerLoaded(AsyncOperationHandle<SceneInstance> obj)
@@ -151,7 +144,7 @@ public class SceneLoader : MonoBehaviour
                 // Unload the scene through Addressables, i.e. through the AssetReference system
                 // every assets usage should be through the AssetReference system
                 var handle = Addressables.UnloadSceneAsync(currentlyLoadedScene.handle, true);
-                handle.Completed += (operationHandle => Resources.UnloadUnusedAssets());
+                handle.Completed += handleOP => Resources.UnloadUnusedAssets();
             }
 #if UNITY_EDITOR
             else
@@ -174,25 +167,39 @@ public class SceneLoader : MonoBehaviour
     private void LoadNewScene()
     {
         if (showLoadingScreen) toggleLoadingScreen.RaiseEvent(true);
-
-        DownloadAsset(sceneToLoad.scene);
-        loadingOperationHandle = Addressables.LoadSceneAsync(sceneToLoad.scene, LoadSceneMode.Additive, true, 0);
-        sceneToLoad.handle = loadingOperationHandle;
-        loadingOperationHandle.Completed += OnNewSceneLoaded;
+        StartCoroutine(DownloadAsset(sceneToLoad.scene, true));
     }
 
-    private IEnumerator DownloadAsset(SceneAssetReference scene)
+    private IEnumerator DownloadAsset(SceneAssetReference scene, bool isLoadNewScreen = false)
     {
-        var handle = Addressables.LoadSceneAsync(scene, LoadSceneMode.Additive, true, 0);
-        yield return handle;
-
-        while (!handle.IsDone)
+        if (isLoadNewScreen)
         {
-            var status = handle.GetDownloadStatus();
-            float progress = status.Percent;
+            loadingOperationHandle = Addressables.LoadSceneAsync(scene, LoadSceneMode.Additive, true, 0);
+            sceneToLoad.handle = loadingOperationHandle;
+            loadingOperationHandle.Completed += OnNewSceneLoaded;
 
-            loadingProgressChannel.RaiseEvent(progress);
-            yield return null;
+            while (!loadingOperationHandle.IsDone)
+            {
+                var status = loadingOperationHandle.GetDownloadStatus();
+                float progress = status.Percent;
+
+                loadingProgressChannel.RaiseEvent(progress);
+                yield return null;
+            }
+        }
+        else
+        {
+            gameplayManagerLoadingOpHandle = Addressables.LoadSceneAsync(scene, LoadSceneMode.Additive, true);
+            gameplayManagerLoadingOpHandle.Completed += OnGameplayManagerLoaded;
+
+            while (!gameplayManagerLoadingOpHandle.IsDone)
+            {
+                var status = gameplayManagerLoadingOpHandle.GetDownloadStatus();
+                float progress = status.Percent;
+
+                loadingProgressChannel.RaiseEvent(progress);
+                yield return null;
+            }
         }
     }
 

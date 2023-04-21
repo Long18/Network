@@ -56,9 +56,9 @@ public class AudioManager : MonoBehaviour
 
         if (saveSystem.LoadSaveDataFromDisk())
         {
-            masterVolume = settings.MasterVolume;
-            musicVolume = settings.MusicVolume;
-            sfxVolume = settings.SfxVolume;
+            masterVolumeEventChannel.RaiseEvent(settings.MasterVolume);
+            musicVolumeEventChannel.RaiseEvent(settings.MusicVolume);
+            SFXVolumeEventChannel.RaiseEvent(settings.SfxVolume);
         }
     }
 

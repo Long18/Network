@@ -65,6 +65,8 @@ public class UIMenuManager : MonoBehaviour
     {
         confirmationPanel.ConfirmationResponseAction -= StartNewGameConfirmationResponse;
         confirmationPanel.ClosePanelAction -= HideConfirmationPanel;
+        confirmationPanel.gameObject.SetActive(false);
+        
         if (isNewGameConfirmed)
             ConfirmStartNewSinglePlayerGame();
         else
