@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 public class NPCMovementConfigSO : ScriptableObject
 {
-	[SerializeField] private float _stopDuration;
-	[SerializeField] private float _speed;
+    [SerializeField] private float stopDuration;
+    [SerializeField] private float speed;
 
-	public float Speed => _speed;
-	public float StopDuration => _stopDuration;
+    public float Speed => speed;
+    public float StopDuration => stopDuration;
 }

@@ -21,6 +21,10 @@ MonoBehaviour:
     m_Address: Assets/0_CubeRunning/Data/Dialogues
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: ff2c41eb108b4074ebd088ac252d4d5f
+    m_Address: Assets/0_CubeRunning/Data/NPC
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1a6cd8cbff797c5479af27ca030bdf9b, type: 2}
   m_SchemaSet:

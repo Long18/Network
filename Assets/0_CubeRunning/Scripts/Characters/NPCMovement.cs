@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class NPCMovement : MonoBehaviour
 {
-    [SerializeField] private NPCMovementConfigSO npcMovementConfig;
-    [SerializeField] private NPCMovementEventChannelSO channel;
+    public NPCMovementConfigSO npcMovementConfig;
+    public NPCMovementEventChannelSO channel;
 
     private void OnEnable()
     {
