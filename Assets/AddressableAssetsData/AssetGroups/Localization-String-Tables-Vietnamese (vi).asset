@@ -34,6 +34,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-vi
     - Preload
+  - m_GUID: fbce1ab0c9dac0949a300eb9ece46e7f
+    m_Address: Actor_vi
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-vi
+    - Preload
+  - m_GUID: e98501b5420e03244be4e4a0621af457
+    m_Address: Dialogue_vi
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-vi
+    - Preload
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 1a6cd8cbff797c5479af27ca030bdf9b, type: 2}
   m_SchemaSet:

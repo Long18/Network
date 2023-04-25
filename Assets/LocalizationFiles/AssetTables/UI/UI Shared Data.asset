@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: UI Shared Data
   m_EditorClassIdentifier: 
   m_TableCollectionName: UI
-  m_TableCollectionNameGuidString: 00000000000000000000000000000000
+  m_TableCollectionNameGuidString: 39f5dc68b2679cd4daa11ddc0b37efc1
   m_Entries: []
   m_Metadata:
     m_Items: []

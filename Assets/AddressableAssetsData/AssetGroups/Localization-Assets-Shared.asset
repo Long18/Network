@@ -31,6 +31,14 @@ MonoBehaviour:
       Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
+  - m_GUID: b223d1e3e6b21554eb67bbfab7ad0783
+    m_Address: Assets/LocalizationFiles/AssetTables/Actors/Actor Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+  - m_GUID: 5850c302d26672f4aa85b550359c4d86
+    m_Address: Assets/LocalizationFiles/AssetTables/Dialogues/Dialogue Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 1a6cd8cbff797c5479af27ca030bdf9b, type: 2}
   m_SchemaSet:

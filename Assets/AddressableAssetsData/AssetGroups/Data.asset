@@ -73,6 +73,10 @@ MonoBehaviour:
     m_Address: Music
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 2712ea3b4993f7d4197ba9905c64b0ad
+    m_Address: Actors
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1a6cd8cbff797c5479af27ca030bdf9b, type: 2}
   m_SchemaSet:
