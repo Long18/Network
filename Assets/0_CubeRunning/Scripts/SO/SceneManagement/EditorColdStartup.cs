@@ -32,7 +32,7 @@ public class EditorColdStartup : MonoBehaviour
             pathStorage.lastPathTaken = null;
         }
 
-        CreateSaveFileIfNotPresent();
+        // CreateSaveFileIfNotPresent();
     }
 
     private void Start()
@@ -45,7 +45,7 @@ public class EditorColdStartup : MonoBehaviour
                 LoadEventChannel;
         }
 
-        CreateSaveFileIfNotPresent();
+        // CreateSaveFileIfNotPresent();
     }
 
     private void CreateSaveFileIfNotPresent()

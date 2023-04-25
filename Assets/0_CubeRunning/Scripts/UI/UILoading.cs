@@ -35,6 +35,6 @@ public class UILoading : MonoBehaviour
     private void UpdateLoadingBar(float progress)
     {
         loadingBar.fillAmount = progress;
-        loadingText.text = (progress * 100).ToString("F0") + "%";
+        loadingText.text = Mathf.RoundToInt(progress * 100f) + "%";
     }
 }

@@ -54,6 +54,7 @@ public class SoundEmitter : MonoBehaviour
 
     public float FadeMusicOut(float duration)
     {
+        Debug.Log($"Current duration: {duration}");
         audioSource.DOFade(0.0f, duration).onComplete += OnFadeOutComplete;
 
         return audioSource.time;

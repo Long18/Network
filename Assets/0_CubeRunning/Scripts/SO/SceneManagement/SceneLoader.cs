@@ -195,9 +195,8 @@ public class SceneLoader : MonoBehaviour
             while (!gameplayManagerLoadingOpHandle.IsDone)
             {
                 var status = gameplayManagerLoadingOpHandle.GetDownloadStatus();
-                float progress = status.Percent;
 
-                loadingProgressChannel.RaiseEvent(progress);
+                loadingProgressChannel.RaiseEvent(status.Percent);
                 yield return null;
             }
         }

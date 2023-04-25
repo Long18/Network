@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.Serialization;
 
 public class AudioManager : MonoBehaviour
 {
@@ -53,13 +52,6 @@ public class AudioManager : MonoBehaviour
 
         pool.Prewarm(initialSize);
         pool.SetParent(this.transform);
-
-        if (saveSystem.LoadSaveDataFromDisk())
-        {
-            masterVolumeEventChannel.RaiseEvent(settings.MasterVolume);
-            musicVolumeEventChannel.RaiseEvent(settings.MusicVolume);
-            SFXVolumeEventChannel.RaiseEvent(settings.SfxVolume);
-        }
     }
 
     private void OnEnable()
@@ -74,6 +66,13 @@ public class AudioManager : MonoBehaviour
         masterVolumeEventChannel.OnEventRaised += ChangeMasterVolume;
         musicVolumeEventChannel.OnEventRaised += ChangeMusicVolume;
         SFXVolumeEventChannel.OnEventRaised += ChangeSFXVolume;
+
+        if (saveSystem.LoadSaveDataFromDisk())
+        {
+            masterVolumeEventChannel.RaiseEvent(settings.MasterVolume);
+            musicVolumeEventChannel.RaiseEvent(settings.MusicVolume);
+            SFXVolumeEventChannel.RaiseEvent(settings.SfxVolume);
+        }
     }
 
     private void OnDestroy()
@@ -168,7 +167,7 @@ public class AudioManager : MonoBehaviour
     private AudioCueKey PlayMusicTrack(AudioCueSO audioCue, AudioConfigurationSO audioConfiguration,
         Vector3 positionInSpace)
     {
-        float fadeDuration = 2f;
+        float fadeDuration = 1f;
         float startTime = 0f;
 
         if (musicSoundEmitter != null && musicSoundEmitter.IsPlaying())

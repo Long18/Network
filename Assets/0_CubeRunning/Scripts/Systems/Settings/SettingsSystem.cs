@@ -40,9 +40,9 @@ public class SettingsSystem : MonoBehaviour
         changeMusicVolumeEventChannel.RaiseEvent(currentSettings.MusicVolume); //raise event for volume change
         changeSFXVolumeEventChannel.RaiseEvent(currentSettings.SfxVolume); //raise event for volume change
         changeMasterVolumeEventChannel.RaiseEvent(currentSettings.MasterVolume); //raise event for volume change
-        Resolution
-            currentResolution =
-                Screen.currentResolution; // get a default resolution in case saved resolution doesn't exist in the resolution List
+        
+        Resolution currentResolution = Screen.currentResolution;
+        // get a default resolution in case saved resolution doesn't exist in the resolution List
         if (currentSettings.ResolutionsIndex < Screen.resolutions.Length)
             currentResolution = Screen.resolutions[currentSettings.ResolutionsIndex];
         Screen.SetResolution(currentResolution.width, currentResolution.height, currentSettings.IsFullscreen);
