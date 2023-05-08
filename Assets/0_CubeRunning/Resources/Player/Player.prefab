@@ -962,6 +962,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputReader: {fileID: 11400000, guid: 3e5c093a20096c7479b821fc43c36906, type: 2}
   onObjectPickUp: {fileID: 11400000, guid: 86a86d8306997cb48ba187b66a771052, type: 2}
+  startTalking: {fileID: 11400000, guid: ad4f35bdab20d174e8b001df7be31908, type: 2}
+  toggleInteractionUI: {fileID: 11400000, guid: 743325aea1f2f1642b83c372d3c1e8dc, type: 2}
   onInteractionEnded: {fileID: 11400000, guid: c6f879d2649eebe4a9aee036d860ed12, type: 2}
   currentInteractionType: 0
 --- !u!114 &1568964061318395693

@@ -46,6 +46,10 @@ MonoBehaviour:
       1
     m_Metadata:
       m_Items: []
+  - m_Id: 9833209298251776
+    m_Key: Talk_To_NPC
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -20,8 +20,8 @@ public class InteractionManager : MonoBehaviour
     private ItemEventChannelSO onObjectPickUp = default;
 
     // [SerializeField] private VoidEventChannelSO onCookingStart = default;
-    // [SerializeField] private DialogueActorChannelSO startTalking = default;
-    // [SerializeField] private InteractionUIEventChannelSO toggleInteractionUI = default;
+    [SerializeField] private DialogueActorChannelSO startTalking = default;
+    [SerializeField] private InteractionUIEventChannelSO toggleInteractionUI = default;
 
     [FormerlySerializedAs("_onInteractionEnded")] [Header("Listening to")] [SerializeField]
     private VoidEventChannelSO onInteractionEnded = default;
@@ -82,13 +82,15 @@ public class InteractionManager : MonoBehaviour
             //
             //     break;
 
-            // case InteractionType.Talk:
-            // 	if (_startTalking != null)
-            // 	{
-            // 		_potentialInteractions.First.Value.interactableObject.GetComponent<StepController>().InteractWithCharacter();
-            // 		_inputReader.EnableDialogueInput();
-            // 	}
-            // 	break;
+            case InteractionType.Talk:
+                if (startTalking != null)
+                {
+                    potentialInteractions.First.Value.interactableObject.GetComponent<NPCController>()
+                        .InteractWithCharacter();
+                    inputReader.EnableDialogueInput();
+                }
+
+                break;
 
             //No need to do anything for Pickup type, the StateMachine will transition to the state
             //and then the AnimationClip will call Collect()
@@ -119,10 +121,10 @@ public class InteractionManager : MonoBehaviour
         // {
         //     newPotentialInteraction.type = InteractionType.Cook;
         // }
-        // else if (obj.CompareTag("NPC"))
-        // {
-        //     newPotentialInteraction.type = InteractionType.Talk;
-        // }
+        if (obj.CompareTag("NPC"))
+        {
+            newPotentialInteraction.type = InteractionType.Talk;
+        }
 
         if (newPotentialInteraction.type != InteractionType.None)
         {
@@ -150,10 +152,10 @@ public class InteractionManager : MonoBehaviour
 
     private void RequestUpdateUI(bool visible)
     {
-        // if (visible)
-        // 	_toggleInteractionUI.RaiseEvent(true, _potentialInteractions.First.Value.type);
-        // else
-        // 	_toggleInteractionUI.RaiseEvent(false, InteractionType.None);
+        if (visible)
+            toggleInteractionUI.RaiseEvent(true, potentialInteractions.First.Value.type);
+        else
+            toggleInteractionUI.RaiseEvent(false, InteractionType.None);
     }
 
     private void OnInteractionEnd()

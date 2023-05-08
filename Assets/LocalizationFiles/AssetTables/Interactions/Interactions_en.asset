@@ -46,6 +46,10 @@ MonoBehaviour:
     m_Localized: Content
     m_Metadata:
       m_Items: []
+  - m_Id: 9833209298251776
+    m_Localized: Talk
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

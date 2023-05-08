@@ -193,7 +193,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7117766558095713947, guid: f396c76a21674a346843c22a4088ca01, type: 3}
       propertyPath: m_Name
-      value: Stickman 1
+      value: Cyborg
       objectReference: {fileID: 0}
     - target: {fileID: 8334882152758512031, guid: f396c76a21674a346843c22a4088ca01, type: 3}
       propertyPath: m_RootOrder
@@ -357,7 +357,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-4178
+  m_Name: pb_Mesh-355116
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -732,7 +732,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-587074
+  m_Name: pb_Mesh-353880
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1136,11 +1136,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1939444118530132643, guid: 1b4b355bbb8f38b4aaa99f99dda75a77, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000029802322
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1939444118530132643, guid: 1b4b355bbb8f38b4aaa99f99dda75a77, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000018626451
+      value: -0.000000022351742
       objectReference: {fileID: 0}
     - target: {fileID: 1939444118714165942, guid: 1b4b355bbb8f38b4aaa99f99dda75a77, type: 3}
       propertyPath: m_Name
@@ -52624,7 +52624,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-4196
+  m_Name: pb_Mesh-355134
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
