@@ -7,7 +7,7 @@ public enum InteractionType
 {
     None = 0,
     PickUp,
-    Cook,
+    Shop,
     Talk
 };
 
@@ -19,9 +19,9 @@ public class InteractionManager : MonoBehaviour
     [Header("Broadcasting on")] [SerializeField]
     private ItemEventChannelSO onObjectPickUp = default;
 
-    // [SerializeField] private VoidEventChannelSO onCookingStart = default;
-    // [SerializeField] private DialogueActorChannelSO startTalking = default;
-    // [SerializeField] private InteractionUIEventChannelSO toggleInteractionUI = default;
+    [SerializeField] private VoidEventChannelSO onShoppingStart = default;
+    [SerializeField] private DialogueActorChannelSO startTalking = default;
+    [SerializeField] private InteractionUIEventChannelSO toggleInteractionUI = default;
 
     [FormerlySerializedAs("_onInteractionEnded")] [Header("Listening to")] [SerializeField]
     private VoidEventChannelSO onInteractionEnded = default;
@@ -73,22 +73,24 @@ public class InteractionManager : MonoBehaviour
 
         switch (potentialInteractions.First.Value.type)
         {
-            // case InteractionType.Cook:
-            //     if (_onCookingStart != null)
-            //     {
-            //         _onCookingStart.RaiseEvent();
-            //         inputReader.EnableMenuInput();
-            //     }
-            //
-            //     break;
+            case InteractionType.Shop:
+                if (onShoppingStart != null)
+                {
+                    onShoppingStart.RaiseEvent();
+                    inputReader.EnableMenuInput();
+                }
 
-            // case InteractionType.Talk:
-            // 	if (_startTalking != null)
-            // 	{
-            // 		_potentialInteractions.First.Value.interactableObject.GetComponent<StepController>().InteractWithCharacter();
-            // 		_inputReader.EnableDialogueInput();
-            // 	}
-            // 	break;
+                break;
+
+            case InteractionType.Talk:
+                if (startTalking != null)
+                {
+                    potentialInteractions.First.Value.interactableObject.GetComponent<NPCController>()
+                        .InteractWithCharacter();
+                    inputReader.EnableDialogueInput();
+                }
+
+                break;
 
             //No need to do anything for Pickup type, the StateMachine will transition to the state
             //and then the AnimationClip will call Collect()
@@ -115,14 +117,14 @@ public class InteractionManager : MonoBehaviour
         // {
         //     newPotentialInteraction.type = InteractionType.PickUp;
         // }
-        // else if (obj.CompareTag("CookingPot"))
-        // {
-        //     newPotentialInteraction.type = InteractionType.Cook;
-        // }
-        // else if (obj.CompareTag("NPC"))
-        // {
-        //     newPotentialInteraction.type = InteractionType.Talk;
-        // }
+        if (obj.CompareTag("NPC"))
+        {
+            newPotentialInteraction.type = InteractionType.Talk;
+        }
+        else if (obj.CompareTag("Shop"))
+        {
+            newPotentialInteraction.type = InteractionType.Shop;
+        }
 
         if (newPotentialInteraction.type != InteractionType.None)
         {
@@ -150,17 +152,17 @@ public class InteractionManager : MonoBehaviour
 
     private void RequestUpdateUI(bool visible)
     {
-        // if (visible)
-        // 	_toggleInteractionUI.RaiseEvent(true, _potentialInteractions.First.Value.type);
-        // else
-        // 	_toggleInteractionUI.RaiseEvent(false, InteractionType.None);
+        if (visible)
+            toggleInteractionUI.RaiseEvent(true, potentialInteractions.First.Value.type);
+        else
+            toggleInteractionUI.RaiseEvent(false, InteractionType.None);
     }
 
     private void OnInteractionEnd()
     {
         switch (currentInteractionType)
         {
-            case InteractionType.Cook:
+            case InteractionType.Shop:
             case InteractionType.Talk:
                 //We show the UI after cooking or talking, in case player wants to interact again
                 RequestUpdateUI(true);

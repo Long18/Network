@@ -19,15 +19,15 @@ MonoBehaviour:
   saveFilename: save.william
   backupSaveFilename: save.william.bak
   saveData:
-    LocationId: 
+    LocationId: 23e23928c00467442b1497f6eae95c1f
     ItemStacks: []
     FinishedQuestlineItemsGUIds: []
-    MasterVolume: 0
-    MusicVolume: 0
-    SfxVolume: 0
-    ResolutionsIndex: 0
-    AntiAliasingIndex: 0
-    ShadowDistance: 0
+    MasterVolume: 1
+    MusicVolume: 0.4
+    SfxVolume: 1
+    ResolutionsIndex: 34
+    AntiAliasingIndex: 2
+    ShadowDistance: 100
     IsFullscreen: 0
     IsMultiplay: 0
     CurrentLocale: {fileID: 0}

@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe32f3c389a54018a8b3cc21ce015d9e, type: 3}
   m_Name: Settings
   m_EditorClassIdentifier: 
-  _masterVolume: 1
-  _musicVolume: 1
-  _sfxVolume: 1
-  _resolutionsIndex: 2
-  _antiAliasingIndex: 0
-  _shadowDistance: 0
-  _isFullscreen: 0
-  _currentLocale: {fileID: 0}
+  masterVolume: 1
+  musicVolume: 0.2
+  sfxVolume: 1
+  resolutionsIndex: 34
+  antiAliasingIndex: 2
+  shadowDistance: 100
+  isFullscreen: 0
+  isMultiplay: 0
+  currentLocale: {fileID: 0}

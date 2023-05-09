@@ -14,7 +14,7 @@ public enum itemInventoryType
 
 public enum ItemInventoryActionType
 {
-	Cook,
+	Shop,
 	Use,
 	Equip,
 	DoNothing

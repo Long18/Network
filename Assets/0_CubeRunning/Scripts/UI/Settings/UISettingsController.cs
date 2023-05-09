@@ -44,14 +44,13 @@ public class SettingField
 
 public class UISettingsController : MonoBehaviour
 {
-    [SerializeField, ReadOnly] private SettingsType currentSelectedTab = SettingsType.Language;
-
     [SerializeField] private UISettingsLanguageComponent languageComponent;
     [SerializeField] private UISettingsGraphicsComponent graphicComponent;
     [SerializeField] private UISettingsAudioComponent audioComponent;
     [SerializeField] private UISettingsTabsFiller settingTabFiller = default;
     [SerializeField] private SettingsSO currentSettings = default;
     [SerializeField] private List<SettingsType> settingTabsList = new();
+    private SettingsType currentSelectedTab = SettingsType.Audio;
     [SerializeField] private InputReaderSO inputReader = default;
     [SerializeField] private VoidEventChannelSO saveSettingsEvent = default;
 
@@ -117,12 +116,12 @@ public class UISettingsController : MonoBehaviour
         bool isLeft = orientation < 0;
         int index = settingTabsList.FindIndex(a => a == currentSelectedTab);
 
-        if (index == -1) return;
-
-        if (isLeft) index--;
-        else index++;
-
-        index = Mathf.Clamp(index, 0, settingTabsList.Count - 1);
+        if (index != -1)
+        {
+            if (isLeft) index--;
+            else index++;
+            index = Mathf.Clamp(index, 0, settingTabsList.Count - 1);
+        }
 
         OpenSetting(settingTabsList[index]);
     }
@@ -140,9 +139,9 @@ public class UISettingsController : MonoBehaviour
         saveSettingsEvent.RaiseEvent();
     }
 
-    public void SaveAudioSettings(float musicVol, float sfxVol, float masterVol)
+    public void SaveAudioSettings(float masterVol, float sfxVol, float musicVol)
     {
-        currentSettings.SaveAudioSettings(musicVol, sfxVol, masterVol);
+        currentSettings.SaveAudioSettings(masterVol, sfxVol, musicVol);
         saveSettingsEvent.RaiseEvent();
     }
 }

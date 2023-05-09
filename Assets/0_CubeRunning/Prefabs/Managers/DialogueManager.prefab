@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8290851997640010444
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8290851997640010434}
+  - component: {fileID: 8290851997640010435}
+  m_Layer: 0
+  m_Name: DialogueManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8290851997640010434
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8290851997640010444}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8290851997640010435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8290851997640010444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1865d05428274285a8404638c979e26c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actorsList:
+  - {fileID: 11400000, guid: d030d3ffd6bf2f24990d79371d8579e6, type: 2}
+  inputReader: {fileID: 11400000, guid: 3e5c093a20096c7479b821fc43c36906, type: 2}
+  gameState: {fileID: 11400000, guid: 8c7562c1dc1629547b83b87a777172b3, type: 2}
+  startDialogue: {fileID: 11400000, guid: 796505c498ad6044d83d5d966671afcf, type: 2}
+  makeDialogueChoiceEvent: {fileID: 11400000, guid: c22eceea1054d174bad7405f574cc3fa, type: 2}
+  openUIDialogueEvent: {fileID: 11400000, guid: 0ea52dc408e246e4d94ffb1837a337f7, type: 2}
+  showChoicesUIEvent: {fileID: 11400000, guid: f25c84fa92d206f4b82f7224523d1bdc, type: 2}
+  endDialogueWithTypeEvent: {fileID: 11400000, guid: 207ef9e7b68b8b34ca0d5fe1b1e8fca5, type: 2}
+  continueWithStep: {fileID: 11400000, guid: 52828b412d8d8a24898c918299aee7fd, type: 2}
+  playIncompleteDialogue: {fileID: 11400000, guid: 85ba443cd6ac37b46a4139a058c9599b, type: 2}
+  makeWinningChoice: {fileID: 11400000, guid: 266c6fc6df0fe9241bef56af4217ab36, type: 2}
+  makeLosingChoice: {fileID: 11400000, guid: 8ea43329e263c6f4999eec22b85f49ca, type: 2}

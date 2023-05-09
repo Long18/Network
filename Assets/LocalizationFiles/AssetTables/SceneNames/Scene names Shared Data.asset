@@ -10,25 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
-  m_Name: Scene names Shared Data
+  m_Name: Scene Names Shared Data
   m_EditorClassIdentifier: 
-  m_TableCollectionName: Scene names
-  m_TableCollectionNameGuidString: 58d7c946b35d9a04a9ad0b0f66f0f221
-  m_Entries:
-  - m_Id: 50819751309312
-    m_Key: 'Ground
-
-'
-    m_Metadata:
-      m_Items: []
+  m_TableCollectionName: Scene Names
+  m_TableCollectionNameGuidString: 5bf451bdb52e8ac4dabee01cfe115cac
+  m_Entries: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
-    rid: 1825433556559069185
+    rid: 3949885759885934596
   references:
     version: 2
     RefIds:
-    - rid: 1825433556559069185
+    - rid: 3949885759885934596
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
-        m_CustomEpoch: 1680842235694
+        m_CustomEpoch: 1683532978588

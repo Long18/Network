@@ -3,7 +3,8 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 [CreateAssetMenu(fileName = "Input Reader", menuName = "Data/Input System/Input Reader")]
-public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, GameInput.IMenusActions
+public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, GameInput.IMenusActions,
+    GameInput.IDialoguesActions
 {
     [Space] [SerializeField] private GameStateSO gameStateManager;
 
@@ -27,8 +28,11 @@ public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, Game
     public event UnityAction SaveActionButtonEvent = delegate { };
     public event UnityAction ResetActionButtonEvent = delegate { };
 
-    // Shared between menus and dialogues
+    // Shared between menus 
     public event UnityAction MoveSelectionEvent = delegate { };
+
+    // Dialogues    
+    public event UnityAction AdvanceDialogueEvent = delegate { };
 
     // Menus
     public event UnityAction MenuMouseMoveEvent = delegate { };
@@ -52,9 +56,10 @@ public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, Game
         if (gameInput == null)
         {
             gameInput = new GameInput();
-            
+
             gameInput.Menus.SetCallbacks(this);
             gameInput.Gameplay.SetCallbacks(this);
+            gameInput.Dialogues.SetCallbacks(this);
         }
     }
 
@@ -158,6 +163,12 @@ public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, Game
             MoveSelectionEvent.Invoke();
     }
 
+    public void OnAdvanceDialogue(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+            AdvanceDialogueEvent.Invoke();
+    }
+
 
     public void OnConfirm(InputAction.CallbackContext context)
     {
@@ -235,6 +246,7 @@ public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, Game
     {
         gameInput.Gameplay.Enable();
         gameInput.Menus.Disable();
+        gameInput.Dialogues.Disable();
 #if UNITY_EDITOR
         statusInput = "Gameplay";
 #endif
@@ -244,8 +256,19 @@ public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, Game
     {
         gameInput.Menus.Enable();
         gameInput.Gameplay.Disable();
+        gameInput.Dialogues.Disable();
 #if UNITY_EDITOR
         statusInput = "Menu";
+#endif
+    }
+
+    public void EnableDialogueInput()
+    {
+        gameInput.Dialogues.Enable();
+        gameInput.Gameplay.Disable();
+        gameInput.Menus.Disable();
+#if UNITY_EDITOR
+        statusInput = "Dialog";
 #endif
     }
 
@@ -253,6 +276,7 @@ public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, Game
     {
         gameInput.Gameplay.Disable();
         gameInput.Menus.Disable();
+        gameInput.Dialogues.Disable();
 #if UNITY_EDITOR
         statusInput = "Disabled";
 #endif

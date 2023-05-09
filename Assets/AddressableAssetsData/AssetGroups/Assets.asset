@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Assets
+  m_EditorClassIdentifier: 
+  m_GroupName: Assets
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 38e2c44e6c12bc349bd1aae53aa50b3f
+  m_SerializeEntries:
+  - m_GUID: c8e3fe3f269f96047b64933b0fa72296
+    m_Address: Nature
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 85f2b92f79d8ff24d84a7104d950c031
+    m_Address: UI
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 001313b5b8d81d240ab2f35a9dd84507
+    m_Address: Effects
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 63379efd65fdebe4bb3b1c620f5077f8
+    m_Address: Materials
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3ef5e9f5db8391949839069b21a2fe30
+    m_Address: Players
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fa735cfc5408de44189d6baa627030df
+    m_Address: Props
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: dda946e2fb82b3044957e5b53f7c44b8
+    m_Address: Skybox
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bdb0585815ae3364792944f920ba4447
+    m_Address: Textures
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 1a6cd8cbff797c5479af27ca030bdf9b, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 0a1581dfb48e85b47a89cb7942608310, type: 2}
+    - {fileID: 11400000, guid: d574e5d1329601c4c950bdc841387b24, type: 2}

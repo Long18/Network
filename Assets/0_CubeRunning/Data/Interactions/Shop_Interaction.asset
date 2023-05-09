@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50a2a6ff5beb4b6fb6e19c55716a104f, type: 3}
+  m_Name: Shop_Interaction
+  m_EditorClassIdentifier: 
+  interactionName:
+    m_TableReference:
+      m_TableCollectionName: GUID:7bd3c31b04d7bcc40a1bd14163ae773a
+    m_TableEntryReference:
+      m_KeyId: 9833209298251776
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  interactionIcon: {fileID: 21300000, guid: 127ef9f8405cf427e98a2ddbb8bbe3df, type: 3}
+  interactionType: 2
+  references:
+    version: 2
+    RefIds: []

@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
+using UnityEngine.Serialization;
 
-// Created with collaboration from:
-// https://forum.unity.com/threads/inventory-system.980646/
 
 [CreateAssetMenu(fileName = "Item", menuName = "Inventory/Item")]
 public class ItemSO : SerializableScriptableObject
@@ -21,7 +20,7 @@ public class ItemSO : SerializableScriptableObject
 
 	[Tooltip("A description of the item")]
 	[SerializeField]
-	private int _healthResorationValue = default;
+	private int _amount = default;
 
 	[Tooltip("The type of item")]
 	[SerializeField]
@@ -35,7 +34,7 @@ public class ItemSO : SerializableScriptableObject
 	public LocalizedString Name => _name;
 	public Sprite PreviewImage => _previewImage;
 	public LocalizedString Description => _description;
-	public int HealthResorationValue => _healthResorationValue;
+	public int Amount => _amount;
 	public ItemTypeSO ItemType => _itemType;
 	public GameObject Prefab => _prefab;
 	public virtual List<ItemStack> IngredientsList { get; }

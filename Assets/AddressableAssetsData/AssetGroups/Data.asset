@@ -61,6 +61,34 @@ MonoBehaviour:
     m_Address: SceneManagement
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 67117722a812a2e46ab8cb8eafbf5f5e
+    m_Address: IngameDebugConsole
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 79eee39ab51eeb544b3501449b0ecf82
+    m_Address: Audio
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 62d655207f0b8724ba19f1214d542bd1
+    m_Address: Music
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2712ea3b4993f7d4197ba9905c64b0ad
+    m_Address: Actors
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c03b7bddbbe474441807b34647b9e3d2
+    m_Address: Dialogues
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ff2c41eb108b4074ebd088ac252d4d5f
+    m_Address: NPC
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: eca1f6b8a8b53c64eb5a462006cf7e86
+    m_Address: Interactions
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1a6cd8cbff797c5479af27ca030bdf9b, type: 2}
   m_SchemaSet:

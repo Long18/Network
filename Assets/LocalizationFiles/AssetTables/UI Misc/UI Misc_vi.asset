@@ -269,6 +269,11 @@ MonoBehaviour:
     m_Localized: "C\xE0i \u0111\u1EB7t"
     m_Metadata:
       m_Items: []
+  - m_Id: 10410630762295296
+    m_Localized: "*B\u1EA1n c\u1EA7n ph\u1EA3i \u1EDF g\u1EA7n shop th\xEC m\u1EDBi
+      c\xF3 th\u1EC3 mua"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

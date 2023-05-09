@@ -24,7 +24,7 @@ public class SettingsSO : ScriptableObject
     public bool IsMultiplay => isMultiplay;
     public Locale CurrentLocale => currentLocale;
 
-    public void SaveAudioSettings(float newMusicVolume, float newSfxVolume, float newMasterVolume)
+    public void SaveAudioSettings(float newMasterVolume, float newSfxVolume, float newMusicVolume)
     {
         masterVolume = newMasterVolume;
         musicVolume = newMusicVolume;

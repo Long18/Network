@@ -24,6 +24,7 @@ public class SpawnSystem : MonoBehaviour
     public void Awake()
     {
         isMultiplayer = saveSystem.CheckMultiplayer();
+        spawnLocations ??= FindObjectsOfType<LocationEntrance>();
     }
 
     public void OnEnable()

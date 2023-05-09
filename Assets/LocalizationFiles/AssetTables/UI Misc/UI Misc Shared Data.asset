@@ -265,6 +265,10 @@ MonoBehaviour:
 '
     m_Metadata:
       m_Items: []
+  - m_Id: 10410630762295296
+    m_Key: Error_Shop
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

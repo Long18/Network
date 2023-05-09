@@ -20,4 +20,5 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  musicTrack: {fileID: 11400000, guid: 014aef4ac7db9fe47aaba829874bc9ad, type: 2}
   UnloadPreviousScene: 1
