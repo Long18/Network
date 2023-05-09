@@ -18,9 +18,11 @@ MonoBehaviour:
   - m_Id: 356934840320
     m_Key: L1-D1-Default-Jamie
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 3949885778512838667
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 3949885778512838666
   m_KeyGenerator:
     rid: 1825433969467850753
   references:
@@ -30,3 +32,11 @@ MonoBehaviour:
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
         m_CustomEpoch: 1682417396562
+    - rid: 3949885778512838666
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: 
+    - rid: 3949885778512838667
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: N

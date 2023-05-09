@@ -256,7 +256,6 @@ public class UIManager : MonoBehaviour
     {
         if (gameStateManager.CurrentGameState != GameState.Combat)
         {
-            Debug.Log($"type: {type}");
             if (isOpen)
             {
                 interactionPanel.FillInteractionPanel(type);

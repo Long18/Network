@@ -49,18 +49,18 @@ public class NPCController : MonoBehaviour
     {
         if (gameStateManager.CurrentGameState != GameState.Gameplay) return;
 
-        DialogueDataSO
-            displayDialogue =
-                default; // TODO: questData.InteractWithCharacter(actor, false, false); -> If we need this, we need to create a QuestManagerSO
-        if (displayDialogue != null)
-        {
-            currentDialogue = defaultDialogue;
-            StartDialogue();
-        }
-        else
-        {
+        // DialogueDataSO
+        //     displayDialogue =
+        //         default; // TODO: questData.InteractWithCharacter(actor, false, false); -> If we need this, we need to create a QuestManagerSO
+        // if (displayDialogue != null)
+        // {
+        //     currentDialogue = defaultDialogue;
+        //     StartDialogue();
+        // }
+        // else
+        // {
             PlayDefaultDialogue();
-        }
+        // }
     }
 
     private void StartDialogue()

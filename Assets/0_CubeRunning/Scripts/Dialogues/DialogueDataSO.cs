@@ -151,7 +151,7 @@ public class Line
 #if UNITY_EDITOR
     public Line(string _name)
     {
-        StringTableCollection collection = LocalizationEditorSettings.GetStringTableCollection("Questline Dialogue");
+        StringTableCollection collection = LocalizationEditorSettings.GetStringTableCollection("Dialogue");
         textList = null;
         if (collection != null)
         {
@@ -165,7 +165,7 @@ public class Line
                 {
                     SetActor(collection.SharedData.GetEntry(key).Metadata.GetMetadata<Comment>());
                     _dialogueLine = new LocalizedString()
-                        { TableReference = "Questline Dialogue", TableEntryReference = key };
+                        { TableReference = "Dialogue", TableEntryReference = key };
                     if (textList == null)
                         textList = new List<LocalizedString>();
                     textList.Add(_dialogueLine);
@@ -173,7 +173,7 @@ public class Line
                 else
                 {
                     _dialogueLine = null;
-                }
+                }  
             } while (_dialogueLine != null);
 
             int choiceIndex = 0;
@@ -186,7 +186,7 @@ public class Line
                 if (collection.SharedData.Contains(key))
                 {
                     LocalizedString _choiceLine = new LocalizedString()
-                        { TableReference = "Questline Dialogue", TableEntryReference = key };
+                        { TableReference = "Dialogue", TableEntryReference = key };
                     choice = new Choice(_choiceLine);
                     choice.SetChoiceAction(collection.SharedData.GetEntry(key).Metadata.GetMetadata<Comment>());
 

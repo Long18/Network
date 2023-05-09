@@ -16,10 +16,10 @@ MonoBehaviour:
   - actorID: 0
     textList:
     - m_TableReference:
-        m_TableCollectionName: GUID:5850c302d26672f4aa85b550359c4d86
+        m_TableCollectionName: Dialogue
       m_TableEntryReference:
-        m_KeyId: 356934840320
-        m_Key: 
+        m_KeyId: 0
+        m_Key: L1-D1-Default-Jamie
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []

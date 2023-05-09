@@ -19,7 +19,7 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 356934840320
-    m_Localized: Hello, Welcome to my world!
+    m_Localized: Say my name
     m_Metadata:
       m_Items: []
   references:

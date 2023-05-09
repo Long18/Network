@@ -66,6 +66,9 @@ providers = {
 objectSelectors = {
 }
 recentSearches = [
+	"st:L1-D1-Default-Jamie"
+	"st:using System.Collections; "
+	"            Debug.Log($\"type: {type}\"); "
 	"intersect{}"
 	"st:alias{}"
 ]
