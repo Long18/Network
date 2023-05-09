@@ -27,6 +27,8 @@ public class UIManager : MonoBehaviour
     [Header("Interaction")] [SerializeField]
     private InteractionUIEventChannelSO setInteractionEvent = default;
 
+    [Header("Inventory")] [SerializeField] private VoidEventChannelSO openInventoryScreenForShoppingEvent = default;
+
     [Header("Listening on")] [SerializeField]
     private VoidEventChannelSO onSceneReady = default;
 
@@ -44,6 +46,7 @@ public class UIManager : MonoBehaviour
         closeUIDialogueEvent.OnEventRaised += CloseUIDialogue;
         inputReader.MenuPauseEvent +=
             OpenUIPause; // subscription to open Pause UI event happens in OnEnabled, but the close Event is only subscribed to when the popup is open
+        openInventoryScreenForShoppingEvent.OnEventRaised += SetInventoryScreenForShopping;
         setInteractionEvent.OnEventRaised += SetInteractionPanel;
         inputReader.OpenInventoryEvent += SetInventoryScreen;
         inventoryPanel.Closed += CloseInventoryScreen;
@@ -55,6 +58,7 @@ public class UIManager : MonoBehaviour
         openUIDialogueEvent.OnEventRaised -= OpenUIDialogue;
         closeUIDialogueEvent.OnEventRaised -= CloseUIDialogue;
         inputReader.MenuPauseEvent -= OpenUIPause;
+        openInventoryScreenForShoppingEvent.OnEventRaised -= SetInventoryScreenForShopping;
         setInteractionEvent.OnEventRaised -= SetInteractionPanel;
         inputReader.OpenInventoryEvent -= SetInventoryScreen;
         inventoryPanel.Closed -= CloseInventoryScreen;
@@ -127,6 +131,16 @@ public class UIManager : MonoBehaviour
         }
 
         selectionHandler.Unselect();
+    }
+
+    private void SetInventoryScreenForShopping()
+    {
+        if (gameStateManager.CurrentGameState == GameState.Gameplay)
+        {
+            isForShopping = true;
+            interactionPanel.gameObject.SetActive(false);
+            OpenInventoryScreen();
+        }
     }
 
     private void SetInventoryScreen()

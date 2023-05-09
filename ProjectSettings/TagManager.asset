@@ -8,6 +8,7 @@ TagManager:
   - AudioManager
   - Obstacle
   - NPC
+  - Shop
   layers:
   - Default
   - TransparentFX
