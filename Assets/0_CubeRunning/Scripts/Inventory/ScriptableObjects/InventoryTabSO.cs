@@ -7,7 +7,7 @@ using UnityEngine.Localization;
 public enum InventoryTabType
 {
     Customization,
-    CookingItem,
+    Sword,
     Recipe
 }
 

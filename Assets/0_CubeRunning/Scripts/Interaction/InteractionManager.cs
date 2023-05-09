@@ -7,7 +7,7 @@ public enum InteractionType
 {
     None = 0,
     PickUp,
-    Cook,
+    Shop,
     Talk
 };
 
@@ -19,7 +19,7 @@ public class InteractionManager : MonoBehaviour
     [Header("Broadcasting on")] [SerializeField]
     private ItemEventChannelSO onObjectPickUp = default;
 
-    // [SerializeField] private VoidEventChannelSO onCookingStart = default;
+    [SerializeField] private VoidEventChannelSO onShoppingStart = default;
     [SerializeField] private DialogueActorChannelSO startTalking = default;
     [SerializeField] private InteractionUIEventChannelSO toggleInteractionUI = default;
 
@@ -73,14 +73,14 @@ public class InteractionManager : MonoBehaviour
 
         switch (potentialInteractions.First.Value.type)
         {
-            // case InteractionType.Cook:
-            //     if (_onCookingStart != null)
-            //     {
-            //         _onCookingStart.RaiseEvent();
-            //         inputReader.EnableMenuInput();
-            //     }
-            //
-            //     break;
+            case InteractionType.Shop:
+                if (onShoppingStart != null)
+                {
+                    onShoppingStart.RaiseEvent();
+                    inputReader.EnableMenuInput();
+                }
+
+                break;
 
             case InteractionType.Talk:
                 if (startTalking != null)
@@ -117,13 +117,13 @@ public class InteractionManager : MonoBehaviour
         // {
         //     newPotentialInteraction.type = InteractionType.PickUp;
         // }
-        // else if (obj.CompareTag("CookingPot"))
-        // {
-        //     newPotentialInteraction.type = InteractionType.Cook;
-        // }
         if (obj.CompareTag("NPC"))
         {
             newPotentialInteraction.type = InteractionType.Talk;
+        }
+        else if (obj.CompareTag("Shop"))
+        {
+            newPotentialInteraction.type = InteractionType.Shop;
         }
 
         if (newPotentialInteraction.type != InteractionType.None)
@@ -162,7 +162,7 @@ public class InteractionManager : MonoBehaviour
     {
         switch (currentInteractionType)
         {
-            case InteractionType.Cook:
+            case InteractionType.Shop:
             case InteractionType.Talk:
                 //We show the UI after cooking or talking, in case player wants to interact again
                 RequestUpdateUI(true);

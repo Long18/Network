@@ -44,6 +44,16 @@ MonoBehaviour:
       Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
+  - m_GUID: 96872b54cdd7a5a4598202942cdcfa77
+    m_Address: Assets/LocalizationFiles/AssetTables/Inventory Item Name/Inventory
+      Item Name Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+  - m_GUID: 295c3d0cd25e1e3499dc4431ddd49731
+    m_Address: Assets/LocalizationFiles/AssetTables/Inventory Item Description/Inventory
+      Item Description Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 1a6cd8cbff797c5479af27ca030bdf9b, type: 2}
   m_SchemaSet:

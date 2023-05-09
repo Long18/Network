@@ -10,9 +10,11 @@ public class UIManager : MonoBehaviour
     [Header("Scene UI")] [SerializeField] private MenuSelectionHandler selectionHandler = default;
     [SerializeField] private UIConfirmation popupPanel = default;
     [SerializeField] private UIInteraction interactionPanel = default;
+    [SerializeField] private UIInventory inventoryPanel = default;
     [SerializeField] private UIDialogueManager dialogueManager = default;
     [SerializeField] private UIPause pauseScreen = default;
     [SerializeField] private UISettingsController settingScreen = default;
+    [SerializeField] private GameObject switchTabDisplay = default;
 
     [Header("Gameplay")] [SerializeField] private GameStateSO gameStateManager = default;
     [SerializeField] private MenuSO mainMenu = default;
@@ -33,6 +35,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private VoidEventChannelSO onInteractionEndedEvent = default;
 
+    private bool isForShopping = false;
+
     private void OnEnable()
     {
         onSceneReady.OnEventRaised += ResetUI;
@@ -41,6 +45,8 @@ public class UIManager : MonoBehaviour
         inputReader.MenuPauseEvent +=
             OpenUIPause; // subscription to open Pause UI event happens in OnEnabled, but the close Event is only subscribed to when the popup is open
         setInteractionEvent.OnEventRaised += SetInteractionPanel;
+        inputReader.OpenInventoryEvent += SetInventoryScreen;
+        inventoryPanel.Closed += CloseInventoryScreen;
     }
 
     private void OnDisable()
@@ -50,6 +56,8 @@ public class UIManager : MonoBehaviour
         closeUIDialogueEvent.OnEventRaised -= CloseUIDialogue;
         inputReader.MenuPauseEvent -= OpenUIPause;
         setInteractionEvent.OnEventRaised -= SetInteractionPanel;
+        inputReader.OpenInventoryEvent -= SetInventoryScreen;
+        inventoryPanel.Closed -= CloseInventoryScreen;
     }
 
     private void ResetUI()
@@ -57,6 +65,7 @@ public class UIManager : MonoBehaviour
         dialogueManager.gameObject.SetActive(false);
         pauseScreen.gameObject.SetActive(false);
         interactionPanel.gameObject.SetActive(false);
+        inventoryPanel.gameObject.SetActive(false);
 
         Time.timeScale = 1;
     }
@@ -118,6 +127,61 @@ public class UIManager : MonoBehaviour
         }
 
         selectionHandler.Unselect();
+    }
+
+    private void SetInventoryScreen()
+    {
+        if (gameStateManager.CurrentGameState == GameState.Gameplay)
+        {
+            isForShopping = false;
+            OpenInventoryScreen();
+        }
+    }
+
+    private void OpenInventoryScreen()
+    {
+        inputReader.MenuPauseEvent -= OpenUIPause;
+        inputReader.MenuUnpauseEvent -= CloseUIPause;
+
+        inputReader.MenuCloseEvent += CloseInventoryScreen;
+        inputReader.CloseInventoryEvent += CloseInventoryScreen;
+
+        if (isForShopping)
+        {
+            inventoryPanel.FillInventory(InventoryTabType.Sword, true);
+        }
+        else
+        {
+            inventoryPanel.FillInventory();
+        }
+
+        inventoryPanel.gameObject.SetActive(true);
+        switchTabDisplay.SetActive(true);
+        inputReader.EnableMenuInput();
+
+        gameStateManager.UpdateGameState(GameState.Inventory);
+    }
+
+    private void CloseInventoryScreen()
+    {
+        inputReader.MenuPauseEvent += OpenUIPause;
+
+        inputReader.MenuCloseEvent -= CloseInventoryScreen;
+        inputReader.CloseInventoryEvent -= CloseInventoryScreen;
+
+        switchTabDisplay.SetActive(false);
+        inventoryPanel.gameObject.SetActive(false);
+
+        if (isForShopping)
+        {
+            onInteractionEndedEvent.RaiseEvent();
+        }
+
+        selectionHandler.Unselect();
+        gameStateManager.ReturnToPreviousGameState();
+        if (gameStateManager.CurrentGameState == GameState.Gameplay ||
+            gameStateManager.CurrentGameState == GameState.Combat)
+            inputReader.EnableGameplayInput();
     }
 
     private void OpenSettingScreen()

@@ -52,6 +52,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-vi
     - Preload
+  - m_GUID: b53bf5bdc51336d4ab737e19e772c602
+    m_Address: Inventory Item Name_vi
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-vi
+    - Preload
+  - m_GUID: 8e1fd7eae7cc6344ca0c61962eab504b
+    m_Address: Inventory Item Description_vi
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-vi
+    - Preload
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 1a6cd8cbff797c5479af27ca030bdf9b, type: 2}
   m_SchemaSet:
