@@ -12,7 +12,7 @@ public class ItemStackEventChannelSOEditor : Editor
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
-        var e = (TransformEventChannelSO)target;
+        var e = (ItemStackEventChannelSO)target;
         if (GUILayout.Button($"Raise {e.name} "))
         {
             e.RaiseEvent(e.LastValue);

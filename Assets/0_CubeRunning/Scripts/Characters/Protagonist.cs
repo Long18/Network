@@ -21,6 +21,7 @@ public class Protagonist : MonoBehaviour
     [NonSerialized] public Vector3 movementVector;
     [NonSerialized] public ControllerColliderHit lastHit;
 
+    public BoxCollider boxCollider = default;
     public const float GRAVITY_MULTIPLIER = 5f;
     public const float MAX_FALL_SPEED = -50f;
     public const float MAX_RISE_SPEED = 100f;
@@ -31,6 +32,11 @@ public class Protagonist : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit) => lastHit = hit;
 
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("OnTriggerEnter: " + other.gameObject.name);
+    }
+
     private void OnEnable()
     {
         inputReader.MoveEvent += OnMove;
@@ -38,8 +44,6 @@ public class Protagonist : MonoBehaviour
         inputReader.JumpCanceledEvent += OnJumpCanceled;
         inputReader.StartedRunning += OnStartedRunning;
         inputReader.StoppedRunning += OnStoppedRunning;
-        inputReader.ClimbEvent += OnClimbingInitiated;
-        inputReader.ClimbCanceledEvent += OnClimbingCanceled;
         inputReader.AttackEvent += OnStartedAttack;
     }
 
@@ -50,8 +54,6 @@ public class Protagonist : MonoBehaviour
         inputReader.JumpCanceledEvent -= OnJumpCanceled;
         inputReader.StoppedRunning -= OnStoppedRunning;
         inputReader.StartedRunning -= OnStartedRunning;
-        inputReader.ClimbEvent -= OnClimbingInitiated;
-        inputReader.ClimbCanceledEvent -= OnClimbingCanceled;
         inputReader.AttackEvent -= OnStartedAttack;
     }
 
@@ -113,7 +115,4 @@ public class Protagonist : MonoBehaviour
 
     // Triggered from Animation Event
     public void ConsumeAttackInput() => attackInput = false;
-
-    private void OnClimbingInitiated() => climbInput = true;
-    private void OnClimbingCanceled() => climbInput = false;
 }

@@ -26,7 +26,7 @@ public class StopAgent : StateAction
 
     public override void OnStateEnter()
     {
-        if (agentDefined)
+        if (agentDefined && agent.isActiveAndEnabled && agent.isOnNavMesh)
         {
             agent.isStopped = true;
         }

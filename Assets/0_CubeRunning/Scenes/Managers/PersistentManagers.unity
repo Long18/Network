@@ -175,9 +175,53 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6026737042686651948, guid: 557b578b8e7efd842affed23c459a11d, type: 3}
+      propertyPath: m_MoveAction
+      value: 
+      objectReference: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+    - target: {fileID: 6026737042686651948, guid: 557b578b8e7efd842affed23c459a11d, type: 3}
+      propertyPath: m_PointAction
+      value: 
+      objectReference: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+    - target: {fileID: 6026737042686651948, guid: 557b578b8e7efd842affed23c459a11d, type: 3}
+      propertyPath: m_ActionsAsset
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+    - target: {fileID: 6026737042686651948, guid: 557b578b8e7efd842affed23c459a11d, type: 3}
+      propertyPath: m_CancelAction
+      value: 
+      objectReference: {fileID: -1967631576421560919, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+    - target: {fileID: 6026737042686651948, guid: 557b578b8e7efd842affed23c459a11d, type: 3}
+      propertyPath: m_SubmitAction
+      value: 
+      objectReference: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+    - target: {fileID: 6026737042686651948, guid: 557b578b8e7efd842affed23c459a11d, type: 3}
+      propertyPath: m_LeftClickAction
+      value: 
+      objectReference: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+    - target: {fileID: 6026737042686651948, guid: 557b578b8e7efd842affed23c459a11d, type: 3}
+      propertyPath: m_RightClickAction
+      value: 
+      objectReference: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+    - target: {fileID: 6026737042686651948, guid: 557b578b8e7efd842affed23c459a11d, type: 3}
+      propertyPath: m_MiddleClickAction
+      value: 
+      objectReference: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+    - target: {fileID: 6026737042686651948, guid: 557b578b8e7efd842affed23c459a11d, type: 3}
+      propertyPath: m_ScrollWheelAction
+      value: 
+      objectReference: {fileID: 4502412055082496612, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+    - target: {fileID: 6026737042686651948, guid: 557b578b8e7efd842affed23c459a11d, type: 3}
       propertyPath: m_CursorLockBehavior
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6026737042686651948, guid: 557b578b8e7efd842affed23c459a11d, type: 3}
+      propertyPath: m_TrackedDevicePositionAction
+      value: 
+      objectReference: {fileID: 4754684134866288074, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+    - target: {fileID: 6026737042686651948, guid: 557b578b8e7efd842affed23c459a11d, type: 3}
+      propertyPath: m_TrackedDeviceOrientationAction
+      value: 
+      objectReference: {fileID: 1025543830046995696, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
     - target: {fileID: 6026737042686651951, guid: 557b578b8e7efd842affed23c459a11d, type: 3}
       propertyPath: m_Name
       value: EventSystem

@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6522787003758078814
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6522787003758078812}
+  - component: {fileID: 6522787003758078813}
+  m_Layer: 0
+  m_Name: InventoryManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6522787003758078812
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6522787003758078814}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6522787003758078813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6522787003758078814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ca1f4e9bf414736a627bd6501d59889, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentInventory: {fileID: 11400000, guid: be25edaebc93e6847b88957863f57446, type: 2}
+  _saveSystem: {fileID: 11400000, guid: 010ec05ebc106bc40bc6f83ecdaff109, type: 2}
+  _cookRecipeEvent: {fileID: 11400000, guid: da5b463de0285ee43af8cd88988263f8, type: 2}
+  _useItemEvent: {fileID: 11400000, guid: cc61fe13f4f5a65489c0ab49a64e9842, type: 2}
+  _equipItemEvent: {fileID: 11400000, guid: bbc8f42ab3a8e654eb147b0ff234b2c8, type: 2}
+  _rewardItemEvent: {fileID: 11400000, guid: 339bacc8939314146a6f04ceae24deda, type: 2}
+  _giveItemEvent: {fileID: 11400000, guid: 267016a8e34dfc34da8e3ea79ec0844a, type: 2}
+  _addItemEvent: {fileID: 11400000, guid: 86a86d8306997cb48ba187b66a771052, type: 2}
+  _removeItemEvent: {fileID: 11400000, guid: e2c012bd9adb5c344991fdbb1800db1d, type: 2}

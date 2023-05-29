@@ -11,9 +11,11 @@ namespace StateMachine.Editor
         private static TransitionTableEditorWindow _window;
 
         private static readonly string
-            _uxmlPath = "Assets/Scripts/StateMachine/Editor/TransitionTableEditorWindow.uxml";
+            _uxmlPath = "Assets/0_CubeRunning/Scripts/StateMachine/Editor/TransitionTableEditorWindow.uxml";
 
-        private static readonly string _ussPath = "Assets/Scripts/StateMachine/Editor/TransitionTableEditorWindow.uss";
+        private static readonly string _ussPath =
+            "Assets/0_CubeRunning/Scripts/StateMachine/Editor/TransitionTableEditorWindow.uss";
+
         private bool _doRefresh;
 
         private UnityEditor.Editor _transitionTableEditor;
@@ -90,7 +92,7 @@ namespace StateMachine.Editor
             listView.bindItem = null;
 
             listView.itemsSource = assets;
-            listView.itemHeight = 16;
+            listView.fixedItemHeight = 16;
             string labelClass = $"label-{(EditorGUIUtility.isProSkin ? "pro" : "personal")}";
             listView.makeItem = () =>
             {

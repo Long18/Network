@@ -14,7 +14,6 @@ public class LocationExit : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("LocationExit: OnTriggerEnter");
         if (other.CompareTag("Player"))
         {
             pathStorage.lastPathTaken = leadsToPath;

@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: Computes the y component of the Protagonist's movementVector
   initialJumpForce: 6
+  ascendActionType: 2

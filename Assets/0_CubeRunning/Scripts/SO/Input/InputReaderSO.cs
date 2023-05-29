@@ -13,8 +13,6 @@ public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, Game
     //Gameplay
     public event UnityAction JumpEvent = delegate { };
     public event UnityAction JumpCanceledEvent = delegate { };
-    public event UnityAction ClimbEvent = delegate { };
-    public event UnityAction ClimbCanceledEvent = delegate { };
     public event UnityAction AttackEvent = delegate { };
     public event UnityAction AttackCanceledEvent = delegate { };
     public event UnityAction<Vector2> MoveEvent = delegate { };
@@ -95,15 +93,6 @@ public class InputReaderSO : DescriptionBaseSO, GameInput.IGameplayActions, Game
 
         if (context.phase == InputActionPhase.Canceled)
             JumpCanceledEvent.Invoke();
-    }
-
-    public void OnClimb(InputAction.CallbackContext context)
-    {
-        if (context.phase == InputActionPhase.Performed)
-            ClimbEvent.Invoke();
-
-        if (context.phase == InputActionPhase.Canceled)
-            ClimbCanceledEvent.Invoke();
     }
 
     public void OnMouseControlCamera(InputAction.CallbackContext context)

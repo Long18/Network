@@ -33,6 +33,8 @@ public class InteractionManager : MonoBehaviour
     private LinkedList<Interaction> potentialInteractions =
         new LinkedList<Interaction>(); //To store the objects we the player could potentially interact with
 
+    [HideInInspector] public GameObject hit;
+
     private void OnEnable()
     {
         inputReader.InteractEvent += OnInteractionButtonPress;
@@ -103,6 +105,7 @@ public class InteractionManager : MonoBehaviour
     //Called by the Event on the trigger collider on the child GO called "InteractionDetector"
     public void OnTriggerChangeDetected(bool entered, GameObject obj)
     {
+        hit = obj;
         if (entered)
             AddPotentialInteraction(obj);
         else

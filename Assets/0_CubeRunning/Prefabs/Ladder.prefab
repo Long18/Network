@@ -10,10 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2720534439017483659}
   - component: {fileID: 2720534439017483658}
-  - component: {fileID: 2720534439017483657}
   m_Layer: 0
   m_Name: Ladder
-  m_TagString: Untagged
+  m_TagString: Ladder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,20 +44,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 8, z: 0.27}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2720534439017483657
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2720534439017483656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb93da62f2a2566438db24d31b7535e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Size: {x: 1, y: 8, z: 0.6}
+  m_Center: {x: 0, y: 0, z: 0.26}
 --- !u!1 &2720534439854351914
 GameObject:
   m_ObjectHideFlags: 0
