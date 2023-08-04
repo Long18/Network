@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using ScriptableObjectBrowser;
 using System;
 using System.IO;
 using UnityEditor;
+using WilliamEditor.Tools.SOBrowser;
 
-public class SampleSOEditor : ScriptableObjectBrowserEditor<SampleSO>
+public class SampleSOEditor : SOBrowserEditor<SampleSO>
 {
     const string DEFAULT_NAME = "Sample";
     public SampleSOEditor()

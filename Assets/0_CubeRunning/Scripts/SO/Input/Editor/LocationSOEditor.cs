@@ -1,8 +1,8 @@
-﻿using ScriptableObjectBrowser;
+﻿using WilliamEditor.Tools.SOBrowser;
 
 namespace _0_CubeRunning.Scripts.SO.Input.Editor
 {
-    public class LocationSOEditor : ScriptableObjectBrowserEditor<LocationSO>
+    public class LocationSOEditor : SOBrowserEditor<LocationSO>
     {
         public LocationSOEditor()
         {

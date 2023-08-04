@@ -1,10 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
 using UnityEditor;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
 
-namespace ScriptableObjectBrowser
+namespace WilliamEditor.Tools.SOBrowser
 {
 
     public class PromptForText : PopupWindowContent

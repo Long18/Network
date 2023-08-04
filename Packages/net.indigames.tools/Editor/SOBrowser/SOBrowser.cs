@@ -1,55 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
 using System.Linq;
 using System.Reflection;
+using UnityEditor;
 using UnityEditor.Callbacks;
+using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace ScriptableObjectBrowser
+namespace WilliamEditor.Tools.SOBrowser
 {
-    public class ScriptableObjectBrowser : EditorWindow
+    public class SOBrowser : EditorWindow
     {
-        private static readonly int BROWSE_AREA_WIDTH = 320;
-        private static readonly int ENTRY_LINE_HEIGHT = 22;
-        private static readonly int EDITOR_HISTORY_MAX = 60;
+        private const int BROWSE_AREA_WIDTH = 320;
+        private const int ENTRY_LINE_HEIGHT = 22;
+        private const int EDITOR_HISTORY_MAX = 60;
 
-        private static readonly string SUFFIX_NAME = ".asset";
-        private static readonly string TOOLBAR_PLUS_NAME = "Toolbar Plus More";
+        private const string SUFFIX_NAME = ".asset";
+        private const string TOOLBAR_PLUS_NAME = "Toolbar Plus More";
+        private const string CONSOLE_WINDOW_EDITOR_NAME = "UnityEditor.ConsoleWindow";
 
-        private static readonly Dictionary<Type, ScriptableObjectBrowserEditor> editors = new();
-        private static readonly LinkedList<ScriptableObject> _editorHistory = new();
-        private static readonly List<Type> _browsableTypes = new();
+        private static readonly LinkedList<ScriptableObject> EditorHistory = new();
+        private static readonly List<Type> BrowsableTypes = new();
         private readonly HashSet<Object> _selections = new();
 
-        private static string[] browsable_type_names = Array.Empty<string>();
+        private static Dictionary<Type, SOBrowserEditor> editors;
+        private static string[] _browsableTypeNames = Array.Empty<string>();
         private static GUIStyle _selectedStyle;
         private static Texture2D _textSO;
 
 
-        private ScriptableObjectBrowserEditor _currentEditor = null;
-        private Vector2 inspectScroll = Vector2.zero;
+        private SOBrowserEditor _currentEditor;
+        private Vector2 _inspectScroll = Vector2.zero;
         private Vector2 _browseScroll = Vector2.zero;
         private List<AssetEntry> _assetList = new();
         private List<AssetEntry> _sortedAssetList = new();
-        private AssetEntry _currentSelectionEntry = null;
-        private AssetEntry _startSelectionEntry = null;
-        private Object _currentObject = null;
-        private Type _currentType = null;
+        private AssetEntry _currentSelectionEntry;
+        private AssetEntry _startSelectionEntry;
+        private Object _currentObject;
+        private Type _currentType;
 
-        private int _currentTypeIndex = 0;
+        private int _currentTypeIndex;
 
         private string _filterText = String.Empty;
 
-        private bool isSelectedPrevious = true;
-        private bool _IsControlFocused = false;
+        private bool _isSelectedPrevious;
+        private bool _isControlFocused;
 
 
-        static void ReloadScriptableObjectBrowserEditors()
+        private static void ReloadBrowserEditors()
         {
             if (editors != null) return;
 
+            editors = new();
             List<string> browsableTypeNames = new();
 
             Assembly[] allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
@@ -58,58 +60,58 @@ namespace ScriptableObjectBrowser
                 .Where(t =>
                     t.BaseType != null &&
                     t.BaseType.IsGenericType &&
-                    t.BaseType.GetGenericTypeDefinition() == typeof(ScriptableObjectBrowserEditor<>));
+                    t.BaseType.GetGenericTypeDefinition() == typeof(SOBrowserEditor<>));
 
             foreach (Type type in types)
             {
                 if (type.BaseType == null && editors != null) return;
 
                 Type genericArgument = type.BaseType.GetGenericArguments()[0];
-                editors[genericArgument] = (ScriptableObjectBrowserEditor)Activator.CreateInstance(type);
+                editors[genericArgument] = (SOBrowserEditor)Activator.CreateInstance(type);
 
-                _browsableTypes.Add(genericArgument);
+                BrowsableTypes.Add(genericArgument);
                 browsableTypeNames.Add(genericArgument.Name);
             }
 
-            browsable_type_names = browsableTypeNames.ToArray();
+            _browsableTypeNames = browsableTypeNames.ToArray();
         }
 
         private void OnEnable()
         {
-            ReloadScriptableObjectBrowserEditors();
+            ReloadBrowserEditors();
             SetupEditorAssets();
 
             if (_currentEditor == null && _currentObject != null)
             {
                 OpenObject(_currentObject);
             }
-            else if (_browsableTypes.Count > 0)
+            else if (BrowsableTypes.Count > 0)
             {
-                SwitchToEditorType(_browsableTypes[0]);
+                SwitchToEditorType(BrowsableTypes[0]);
             }
         }
 
         [MenuItem("Tools/SO Browser %#o")]
-        public static ScriptableObjectBrowser ShowWindow()
+        private static SOBrowser ShowWindow()
         {
-            ReloadScriptableObjectBrowserEditors();
+            ReloadBrowserEditors();
 
-            ScriptableObjectBrowser[] windows = Resources.FindObjectsOfTypeAll<ScriptableObjectBrowser>();
+            SOBrowser[] windows = Resources.FindObjectsOfTypeAll<SOBrowser>();
             if (windows is { Length: > 0 }) return windows[0];
 
-            ScriptableObjectBrowser window = GetWindow<ScriptableObjectBrowser>();
+            SOBrowser window = GetWindow<SOBrowser>();
 
             window.ShowTab();
             return window;
         }
 
-        static void OpenObject(Object obj)
+        private static void OpenObject(Object obj)
         {
-            ScriptableObjectBrowser window = ShowWindow();
+            SOBrowser window = ShowWindow();
             Type type = obj.GetType();
 
             window.SwitchToEditorType(type);
-            ScriptableObjectBrowserEditor editor = window._currentEditor;
+            SOBrowserEditor editor = window._currentEditor;
 
             editor.SetTargetObjects(new[] { obj });
             window.SelectionSingle(obj);
@@ -119,7 +121,7 @@ namespace ScriptableObjectBrowser
         public static bool OnOpenAsset(int instanceID, int line)
         {
             if (editors == null || Selection.activeObject == null) return false;
-            ReloadScriptableObjectBrowserEditors();
+            ReloadBrowserEditors();
 
             if (editors.ContainsKey(Selection.activeObject.GetType()))
             {
@@ -130,7 +132,7 @@ namespace ScriptableObjectBrowser
             return false; // let unity open the file
         }
 
-        void SwitchToEditorType(Type type)
+        private void SwitchToEditorType(Type type)
         {
             RecordCurrentSelection();
             _currentSelectionEntry = _startSelectionEntry = null;
@@ -139,19 +141,21 @@ namespace ScriptableObjectBrowser
             while (type != null && editors.ContainsKey(type) == false) type = type.BaseType;
             if (type == null) return;
 
-            _currentTypeIndex = _browsableTypes.IndexOf(type);
+            _currentTypeIndex = BrowsableTypes.IndexOf(type);
             _currentEditor = editors[type];
-            _currentEditor.browser = this;
+            _currentEditor.Browser = this;
             _currentType = type;
             ResetAssetList(type);
             SelectionChanged();
         }
 
 
-        void ResetAssetList(Type type)
+        private void ResetAssetList(Type type)
         {
             string[] assets = AssetDatabase.FindAssets($"t:{type.Name}");
+
             HashSet<Object> foundAssets = new HashSet<Object>();
+
             _filterText = String.Empty;
 
             List<AssetEntry> assetList = new List<AssetEntry>();
@@ -185,7 +189,7 @@ namespace ScriptableObjectBrowser
         }
 
 
-        AssetEntry CreateAssetEntry(Object asset)
+        private AssetEntry CreateAssetEntry(Object asset)
         {
             string name = asset.name;
 
@@ -202,7 +206,7 @@ namespace ScriptableObjectBrowser
             return entry;
         }
 
-        void SyncAssetEntry(AssetEntry entry)
+        private void SyncAssetEntry(AssetEntry entry)
         {
             Object asset = entry.Asset;
             string name = asset.name;
@@ -213,7 +217,7 @@ namespace ScriptableObjectBrowser
             entry.Name = name;
         }
 
-        void AddAssetEntry(Object asset)
+        private void AddAssetEntry(Object asset)
         {
             AssetEntry entry = CreateAssetEntry(asset);
 
@@ -222,43 +226,31 @@ namespace ScriptableObjectBrowser
             ResortEntries(_filterText);
         }
 
-        void AddAssetEntries(List<Object> assets)
-        {
-            foreach (Object asset in assets)
-            {
-                AssetEntry entry = CreateAssetEntry(asset);
-                _assetList.Add(entry);
-            }
-
-            ResortEntries(_filterText);
-        }
-
-
         private void OnGUI()
         {
             Rect pos = position;
             pos.x -= pos.xMin;
             pos.y -= pos.yMin;
 
-            Rect rect_browse = pos;
-            Rect rect_inspect = pos;
-            rect_browse.width = BROWSE_AREA_WIDTH;
-            rect_inspect.x += BROWSE_AREA_WIDTH;
+            Rect rectBrowse = pos;
+            Rect rectInspect = pos;
+            rectBrowse.width = BROWSE_AREA_WIDTH;
+            rectInspect.x += BROWSE_AREA_WIDTH;
 
-            rect_inspect.width -= BROWSE_AREA_WIDTH;
+            rectInspect.width -= BROWSE_AREA_WIDTH;
 
-            GUILayout.BeginArea(rect_browse, EditorStyles.helpBox);
-            OnBrowse(rect_browse);
+            GUILayout.BeginArea(rectBrowse, EditorStyles.helpBox);
+            OnBrowse(rectBrowse);
             GUILayout.EndArea();
 
-            GUILayout.BeginArea(rect_inspect, EditorStyles.helpBox);
-            OnInspect(rect_inspect);
+            GUILayout.BeginArea(rectInspect, EditorStyles.helpBox);
+            OnInspect(rectInspect);
             GUILayout.EndArea();
         }
 
-        void SetupEditorAssets()
+        private void SetupEditorAssets()
         {
-            _textSO = EditorGUIUtility.FindTexture("UnityEditor.ConsoleWindow");
+            _textSO = EditorGUIUtility.FindTexture(CONSOLE_WINDOW_EDITOR_NAME);
             _selectedStyle = new GUIStyle();
             Texture2D texture2D = new Texture2D(1, 1);
 
@@ -271,7 +263,7 @@ namespace ScriptableObjectBrowser
         }
 
 
-        void ResortEntries(string textResort)
+        private void ResortEntries(string textResort)
         {
             string filterText = ReverseString(textResort);
 
@@ -302,8 +294,8 @@ namespace ScriptableObjectBrowser
 
                 if (!entry.Visible) continue;
 
-                FindHelper.Match(entry.RPath, filterText, out var matchAmount);
-                FindHelper.Match(entry.Path, textResort, out var amount);
+                FindHelper.Match(entry.RPath, filterText, out int matchAmount);
+                FindHelper.Match(entry.Path, textResort, out int amount);
 
                 entry.MatchAmount = Mathf.Max(matchAmount, amount);
             }
@@ -314,7 +306,7 @@ namespace ScriptableObjectBrowser
             if (textResort.Length > 0) _sortedAssetList.Sort((e2, e1) => e1.MatchAmount.CompareTo(e2.MatchAmount));
         }
 
-        void OnBrowse(Rect area)
+        private void OnBrowse(Rect area)
         {
             area.x = area.y = 0;
 
@@ -329,9 +321,9 @@ namespace ScriptableObjectBrowser
             EditorGUI.TextField(dummy_control_rect, "");
             GUI.color = Color.white;
 
-            var new_editor_type_index = EditorGUILayout.Popup(_currentTypeIndex, browsable_type_names);
+            var new_editor_type_index = EditorGUILayout.Popup(_currentTypeIndex, _browsableTypeNames);
             if (new_editor_type_index != _currentTypeIndex)
-                SwitchToEditorType(_browsableTypes[new_editor_type_index]);
+                SwitchToEditorType(BrowsableTypes[new_editor_type_index]);
 
             EditorGUILayout.BeginHorizontal();
 
@@ -428,16 +420,16 @@ namespace ScriptableObjectBrowser
             GUI.color = Color.clear;
             EditorGUI.Toggle(scroll_rect, true);
             GUI.color = Color.white;
-            _IsControlFocused = GUI.GetNameOfFocusedControl() == focus_control_name;
+            _isControlFocused = GUI.GetNameOfFocusedControl() == focus_control_name;
 
-            if (_IsControlFocused && _sortedAssetList.Count > 0 && Event.current.type == EventType.KeyDown &&
+            if (_isControlFocused && _sortedAssetList.Count > 0 && Event.current.type == EventType.KeyDown &&
                 Event.current.keyCode == KeyCode.Escape)
             {
                 ResortEntries("");
                 GUI.FocusControl(filter_control_name);
             }
 
-            if (_IsControlFocused && _sortedAssetList.Count > 0 && Event.current.type == EventType.KeyDown)
+            if (_isControlFocused && _sortedAssetList.Count > 0 && Event.current.type == EventType.KeyDown)
             {
                 var start_selection_index = _sortedAssetList.IndexOf(_startSelectionEntry);
                 var current_selection_index = _sortedAssetList.IndexOf(_currentSelectionEntry);
@@ -504,7 +496,7 @@ namespace ScriptableObjectBrowser
 
             #region SHIFT MOVE SELECTION WHILE EDITING
 
-            if (!_IsControlFocused && _sortedAssetList.Count > 0 &&
+            if (!_isControlFocused && _sortedAssetList.Count > 0 &&
                 Event.current.type == EventType.KeyDown && (Event.current.control || Event.current.command))
             {
                 var start_selection_index = _sortedAssetList.IndexOf(_startSelectionEntry);
@@ -552,13 +544,13 @@ namespace ScriptableObjectBrowser
         }
 
 
-        void RenderAssetEntry(AssetEntry asset, ref Rect rectEntry)
+        private void RenderAssetEntry(AssetEntry asset, ref Rect rectEntry)
         {
             if (asset.Visible == false) return;
 
             EditorGUILayout.BeginHorizontal(GUILayout.MinWidth(rectEntry.width));
 
-            var selected_color = _IsControlFocused
+            var selected_color = _isControlFocused
                 ? new Color(62 / 255f, 125 / 255f, 231 / 255f)
                 : new Color(0.6f, 0.6f, 0.6f);
 
@@ -600,12 +592,12 @@ namespace ScriptableObjectBrowser
             Repaint();
         }
 
-        void SelectionSingle(Object obj)
+        private void SelectionSingle(Object obj)
         {
             if (_sortedAssetList.Find((a) => a.Asset == obj) is { } asset) SelectionSingle(asset);
         }
 
-        void SelectionSingle(AssetEntry asset)
+        private void SelectionSingle(AssetEntry asset)
         {
             RecordCurrentSelection(asset.Asset);
 
@@ -621,7 +613,7 @@ namespace ScriptableObjectBrowser
             if (isSameObject) EditorGUIUtility.PingObject(asset.Asset);
         }
 
-        void SelectionSingleToggle(AssetEntry asset)
+        private void SelectionSingleToggle(AssetEntry asset)
         {
             if (_selections.Contains(asset.Asset) && _selections.Count <= 1) return;
 
@@ -633,7 +625,7 @@ namespace ScriptableObjectBrowser
             SelectionChanged();
         }
 
-        void SelectionSetAll()
+        private void SelectionSetAll()
         {
             _selections.Clear();
 
@@ -645,7 +637,7 @@ namespace ScriptableObjectBrowser
             SelectionChanged();
         }
 
-        void SelectionToRange(AssetEntry asset)
+        private void SelectionToRange(AssetEntry asset)
         {
             if (_startSelectionEntry == null)
             {
@@ -670,7 +662,7 @@ namespace ScriptableObjectBrowser
             SelectionChanged();
         }
 
-        void SelectionChanged()
+        private void SelectionChanged()
         {
             _currentObject = null;
             foreach (Object selection in _selections)
@@ -683,13 +675,13 @@ namespace ScriptableObjectBrowser
             Repaint();
         }
 
-        void RecordCurrentSelection(Object nextSelection = null)
+        private void RecordCurrentSelection(Object nextSelection = null)
         {
             if (_currentSelectionEntry != null && _currentSelectionEntry.Asset == nextSelection) return;
 
-            if (isSelectedPrevious)
+            if (_isSelectedPrevious)
             {
-                isSelectedPrevious = false;
+                _isSelectedPrevious = false;
                 return;
             }
 
@@ -697,42 +689,42 @@ namespace ScriptableObjectBrowser
             {
                 ScriptableObject entry = (ScriptableObject)_currentSelectionEntry.Asset;
 
-                if (_editorHistory.Count > 0 && entry == _editorHistory.Last()) return;
+                if (EditorHistory.Count > 0 && entry == EditorHistory.Last()) return;
 
-                _editorHistory.AddLast(entry);
-                while (_editorHistory.Count > EDITOR_HISTORY_MAX) _editorHistory.RemoveFirst();
+                EditorHistory.AddLast(entry);
+                while (EditorHistory.Count > EDITOR_HISTORY_MAX) EditorHistory.RemoveFirst();
             }
         }
 
 
-        void SelectPrevious()
+        private void SelectPrevious()
         {
-            while (_editorHistory.Count > 0 && _editorHistory.Last() == null) _editorHistory.RemoveLast();
+            while (EditorHistory.Count > 0 && EditorHistory.Last() == null) EditorHistory.RemoveLast();
 
-            if (_editorHistory.Count <= 0) return;
+            if (EditorHistory.Count <= 0) return;
 
-            ScriptableObject lastObject = _editorHistory.Last();
+            ScriptableObject lastObject = EditorHistory.Last();
 
-            _editorHistory.RemoveLast();
-            isSelectedPrevious = true;
+            EditorHistory.RemoveLast();
+            _isSelectedPrevious = true;
 
             OpenObject(lastObject);
         }
 
 
-        void OnInspect(Rect area)
+        private void OnInspect(Rect area)
         {
             area.x = area.y = 0;
 
             if (_currentEditor == null) return;
 
-            inspectScroll = EditorGUILayout.BeginScrollView(inspectScroll);
+            _inspectScroll = EditorGUILayout.BeginScrollView(_inspectScroll);
             _currentEditor.RenderInspector();
 
             EditorGUILayout.EndScrollView();
         }
 
-        static string ReverseString(string s)
+        private static string ReverseString(string s)
         {
             char[] arr = s.ToCharArray();
 
@@ -741,7 +733,7 @@ namespace ScriptableObjectBrowser
             return new string(arr);
         }
 
-        void RenameCurrentEntry()
+        private void RenameCurrentEntry()
         {
             if (_currentObject == null) return;
 
@@ -759,7 +751,7 @@ namespace ScriptableObjectBrowser
             PopupWindow.Show(rect, new CreateNewEntryPopup(rect, _currentObject.name, FinishRenameCurrentEntry));
         }
 
-        void FinishRenameCurrentEntry(string newName)
+        private void FinishRenameCurrentEntry(string newName)
         {
             if (_currentObject == null) return;
 
@@ -783,7 +775,7 @@ namespace ScriptableObjectBrowser
             SyncAssetEntry(_currentSelectionEntry);
         }
 
-        void ImportEntries()
+        private void ImportEntries()
         {
             var r = new Rect
             {
@@ -803,7 +795,7 @@ namespace ScriptableObjectBrowser
             }
         }
 
-        void CreateNewEntry()
+        private void CreateNewEntry()
         {
             var rect = new Rect
             {
@@ -819,13 +811,13 @@ namespace ScriptableObjectBrowser
             PopupWindow.Show(rect, new CreateNewEntryPopup(rect, "", FinishCreateNewEntry));
         }
 
-        void FinishCreateNewEntry(string name)
+        private void FinishCreateNewEntry(string name)
         {
             CreateNewEntry(name);
             Repaint();
         }
 
-        void FinishImportEntries(string directory)
+        private void FinishImportEntries(string directory)
         {
             Repaint();
 

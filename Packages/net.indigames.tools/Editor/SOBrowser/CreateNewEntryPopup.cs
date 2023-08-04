@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace ScriptableObjectBrowser
+namespace WilliamEditor.Tools.SOBrowser
 {
     public class CreateNewEntryPopup : PopupWindowContent
     {

@@ -1,11 +1,9 @@
 {
-    "name": "IndiGamesEditor.Tools",
-    "rootNamespace": "IndiGamesEditor.Tools",
+    "name": "WilliamEditor.Tools",
+    "rootNamespace": "WilliamEditor.Tools",
     "references": [],
     "includePlatforms": [
-        "Editor",
-        "WindowsStandalone32",
-        "WindowsStandalone64"
+        "Editor"
     ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

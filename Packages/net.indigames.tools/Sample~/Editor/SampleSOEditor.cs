@@ -14,7 +14,7 @@ public class SampleSOEditor : ScriptableObjectBrowserEditor<SampleSO>
         //set this to true if you want to create a folder containing the scriptable object
         this.createDataFolder = false;
         //the storage path must be created before setting this
-        this.defaultStoragePath = "Assets/GameUtils/ScriptableObjectBrowser/Sample/ScriptableObjects";
+        this.defaultStoragePath = "Assets/SOBrowser/Sample/SO";
     }
 
 

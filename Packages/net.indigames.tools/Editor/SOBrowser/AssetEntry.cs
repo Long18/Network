@@ -1,7 +1,7 @@
 ﻿using System;
 using Object = UnityEngine.Object;
 
-namespace ScriptableObjectBrowser
+namespace WilliamEditor.Tools.SOBrowser
 {
     [Serializable]
     public class AssetEntry
