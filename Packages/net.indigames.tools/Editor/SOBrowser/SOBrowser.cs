@@ -19,6 +19,10 @@ namespace WilliamEditor.Tools.SOBrowser
         private const string TOOLBAR_PLUS_NAME = "Toolbar Plus More";
         private const string CONSOLE_WINDOW_EDITOR_NAME = "UnityEditor.ConsoleWindow";
 
+        private const string FILTER_DUMMY = "FILTER_DUMMY";
+        private const string FILTER = "FILTER";
+        private const string BROWSE_FOCUS_ID = "browse_focus_id";
+
         private static readonly LinkedList<ScriptableObject> EditorHistory = new();
         private static readonly List<Type> BrowsableTypes = new();
         private readonly HashSet<Object> _selections = new();
@@ -310,20 +314,23 @@ namespace WilliamEditor.Tools.SOBrowser
         {
             area.x = area.y = 0;
 
-            var dummy_control_name = GetHashCode() + "FILTER_DUMMY";
-            var filter_control_name = GetHashCode() + "FILTER";
-            var focus_control_name = GetHashCode() + "browse_focus_id";
+            string dummyControlName = $"{GetHashCode()}{FILTER_DUMMY}";
+            string filterControlName = $"{GetHashCode()}{FILTER}";
+            string focusControlName = $"{GetHashCode()}{BROWSE_FOCUS_ID}";
 
             GUI.color = Color.clear;
-            var dummy_control_rect = EditorGUILayout.GetControlRect(false, 0);
-            dummy_control_rect.width = 0;
-            GUI.SetNextControlName(dummy_control_name);
-            EditorGUI.TextField(dummy_control_rect, "");
+
+            Rect dummyControlRect = EditorGUILayout.GetControlRect(false, 0);
+
+            dummyControlRect.width = 0;
+            GUI.SetNextControlName(dummyControlName);
+            EditorGUI.TextField(dummyControlRect, "");
             GUI.color = Color.white;
 
-            var new_editor_type_index = EditorGUILayout.Popup(_currentTypeIndex, _browsableTypeNames);
-            if (new_editor_type_index != _currentTypeIndex)
-                SwitchToEditorType(BrowsableTypes[new_editor_type_index]);
+            int newEditorTypeIndex = EditorGUILayout.Popup(_currentTypeIndex, _browsableTypeNames);
+            
+            if (newEditorTypeIndex != _currentTypeIndex)
+                SwitchToEditorType(BrowsableTypes[newEditorTypeIndex]);
 
             EditorGUILayout.BeginHorizontal();
 
@@ -345,7 +352,7 @@ namespace WilliamEditor.Tools.SOBrowser
                 _currentEditor?.ContextMenu.ShowAsContext();
             GUI.enabled = true;
 
-            GUI.SetNextControlName(filter_control_name);
+            GUI.SetNextControlName(filterControlName);
             var filter_text = EditorGUILayout.TextField(_filterText, (GUIStyle)"SearchTextField");
             if (filter_text.Length != _filterText.Length) ResortEntries(filter_text);
 
@@ -367,12 +374,12 @@ namespace WilliamEditor.Tools.SOBrowser
                 SelectPrevious();
             }
 
-            if (GUI.GetNameOfFocusedControl() == dummy_control_name)
-                GUI.FocusControl(filter_control_name);
+            if (GUI.GetNameOfFocusedControl() == dummyControlName)
+                GUI.FocusControl(filterControlName);
 
             if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.F && Event.current.control)
             {
-                GUI.FocusControl(dummy_control_name);
+                GUI.FocusControl(dummyControlName);
                 Event.current.Use();
             }
 
@@ -391,18 +398,18 @@ namespace WilliamEditor.Tools.SOBrowser
                 RenameCurrentEntry();
             }
 
-            if (GUI.GetNameOfFocusedControl() == filter_control_name && Event.current.type == EventType.Layout)
+            if (GUI.GetNameOfFocusedControl() == filterControlName && Event.current.type == EventType.Layout)
             {
                 if (Event.current.keyCode == KeyCode.Escape)
                 {
                     ResortEntries("");
-                    GUI.FocusControl(dummy_control_name);
+                    GUI.FocusControl(dummyControlName);
                 }
 
                 if (Event.current.keyCode == KeyCode.UpArrow || Event.current.keyCode == KeyCode.DownArrow ||
                     Event.current.keyCode == KeyCode.PageUp || Event.current.keyCode == KeyCode.PageDown)
                 {
-                    GUI.FocusControl(focus_control_name);
+                    GUI.FocusControl(focusControlName);
                 }
             }
 
@@ -416,17 +423,17 @@ namespace WilliamEditor.Tools.SOBrowser
 
             var scroll_rect = GUILayoutUtility.GetLastRect();
 
-            GUI.SetNextControlName(focus_control_name);
+            GUI.SetNextControlName(focusControlName);
             GUI.color = Color.clear;
             EditorGUI.Toggle(scroll_rect, true);
             GUI.color = Color.white;
-            _isControlFocused = GUI.GetNameOfFocusedControl() == focus_control_name;
+            _isControlFocused = GUI.GetNameOfFocusedControl() == focusControlName;
 
             if (_isControlFocused && _sortedAssetList.Count > 0 && Event.current.type == EventType.KeyDown &&
                 Event.current.keyCode == KeyCode.Escape)
             {
                 ResortEntries("");
-                GUI.FocusControl(filter_control_name);
+                GUI.FocusControl(filterControlName);
             }
 
             if (_isControlFocused && _sortedAssetList.Count > 0 && Event.current.type == EventType.KeyDown)
