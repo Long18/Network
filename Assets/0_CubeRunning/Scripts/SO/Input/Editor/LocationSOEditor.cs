@@ -4,6 +4,8 @@ namespace _0_CubeRunning.Scripts.SO.Input.Editor
 {
     public class LocationSOEditor : SOBrowserEditor<LocationSO>
     {
+        const string DEFAULT_NAME = "Location";
+
         public LocationSOEditor()
         {
             this.CreateDataFolder = false;
