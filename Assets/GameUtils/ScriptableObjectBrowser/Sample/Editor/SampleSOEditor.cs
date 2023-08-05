@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
+using Long18.Editor.Tools.Editor.SOBrowser;
 using UnityEditor;
-using WilliamEditor.Tools.SOBrowser;
 
 public class SampleSOEditor : SOBrowserEditor<SampleSO>
 {

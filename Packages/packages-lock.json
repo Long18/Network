@@ -354,8 +354,8 @@
       },
       "url": "https://packages.unity.com"
     },
-    "net.william.tools": {
-      "version": "file:net.indigames.tools",
+    "net.long18.sobrowser": {
+      "version": "file:net.long18.tools",
       "depth": 0,
       "source": "embedded",
       "dependencies": {}

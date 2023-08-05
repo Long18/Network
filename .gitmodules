@@ -1,0 +1,3 @@
+[submodule "Packages/net.long18.tools"]
+	path = Packages/net.long18.tools
+	url = git@github.com:Long18/net.long18.tools.git

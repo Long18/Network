@@ -1,4 +1,4 @@
-﻿using WilliamEditor.Tools.SOBrowser;
+﻿using Long18.Editor.Tools.Editor.SOBrowser;
 
 namespace _0_CubeRunning.Scripts.SO.Input.Editor
 {
