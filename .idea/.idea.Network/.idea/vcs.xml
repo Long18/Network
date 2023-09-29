@@ -3,5 +3,6 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Packages" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Packages/net.long18.tools" vcs="Git" />
   </component>
 </project>

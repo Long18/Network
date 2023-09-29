@@ -1,8 +1,9 @@
-﻿using Long18.Editor.Tools.Editor.SOBrowser;
+﻿
+using Long18.Tools;
 
 namespace _0_CubeRunning.Scripts.SO.Input.Editor
 {
-    public class LocationSOEditor : SOBrowserEditor<LocationSO>
+    public class LocationSOEditor : BrowserSOEditor<LocationSO>
     {
         const string DEFAULT_NAME = "Location";
 
